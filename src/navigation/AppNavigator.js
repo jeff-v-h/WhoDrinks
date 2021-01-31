@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import HomeScreen from '../components/decks/HomeScreen';
@@ -52,7 +51,7 @@ const DecksConfigNavigationStack = () => (
     <DecksConfigStack.Screen
       name="Deck"
       component={DeckScreen}
-      options={({ navigation, route }) => ({
+      options={({ navigation }) => ({
         headerLeft: (props) => (
           <HeaderBackButton {...props} onPress={() => navigation.navigate('DeckList', { reloadDeckList: true })} />
         ),
@@ -81,7 +80,7 @@ const DecksConfigNavigationStack = () => (
 );
 
 const GamesNavigationStack = () => (
-  <GameStack.Navigator initialRouteName="Game" options={{ title: "Don't Think, Just Drink" }}>
+  <GameStack.Navigator initialRouteName="Game" options={{ title: 'Don\'t Think, Just Drink' }}>
     <GameStack.Screen
       name="Game"
       component={GameScreen}
@@ -117,7 +116,7 @@ const ContactNavigationStack = () => (
       }}
     />
   </ContactStack.Navigator>
-)
+);
 
 const LegalNavigationStack = () => (
   <LegalStack.Navigator initialRouteName="Disclaimer">
@@ -125,24 +124,22 @@ const LegalNavigationStack = () => (
       name="Disclaimer"
       component={DisclaimerScreen}
       options={{
-        title: "Legal/Disclaimer",
+        title: 'Legal/Disclaimer',
         headerRight: () => <HeaderMenuButton />
       }}
     />
   </LegalStack.Navigator>
-)
+);
 
 function AppNavigator() {
   return (
-    <NavigationContainer>
-      <Drawer.Navigator drawerPosition="right" drawerType="slide">
-        <Drawer.Screen name="Decks" component={DecksConfigNavigationStack} />
-        <Drawer.Screen name="Game" component={GamesNavigationStack} />
-        <Drawer.Screen name="Rules" component={RulesNavigationStack} />
-        <Drawer.Screen name="Contact Us" component={ContactNavigationStack} />
-        <Drawer.Screen name="Legal/Disclaimer" component={LegalNavigationStack} />
-      </Drawer.Navigator>
-    </NavigationContainer>
+    <Drawer.Navigator drawerPosition="right" drawerType="slide">
+      <Drawer.Screen name="Decks" component={DecksConfigNavigationStack} />
+      <Drawer.Screen name="Game" component={GamesNavigationStack} />
+      <Drawer.Screen name="Rules" component={RulesNavigationStack} />
+      <Drawer.Screen name="Contact Us" component={ContactNavigationStack} />
+      <Drawer.Screen name="Legal/Disclaimer" component={LegalNavigationStack} />
+    </Drawer.Navigator>
   );
 }
 

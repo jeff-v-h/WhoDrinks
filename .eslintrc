@@ -5,11 +5,11 @@
     "es6": true,
     "node": true
   },
-  "extends": "eslint:recommended",
   "globals": {
     "Atomics": "readonly",
     "SharedArrayBuffer": "readonly"
   },
+  "parser": "babel-eslint",
   "parserOptions": {
     "ecmaFeatures": {
         "jsx": true
@@ -21,9 +21,10 @@
     "react",
     "react-native"
   ],
+  "extends": ["eslint:recommended", "plugin:react/recommended"],
   "rules": {
     "indent": ["error", 2],
-    "linebreak-style": ["error","unix"],
+    "linebreak-style": ["error", "windows"],
     "quotes": ["error", "single"],
     "semi": ["error", "always"],
     "comma-dangle": ["error", "never"],
@@ -31,6 +32,15 @@
     "react-native/split-platform-components": 2,
     "react-native/no-inline-styles": 2,
     "react-native/no-color-literals": 2,
-    "react-native/no-raw-text": 2
+    "react-native/no-raw-text": 2,
+    "react-native/sort-styles": [
+      "error",
+      "asc",
+       {
+         "ignoreClassNames": false,
+         "ignoreStyleProperties": false
+       }
+    ],
+    "react/prop-types": "off"
   }
 }

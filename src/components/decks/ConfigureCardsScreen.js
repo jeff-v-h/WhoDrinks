@@ -1,5 +1,12 @@
 import * as React from 'react';
-import { ScrollView, View, TextInput, Animated, Easing, Alert } from 'react-native';
+import {
+  ScrollView,
+  View,
+  TextInput,
+  Animated,
+  Easing,
+  Alert
+} from 'react-native';
 import StorageService from '../../services/storageService';
 import AppButton from '../common/AppButton';
 import styles from '../../styles/styles';
@@ -81,6 +88,7 @@ class ConfigureCardsScreen extends React.Component {
         cards.push(cardText);
       } else {
         await StorageService.saveCard(deckId, cardText, cardIndex);
+        cards[cardIndex] = cardText;
       }
 
       this.setState({ originalCardText: cardText, cards });
@@ -95,7 +103,7 @@ class ConfigureCardsScreen extends React.Component {
     const { deckId, cardIndex } = this.state;
     await StorageService.deleteCard(deckId, cardIndex);
     this.props.navigation.navigate('Deck', { reloadDeck: true });
-  }
+  };
 
   animateSuccess = () =>
     Animated.timing(this.state.tickProgress, {
@@ -136,25 +144,45 @@ class ConfigureCardsScreen extends React.Component {
     return (
       <PanGestureHandler onHandlerStateChange={this._onHandlerStateChange}>
         <ScrollView style={styles.scrollContainer}>
-          <LottieView source={require('../../../assets/5449-success-tick.json')} progress={this.state.tickProgress} />
+          <LottieView
+            source={require('../../../assets/5449-success-tick.json')}
+            progress={this.state.tickProgress}
+          />
           <View style={styles.topButtonsRow}>
             {cardIndex < cards.length && (
-              <IconButton onPress={this.deleteCard} iconName="trash-o" size={30} opacity={0.5} />
+              <IconButton
+                onPress={this.deleteCard}
+                iconName="trash-o"
+                size={30}
+                opacity={0.5}
+              />
             )}
           </View>
           <TextInput
             style={deckStyles.configCardInput}
             onChangeText={this.onChangeText}
             value={cardText}
-            placeholder="If ____, drink ___ sips"
+            placeholder="Who drinks? Maybe a quick game can help decide?"
             multiline={true}
           />
           <View style={[styles.buttonsRow, deckStyles.configButtonsRow]}>
-            <AppButton title="<" onPress={this.goPreviousCard} disabled={cardIndex === 0} />
-            <AppButton title=">" onPress={this.goNextCard} disabled={cardIndex === cards.length} />
+            <AppButton
+              title="<"
+              onPress={this.goPreviousCard}
+              disabled={cardIndex === 0}
+            />
+            <AppButton
+              title=">"
+              onPress={this.goNextCard}
+              disabled={cardIndex === cards.length}
+            />
           </View>
           <View style={[styles.buttonsRow, deckStyles.configButtonsRow]}>
-            <AppButton title="Reset" onPress={this.resetCardText} disabled={cardText === originalCardText} />
+            <AppButton
+              title="Reset"
+              onPress={this.resetCardText}
+              disabled={cardText === originalCardText}
+            />
             <AppButton title="Save" onPress={this.saveCard} />
           </View>
         </ScrollView>

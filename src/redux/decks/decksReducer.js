@@ -9,21 +9,20 @@ const initialState = {
   selectedDeckId: ''
 };
 
-const decksReducer = createReducer(initialState, {
-  [createDeck]: (state, action) => ({
-    ...state,
-    decks: [...state.decks, action.payload]
-  }),
-  [saveDeck]: (state, action) => {
-    const decks = state.decks.map((d) =>
-      d.id === action.payload.id ? action.payload : d
-    );
-    return { ...state, decks };
-  },
-  [deleteDeck]: (state, action) => ({
-    ...state,
-    decks: state.decks.filter((d) => d.id !== action.payload)
-  })
+const decksReducer = createReducer(initialState, (builder) => {
+  builder
+    .addCase(createDeck, (state, action) => {
+      state.decks = [...state.decks, action.payload];
+    })
+    .addCase(saveDeck, (state, action) => {
+      state.decks = state.decks.map((d) =>
+        d.id === action.payload.id ? action.payload : d
+      );
+    })
+    .addCase(deleteDeck, (state, action) => {
+      state.decks = state.decks.filter((d) => d.id !== action.payload);
+    })
+    .addDefaultCase((state, action) => {});
 });
 
 export default decksReducer;

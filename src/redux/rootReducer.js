@@ -1,4 +1,4 @@
-import decksReducer from './decks/decksReducer';
+import decksReducer from './decksReducer';
 
 const rootReducer = {
   decks: decksReducer

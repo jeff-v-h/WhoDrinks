@@ -4,16 +4,22 @@ const decksSlice = createSlice({
   name: 'decks',
   initialState: {
     decks: [],
-    selectedDeckId: ''
+    selectedDeckId: '',
+    selectedDeckName: ''
   },
   reducers: {
     createDeck: (state, action) => {
       state.decks = [...state.decks, action.payload];
     },
-    saveDeck: (state, action) => {
+    updateDeck: (state, action) => {
       state.decks = state.decks.map((d) =>
         d.id === action.payload.id ? action.payload : d
       );
+    },
+    selectDeck: (state, action) => {
+      const deck = state.decks.find((d) => d.id === action.payload);
+      state.selectedDeckId = deck?.id ?? '';
+      state.selectedDeckName = deck?.name ?? '';
     },
     deleteDeck: (state, action) => {
       state.decks = state.decks.filter((d) => d.id !== action.payload);
@@ -21,5 +27,10 @@ const decksSlice = createSlice({
   }
 });
 
-export const { createDeck, saveDeck, deleteDeck } = decksSlice.actions;
+export const {
+  createDeck,
+  updateDeck,
+  selectDeck,
+  deleteDeck
+} = decksSlice.actions;
 export default decksSlice.reducer;

@@ -8,6 +8,8 @@ import standardDeck from '../../utils/decks/standard-deck';
 import asianDeck from '../../utils/decks/asian-deck';
 import { ERROR_TITLE, DISCLAIMER } from '../../utils/constants';
 import deckStyles from '../../styles/deckStyles';
+import { connect } from 'react-redux';
+import { createDeck, saveDeck, selectDeck } from '../../redux/decksReducer';
 
 class HomeScreen extends React.Component {
   state = {
@@ -35,37 +37,21 @@ class HomeScreen extends React.Component {
     this.checkDisclaimer();
   };
 
-  loadSelectedDeck = async () => {
-    try {
-      let selectedDeck = await StorageService.getSelectedDeck();
+  loadSelectedDeck = () => {
+    const { decks, selectedDeckId } = this.props;
+    if (decks.length === 0) {
+      this.firstTimeSetup();
+    }
 
-      if (!selectedDeck) {
-        selectedDeck = standardDeck;
-        await this.firstTimeSetup();
-      }
-
-      this.setState({
-        selectedDeckId: selectedDeck.id,
-        selectedDeckName: selectedDeck.name
-      });
-    } catch (e) {
-      Alert.alert(ERROR_TITLE, e.message);
+    if (decks.length > 0 && !selectedDeckId) {
+      selectDeck(decks[0].id);
     }
   };
 
-  firstTimeSetup = async () => {
-    try {
-      const saveNewDecks = StorageService.saveNewDecks([
-        standardDeck,
-        asianDeck
-      ]);
-      const saveSelectedDeckId = StorageService.saveSelectedDeckId(
-        standardDeck.id
-      );
-      await Promise.all([saveNewDecks, saveSelectedDeckId]);
-    } catch (e) {
-      Alert.alert(ERROR_TITLE, e.message);
-    }
+  firstTimeSetup = () => {
+    createDeck(standardDeck);
+    createDeck(asianDeck);
+    selectDeck(standardDeck.id);
   };
 
   goToDeckSelection = () => {
@@ -153,4 +139,8 @@ class HomeScreen extends React.Component {
   }
 }
 
-export default HomeScreen;
+const mapStateToProps = (state) => ({
+  decks: state.decks
+});
+
+export default connect(mapStateToProps)(HomeScreen);

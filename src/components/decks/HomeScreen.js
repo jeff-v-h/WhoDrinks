@@ -1,25 +1,19 @@
 import * as React from 'react';
-import { View, SafeAreaView, Alert, Text, Modal } from 'react-native';
+import { View, SafeAreaView, Text, Modal } from 'react-native';
 import styles from '../../styles/styles';
 import HeaderText from '../common/HeaderText';
 import AppButton from '../common/AppButton';
-import StorageService from '../../services/storageService';
 import standardDeck from '../../utils/decks/standard-deck';
 import asianDeck from '../../utils/decks/asian-deck';
-import { ERROR_TITLE, DISCLAIMER } from '../../utils/constants';
+import { DISCLAIMER } from '../../utils/constants';
 import deckStyles from '../../styles/deckStyles';
 import { connect } from 'react-redux';
-import { createDeck, saveDeck, selectDeck } from '../../redux/decksReducer';
+import { createDeck, selectDeck } from '../../redux/decksSlice';
+import { confirmDisclaimer } from '../../redux/userSlice';
 
 class HomeScreen extends React.Component {
-  state = {
-    selectedDeckId: '',
-    selectedDeckName: '',
-    disclaimerVisible: false
-  };
-
   componentDidMount() {
-    this.onStartRequests();
+    this.loadSelectedDeck();
   }
 
   componentDidUpdate() {
@@ -31,20 +25,15 @@ class HomeScreen extends React.Component {
     }
   }
 
-  onStartRequests = async () => {
-    // await StorageService.clearAllData();
-    this.loadSelectedDeck();
-    this.checkDisclaimer();
-  };
-
   loadSelectedDeck = () => {
-    const { decks, selectedDeckId } = this.props;
-    if (decks.length === 0) {
-      this.firstTimeSetup();
+    // await StorageService.clearAllData();
+    const { list, selectedDeckId } = this.props.decks;
+    if (list.length > 0 && !selectedDeckId) {
+      selectDeck(list[0].id);
     }
 
-    if (decks.length > 0 && !selectedDeckId) {
-      selectDeck(decks[0].id);
+    if (list.length === 0) {
+      this.firstTimeSetup();
     }
   };
 
@@ -55,30 +44,15 @@ class HomeScreen extends React.Component {
   };
 
   goToDeckSelection = () => {
-    const { selectedDeckId, selectedDeckName } = this.state;
+    const { selectedId, selectedDeck } = this.props.decks;
     this.props.navigation.navigate('DeckList', {
-      selectedDeckId,
-      selectedDeckName
+      selectedDeckId: selectedId,
+      selectedDeckName: selectedDeck
     });
   };
 
-  checkDisclaimer = async () => {
-    if (!(await StorageService.checkSeenDisclaimer())) {
-      this.setState({ disclaimerVisible: true });
-    }
-  };
-
-  setDisclaimerVisible = (disclaimerVisible) =>
-    this.setState({ disclaimerVisible });
-
-  saveSeenDisclaimer = async () => {
-    this.setDisclaimerVisible(false);
-    await StorageService.saveSeenDisclaimer();
-  };
-
   render() {
-    const { selectedDeckId, selectedDeckName, disclaimerVisible } = this.state;
-    const { navigation } = this.props;
+    const { navigation, user, decks } = this.props;
 
     return (
       <SafeAreaView style={styles.container}>
@@ -89,7 +63,7 @@ class HomeScreen extends React.Component {
         <View style={deckStyles.selectDeckView}>
           <Text style={styles.text}>Deck:</Text>
           <AppButton
-            title={selectedDeckName}
+            title={decks.selectedDeckName}
             onPress={this.goToDeckSelection}
             style={deckStyles.selectDeckButton}
             textStyle={deckStyles.selectDeckText}
@@ -103,21 +77,21 @@ class HomeScreen extends React.Component {
               navigation.navigate('Game', {
                 screen: 'Game',
                 params: {
-                  deckId: selectedDeckId,
-                  deckName: selectedDeckName,
+                  deckId: decks.selectedDeckId,
+                  deckName: decks.selectedDeckName,
                   newGame: true
                 }
               })
             }
-            disabled={!selectedDeckId}
+            disabled={!decks.selectedDeckId}
             style={styles.button}
           />
         </View>
         <Modal
           animationType="slide"
           transparent={true}
-          visible={disclaimerVisible}
-          onRequestClose={() => this.setDisclaimerVisible(false)}
+          visible={!user.confirmedDisclaimer}
+          onRequestClose={confirmDisclaimer}
         >
           <View style={styles.bottomPopupModal}>
             <View style={styles.bottomPopupContent}>
@@ -126,7 +100,7 @@ class HomeScreen extends React.Component {
               <View style={styles.rightButtonsView}>
                 <AppButton
                   title="Okay"
-                  onPress={this.saveSeenDisclaimer}
+                  onPress={confirmDisclaimer}
                   style={styles.modalButton}
                   textStyle={styles.modalButtonText}
                 />
@@ -139,8 +113,11 @@ class HomeScreen extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => ({
-  decks: state.decks
+const mapState = (state) => ({
+  decks: state.decks,
+  user: state.user
 });
 
-export default connect(mapStateToProps)(HomeScreen);
+const mapDispatch = { createDeck, selectDeck, confirmDisclaimer };
+
+export default connect(mapState, mapDispatch)(HomeScreen);

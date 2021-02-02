@@ -3,26 +3,26 @@ import { createSlice } from '@reduxjs/toolkit';
 const decksSlice = createSlice({
   name: 'decks',
   initialState: {
-    decks: [],
-    selectedDeckId: '',
-    selectedDeckName: ''
+    list: [],
+    selectedId: '',
+    selectedName: ''
   },
   reducers: {
     createDeck: (state, action) => {
-      state.decks = [...state.decks, action.payload];
+      state.list = [...state.list, action.payload];
     },
     updateDeck: (state, action) => {
-      state.decks = state.decks.map((d) =>
+      state.list = state.list.map((d) =>
         d.id === action.payload.id ? action.payload : d
       );
     },
     selectDeck: (state, action) => {
-      const deck = state.decks.find((d) => d.id === action.payload);
-      state.selectedDeckId = deck?.id ?? '';
-      state.selectedDeckName = deck?.name ?? '';
+      const deck = state.list.find((d) => d.id === action.payload);
+      state.selectedId = deck?.id ?? '';
+      state.selectedName = deck?.name ?? '';
     },
     deleteDeck: (state, action) => {
-      state.decks = state.decks.filter((d) => d.id !== action.payload);
+      state.list = state.list.filter((d) => d.id !== action.payload);
     }
   }
 });

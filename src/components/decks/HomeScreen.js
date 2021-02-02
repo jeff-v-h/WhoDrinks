@@ -33,7 +33,7 @@ class HomeScreen extends React.Component {
     // await StorageService.clearAllData();
     this.loadSelectedDeck();
     this.checkDisclaimer();
-  }
+  };
 
   loadSelectedDeck = async () => {
     try {
@@ -44,7 +44,10 @@ class HomeScreen extends React.Component {
         await this.firstTimeSetup();
       }
 
-      this.setState({ selectedDeckId: selectedDeck.id, selectedDeckName: selectedDeck.name });
+      this.setState({
+        selectedDeckId: selectedDeck.id,
+        selectedDeckName: selectedDeck.name
+      });
     } catch (e) {
       Alert.alert(ERROR_TITLE, e.message);
     }
@@ -52,8 +55,13 @@ class HomeScreen extends React.Component {
 
   firstTimeSetup = async () => {
     try {
-      const saveNewDecks = StorageService.saveNewDecks([standardDeck, asianDeck]);
-      const saveSelectedDeckId = StorageService.saveSelectedDeckId(standardDeck.id);
+      const saveNewDecks = StorageService.saveNewDecks([
+        standardDeck,
+        asianDeck
+      ]);
+      const saveSelectedDeckId = StorageService.saveSelectedDeckId(
+        standardDeck.id
+      );
       await Promise.all([saveNewDecks, saveSelectedDeckId]);
     } catch (e) {
       Alert.alert(ERROR_TITLE, e.message);
@@ -62,21 +70,25 @@ class HomeScreen extends React.Component {
 
   goToDeckSelection = () => {
     const { selectedDeckId, selectedDeckName } = this.state;
-    this.props.navigation.navigate('DeckList', { selectedDeckId, selectedDeckName });
+    this.props.navigation.navigate('DeckList', {
+      selectedDeckId,
+      selectedDeckName
+    });
   };
 
   checkDisclaimer = async () => {
-    if (!await StorageService.checkSeenDisclaimer()) {
+    if (!(await StorageService.checkSeenDisclaimer())) {
       this.setState({ disclaimerVisible: true });
     }
-  }
+  };
 
-  setDisclaimerVisible = disclaimerVisible => this.setState({ disclaimerVisible });
+  setDisclaimerVisible = (disclaimerVisible) =>
+    this.setState({ disclaimerVisible });
 
   saveSeenDisclaimer = async () => {
     this.setDisclaimerVisible(false);
     await StorageService.saveSeenDisclaimer();
-  }
+  };
 
   render() {
     const { selectedDeckId, selectedDeckName, disclaimerVisible } = this.state;
@@ -85,8 +97,8 @@ class HomeScreen extends React.Component {
     return (
       <SafeAreaView style={styles.container}>
         <View style={styles.section}>
-          <HeaderText>Don't Think</HeaderText>
-          <HeaderText>Just Drink</HeaderText>
+          <HeaderText text="Don't Think" />
+          <HeaderText text="Just Drink" />
         </View>
         <View style={deckStyles.selectDeckView}>
           <Text style={styles.text}>Deck:</Text>
@@ -104,7 +116,11 @@ class HomeScreen extends React.Component {
             onPress={() =>
               navigation.navigate('Game', {
                 screen: 'Game',
-                params: { deckId: selectedDeckId, deckName: selectedDeckName, newGame: true }
+                params: {
+                  deckId: selectedDeckId,
+                  deckName: selectedDeckName,
+                  newGame: true
+                }
               })
             }
             disabled={!selectedDeckId}

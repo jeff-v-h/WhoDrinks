@@ -6,6 +6,7 @@
     "android": "npx react-native run-android",
     "ios": "npx react-native run-ios",
     "start": "npx react-native start",
+    "start-reset": "npx react-native start --reset-cache",
     "test": "jest",
     "lint": "eslint ."
   },
@@ -31,6 +32,7 @@
     "react-native-vector-icons": "^8.0.0",
     "react-redux": "^7.2.2",
     "redux": "^4.0.5",
+    "redux-persist": "^6.0.0",
     "uuid": "^3.4.0"
   },
   "devDependencies": {

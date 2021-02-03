@@ -18,41 +18,42 @@ class HomeScreen extends React.Component {
 
   componentDidUpdate() {
     const { route, navigation } = this.props;
-    if (route.params?.reloadSelection) {
-      const { selectedDeckId, selectedDeckName } = route.params;
-      navigation.setParams({ reloadSelection: false });
-      this.setState({ selectedDeckId, selectedDeckName });
-    }
+    // if (route.params?.reloadSelection) {
+    //   // const { selectedId, selectedName } = route.params;
+    //   navigation.setParams({ reloadSelection: false });
+    // }
   }
 
   loadSelectedDeck = () => {
     // await StorageService.clearAllData();
-    const { list, selectedDeckId } = this.props.decks;
-    if (list.length > 0 && !selectedDeckId) {
-      selectDeck(list[0].id);
+    const { selectDeck, decks } = this.props;
+    if (decks.list.length > 0 && !decks.selectedId) {
+      selectDeck(decks.list[0].id);
     }
 
-    if (list.length === 0) {
+    if (decks.list.length === 0) {
       this.firstTimeSetup();
     }
   };
 
   firstTimeSetup = () => {
+    const { createDeck, selectDeck } = this.props;
+    console.log('first time setup');
     createDeck(standardDeck);
     createDeck(asianDeck);
     selectDeck(standardDeck.id);
   };
 
   goToDeckSelection = () => {
-    const { selectedId, selectedDeck } = this.props.decks;
+    const { selectedId, selectedName } = this.props.decks;
     this.props.navigation.navigate('DeckList', {
       selectedDeckId: selectedId,
-      selectedDeckName: selectedDeck
+      selectedDeckName: selectedName
     });
   };
 
   render() {
-    const { navigation, user, decks } = this.props;
+    const { navigation, user, decks, confirmDisclaimer } = this.props;
 
     return (
       <SafeAreaView style={styles.container}>
@@ -63,7 +64,7 @@ class HomeScreen extends React.Component {
         <View style={deckStyles.selectDeckView}>
           <Text style={styles.text}>Deck:</Text>
           <AppButton
-            title={decks.selectedDeckName}
+            title={decks.selectedName}
             onPress={this.goToDeckSelection}
             style={deckStyles.selectDeckButton}
             textStyle={deckStyles.selectDeckText}
@@ -77,13 +78,13 @@ class HomeScreen extends React.Component {
               navigation.navigate('Game', {
                 screen: 'Game',
                 params: {
-                  deckId: decks.selectedDeckId,
-                  deckName: decks.selectedDeckName,
+                  deckId: decks.selectedId,
+                  deckName: decks.selectedName,
                   newGame: true
                 }
               })
             }
-            disabled={!decks.selectedDeckId}
+            disabled={!decks.selectedId}
             style={styles.button}
           />
         </View>
@@ -91,7 +92,7 @@ class HomeScreen extends React.Component {
           animationType="slide"
           transparent={true}
           visible={!user.confirmedDisclaimer}
-          onRequestClose={confirmDisclaimer}
+          onRequestClose={() => confirmDisclaimer()}
         >
           <View style={styles.bottomPopupModal}>
             <View style={styles.bottomPopupContent}>
@@ -100,7 +101,7 @@ class HomeScreen extends React.Component {
               <View style={styles.rightButtonsView}>
                 <AppButton
                   title="Okay"
-                  onPress={confirmDisclaimer}
+                  onPress={() => confirmDisclaimer()}
                   style={styles.modalButton}
                   textStyle={styles.modalButtonText}
                 />

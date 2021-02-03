@@ -7,6 +7,7 @@ const userSlice = createSlice({
   },
   reducers: {
     confirmDisclaimer: (state) => {
+      console.log('confirmed');
       state.confirmedDisclaimer = true;
     }
   }

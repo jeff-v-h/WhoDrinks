@@ -13,12 +13,13 @@ HeaderText.defaultProps = {
   text: ''
 };
 
-const HeaderText = ({ text, style }) => {
+function HeaderText({ text, style }) {
+  const textStyles = style ? [styles.headerText, style] : styles.headerText;
   return (
     <AppText>
-      <Text style={[styles.headerText, style]}>{text}</Text>
+      <Text style={textStyles}>{text}</Text>
     </AppText>
   );
-};
+}
 
 export default HeaderText;

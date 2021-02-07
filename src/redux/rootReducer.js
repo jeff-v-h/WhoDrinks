@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import decksReducer from './decksSlice';
+import decksReducer from '../components/decks/decksSlice';
 import userReducer from './userSlice';
 import { reducer as network } from 'react-native-offline';
 

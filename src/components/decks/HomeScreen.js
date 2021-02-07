@@ -8,7 +8,7 @@ import asianDeck from '../../utils/decks/asian-deck';
 import { DISCLAIMER } from '../../utils/constants';
 import deckStyles from '../../styles/deckStyles';
 import { connect } from 'react-redux';
-import { createDeck, selectDeck } from '../../redux/decksSlice';
+import { createDeck, selectDeck } from './decksSlice';
 import { confirmDisclaimer, logout } from '../../redux/userSlice';
 
 const mapState = (state) => ({

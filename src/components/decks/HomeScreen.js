@@ -9,26 +9,23 @@ import { DISCLAIMER } from '../../utils/constants';
 import deckStyles from '../../styles/deckStyles';
 import { connect } from 'react-redux';
 import { createDeck, selectDeck } from '../../redux/decksSlice';
-import { confirmDisclaimer, testOffline } from '../../redux/userSlice';
+import { confirmDisclaimer, logout } from '../../redux/userSlice';
+
+const mapState = (state) => ({
+  decks: state.decks,
+  user: state.user
+});
+
+const mapDispatch = { createDeck, selectDeck, confirmDisclaimer, logout };
 
 class HomeScreen extends React.Component {
   componentDidMount() {
+    // this.props.logout();
     this.loadSelectedDeck();
   }
 
-  componentDidUpdate() {
-    const { route, navigation } = this.props;
-    // if (route.params?.reloadSelection) {
-    //   // const { selectedId, selectedName } = route.params;
-    //   navigation.setParams({ reloadSelection: false });
-    // }
-  }
-
   loadSelectedDeck = () => {
-    // await StorageService.clearAllData();
-    const { selectDeck, decks, isConnected, testOffline } = this.props;
-    console.log('is it connected', isConnected);
-    testOffline();
+    const { selectDeck, decks } = this.props;
 
     if (decks.list.length > 0 && !decks.selectedId) {
       selectDeck(decks.list[0].id);
@@ -115,13 +112,5 @@ class HomeScreen extends React.Component {
     );
   }
 }
-
-const mapState = (state) => ({
-  decks: state.decks,
-  user: state.user,
-  isConnected: state.network.isConnected
-});
-
-const mapDispatch = { createDeck, selectDeck, confirmDisclaimer, testOffline };
 
 export default connect(mapState, mapDispatch)(HomeScreen);

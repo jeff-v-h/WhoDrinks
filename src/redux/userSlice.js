@@ -7,20 +7,17 @@ const userSlice = createSlice({
     confirmedDisclaimer: false
   },
   reducers: {
+    logout: (state) => {
+      // User login currently not implemented. Used to simply reset the redux store
+      // which is completed in rootReducer
+    },
     confirmDisclaimer: (state) => {
       state.confirmedDisclaimer = true;
-    },
-    testOffline: (state, action) => {
-      if (action.type === offlineActionTypes.CONNECTION_CHANGE) {
-        console.log('changed connection');
-      } else {
-        console.log('not conneciton change', action.type);
-      }
     }
   }
 });
 
-export const { confirmDisclaimer, testOffline } = userSlice.actions;
+export const { confirmDisclaimer, logout } = userSlice.actions;
 export default userSlice.reducer;
 
 /**

@@ -5,7 +5,10 @@ const decksSlice = createSlice({
   initialState: {
     list: [],
     selectedId: '',
-    selectedName: ''
+    selectedName: '',
+    editingDeckId: '',
+    editingCards: [],
+    editingCardIndex: 0
   },
   reducers: {
     createDeck: (state, action) => {
@@ -23,6 +26,24 @@ const decksSlice = createSlice({
     },
     deleteDeck: (state, action) => {
       state.list = state.list.filter((d) => d.id !== action.payload);
+    },
+    selectDeckToEdit: (state, action) => {
+      const deck = state.list.find((d) => d.id === action.payload);
+      state.editingDeckId = action.payload;
+      state.editingCards = deck.cards;
+    },
+    selectCardToEdit: (state, action) => {
+      state.editingCardIndex = action.payload;
+    },
+    saveCard: (state, action) => {
+      const { editingCardIndex, editingCards } = state;
+      const cardText = action.payload;
+
+      if (editingCardIndex || editingCardIndex === 0) {
+        editingCards[editingCardIndex] = cardText;
+      } else {
+        editingCards[editingCardIndex].push(cardText);
+      }
     }
   }
 });
@@ -31,6 +52,9 @@ export const {
   createDeck,
   updateDeck,
   selectDeck,
-  deleteDeck
+  deleteDeck,
+  selectDeckToEdit,
+  selectCardToEdit,
+  saveCard
 } = decksSlice.actions;
 export default decksSlice.reducer;

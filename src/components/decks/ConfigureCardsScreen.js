@@ -15,75 +15,54 @@ import LottieView from 'lottie-react-native';
 import { PanGestureHandler, State } from 'react-native-gesture-handler';
 import { ERROR_TITLE } from '../../utils/constants';
 import IconButton from '../common/IconButton';
-// import {
-//   createDeck,
-//   updateDeck,
-//   deleteDeck,
-//   selectCardToEdit
-// } from './decksSlice';
+import { saveCard, selectCardToEdit } from './decksSlice';
 import { connect } from 'react-redux';
 
 const mapState = (state) => ({
   decks: state.decks
 });
 
-const mapDispatch = {  };
+const mapDispatch = { selectCardToEdit, saveCard };
 
 class ConfigureCardsScreen extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      cardText: props.,
+      cardText: '',
       tickProgress: new Animated.Value(0)
     };
+  }
+
+  componentDidMount() {
+    this.loadCard();
   }
 
   componentDidUpdate() {
     const { navigation, route } = this.props;
     if (route.params.reloadCard) {
-      this.refreshCard();
       navigation.setParams({ reloadCard: false });
+      this.loadCard();
     }
   }
 
-  refreshCard = () => {
-    const { deckId, cardIndex, cards } = this.props.route.params;
-    const initialText = cards[cardIndex];
-
-    this.setState({
-      deckId,
-      cardIndex,
-      cardText: initialText,
-      originalCardText: initialText
-    });
+  loadCard = () => {
+    const { editingCardIndex, editingCards } = this.props;
+    this.setState({ cardText: editingCards[editingCardIndex] });
   };
 
   onChangeText = (cardText) => this.setState({ cardText });
 
-  goPreviousCard = () => {
-    const { cards, cardIndex } = this.state;
-    this.props.navigation.navigate('ConfigureCards', {
-      cardIndex: cardIndex - 1,
-      cardText: cards[cardIndex - 1],
-      reloadCard: true
-    });
+  goPreviousCard = () => this.goToCard(-1);
+  goNextCard = () => this.goToCard(1);
+
+  goToCard = (amountToAdd) => {
+    const { selectCardToEdit, navigation, decks } = this.props;
+    selectCardToEdit(decks.editingCardIndex + amountToAdd);
+    navigation.navigate('ConfigureCards', { reloadCard: true });
   };
 
-  goNextCard = () => {
-    const { cards, cardIndex } = this.state;
-    const nextCardIndex = cardIndex + 1;
-    this.props.navigation.navigate('ConfigureCards', {
-      cardIndex: nextCardIndex,
-      cardText: nextCardIndex < cards.length ? cards[cardIndex + 1] : '',
-      reloadCard: true
-    });
-  };
-
-  resetCardText = () =>
-    this.setState((prevState) => ({
-      cardText: prevState.originalCardText
-    }));
+  resetCardText = () => this.loadCard();
 
   saveCard = async () => {
     try {

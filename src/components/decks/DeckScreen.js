@@ -49,8 +49,8 @@ class DeckScreen extends React.Component {
 
   loadDeck = () => {
     const { decks } = this.props;
-    const deck = decks.deckIdToEdit
-      ? decks.list.find((d) => d.id == decks.deckIdToEdit)
+    const deck = decks.editingDeckId
+      ? decks.list.find((d) => d.id == decks.editingDeckId)
       : this.createNewDeck();
 
     this.setState({ deck, deckName: deck.name });

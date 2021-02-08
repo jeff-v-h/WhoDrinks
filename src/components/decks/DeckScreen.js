@@ -17,14 +17,19 @@ import { GameTypesEnum } from '../../utils/enums';
 import Menu, { MenuItem } from 'react-native-material-menu';
 import AppButton from '../common/AppButton';
 import uuid from 'uuid';
-import { createDeck, updateDeck, deleteDeck } from './decksSlice';
+import {
+  createDeck,
+  updateDeck,
+  deleteDeck,
+  selectCardToEdit
+} from './decksSlice';
 import { connect } from 'react-redux';
 
 const mapState = (state) => ({
   decks: state.decks
 });
 
-const mapDispatch = { createDeck, updateDeck, deleteDeck };
+const mapDispatch = { createDeck, updateDeck, deleteDeck, selectCardToEdit };
 
 class DeckScreen extends React.Component {
   state = {
@@ -42,18 +47,10 @@ class DeckScreen extends React.Component {
     this.loadDeck();
   }
 
-  // componentDidUpdate() {
-  //   const { navigation, route } = this.props;
-  //   if (route.params.reloadDeck) {
-  //     this.loadDeck();
-  //     navigation.setParams({ reloadDeck: false });
-  //   }
-  // }
-
   loadDeck = () => {
-    const { decks, route } = this.props;
-    const deck = route.params.deckId
-      ? decks.list.find((d) => d.id == route.params.deckId)
+    const { decks } = this.props;
+    const deck = decks.deckIdToEdit
+      ? decks.list.find((d) => d.id == decks.deckIdToEdit)
       : this.createNewDeck();
 
     this.setState({ deck, deckName: deck.name });
@@ -154,10 +151,9 @@ class DeckScreen extends React.Component {
   };
 
   navigateToCard = (cardIndex) => {
-    this.props.navigation.navigate('ConfigureCards', {
-      deckId: this.state.deckId,
-      cardIndex
-    });
+    const { navigation, selectCardToEdit } = this.props;
+    selectCardToEdit(cardIndex);
+    navigation.navigate('ConfigureCards');
   };
 
   render() {

@@ -15,20 +15,26 @@ import LottieView from 'lottie-react-native';
 import { PanGestureHandler, State } from 'react-native-gesture-handler';
 import { ERROR_TITLE } from '../../utils/constants';
 import IconButton from '../common/IconButton';
+// import {
+//   createDeck,
+//   updateDeck,
+//   deleteDeck,
+//   selectCardToEdit
+// } from './decksSlice';
+import { connect } from 'react-redux';
+
+const mapState = (state) => ({
+  decks: state.decks
+});
+
+const mapDispatch = {  };
 
 class ConfigureCardsScreen extends React.Component {
   constructor(props) {
     super(props);
 
-    const { deckId, cardIndex, cards } = props.route.params;
-    const initialText = cards[cardIndex] ?? '';
-
     this.state = {
-      deckId,
-      cardIndex: cardIndex ?? cards.length,
-      cardText: initialText,
-      originalCardText: initialText,
-      cards,
+      cardText: props.,
       tickProgress: new Animated.Value(0)
     };
   }
@@ -191,4 +197,4 @@ class ConfigureCardsScreen extends React.Component {
   }
 }
 
-export default ConfigureCardsScreen;
+export default connect(mapState, mapDispatch)(ConfigureCardsScreen);

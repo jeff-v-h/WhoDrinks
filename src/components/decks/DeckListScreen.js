@@ -4,14 +4,14 @@ import styles from '../../styles/styles';
 import deckStyles from '../../styles/deckStyles';
 import ListLinkRow from '../common/ListLinkRow';
 import IconButton from '../common/IconButton';
-import { selectDeck } from './decksSlice';
+import { selectDeck, selectDeckToEdit } from './decksSlice';
 import { connect } from 'react-redux';
 
 const mapState = (state) => ({
   decks: state.decks
 });
 
-const mapDispatch = { selectDeck };
+const mapDispatch = { selectDeck, selectDeckToEdit };
 
 class DeckListScreen extends React.Component {
   selectDeck = async (id) => {
@@ -21,9 +21,9 @@ class DeckListScreen extends React.Component {
   };
 
   navigateToDeck = (deck) => () => {
-    this.props.navigation.navigate('Deck', {
-      deckId: deck?.id ?? ''
-    });
+    const { navigation, selectDeckToEdit } = this.props;
+    selectDeckToEdit(deck?.id ?? '');
+    navigation.navigate('Deck');
   };
 
   render() {

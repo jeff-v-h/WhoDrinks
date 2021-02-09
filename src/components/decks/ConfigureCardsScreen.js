@@ -47,7 +47,7 @@ class ConfigureCardsScreen extends React.Component {
   }
 
   loadCard = () => {
-    const { editingCardIndex, editingCards } = this.props;
+    const { editingCardIndex, editingCards } = this.props.decks;
     this.setState({ cardText: editingCards[editingCardIndex] });
   };
 
@@ -64,30 +64,15 @@ class ConfigureCardsScreen extends React.Component {
 
   resetCardText = () => this.loadCard();
 
-  saveCard = async () => {
-    try {
-      const { deckId, cardIndex, cardText, cards } = this.state;
-
-      if (cardIndex === cards.length) {
-        await StorageService.saveNewCard(deckId, cardText);
-        cards.push(cardText);
-      } else {
-        await StorageService.saveCard(deckId, cardText, cardIndex);
-        cards[cardIndex] = cardText;
-      }
-
-      this.setState({ originalCardText: cardText, cards });
-      this.animateSuccess();
-      this.props.navigation.setParams({ reloadDeck: true, cardIndex, cards });
-    } catch (e) {
-      Alert.alert(ERROR_TITLE, e.message);
-    }
+  saveCard = () => {
+    this.props.saveCard(this.state.cardText);
+    this.animateSuccess();
   };
 
-  deleteCard = async () => {
-    const { deckId, cardIndex } = this.state;
-    await StorageService.deleteCard(deckId, cardIndex);
-    this.props.navigation.navigate('Deck', { reloadDeck: true });
+  deleteCard = () => {
+    const { deleteCard, navigation, decks } = this.props;
+    deleteCard(decks.editingCardIndex);
+    navigation.navigate('Deck');
   };
 
   animateSuccess = () =>

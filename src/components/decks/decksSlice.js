@@ -44,6 +44,9 @@ const decksSlice = createSlice({
       } else {
         editingCards[editingCardIndex].push(cardText);
       }
+    },
+    deleteCard: (state, action) => {
+      state.editingCards.splice(action.payload, 1);
     }
   }
 });
@@ -55,6 +58,7 @@ export const {
   deleteDeck,
   selectDeckToEdit,
   selectCardToEdit,
-  saveCard
+  saveCard,
+  deleteCard
 } = decksSlice.actions;
 export default decksSlice.reducer;

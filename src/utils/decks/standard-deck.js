@@ -37,7 +37,7 @@ export const cardContentList = [
   'If you had an inhaler growing up, inhale your beverage.',
   "Drink if you've ever had mono.",
   'Drink if you have to go to work in the morning.',
-  `Choose a person to spell "guarantee". If they can't, send a drink their way.`,
+  'Choose a person to spell "guarantee". If they can\'t, send a drink their way.',
   `take a drink if you've ever seen "The Human Centipede". Also, explain yourself.`,
   'Those who have fooled around in a movie theater, drink twice. Then get a fucking room.',
   'Drink if you own a water bottle that has become like a child to you.',

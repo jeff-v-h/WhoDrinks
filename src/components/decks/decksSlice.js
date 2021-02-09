@@ -1,59 +1,42 @@
 import { createSlice } from '@reduxjs/toolkit';
+import standardDeck from '../../utils/decks/standard-deck';
+import asianDeck from '../../utils/decks/asian-deck';
 
 const decksSlice = createSlice({
   name: 'decks',
   initialState: {
-    list: [],
-    selectedId: '',
-    selectedName: '',
-    editingDeckId: '',
-    editingCards: [],
-    editingCardIndex: 0
-  },
-  reducers: {
-    createDeck: (state, action) => {
-      state.list = [...state.list, action.payload];
-    },
-    updateDeck: (state, action) => {
-      state.list = state.list.map((d) =>
-        d.id === action.payload.id ? action.payload : d
-      );
-    },
-    selectDeck: (state, action) => {
-      const deck = state.list.find((d) => d.id === action.payload);
-      state.selectedId = deck?.id ?? '';
-      state.selectedName = deck?.name ?? '';
-    },
-    deleteDeck: (state, action) => {
-      state.list = state.list.filter((d) => d.id !== action.payload);
-    },
-    selectDeckToEdit: (state, action) => {
-      const deck = state.list.find((d) => d.id === action.payload);
-      state.editingDeckId = action.payload;
-      state.editingCards = deck.cards;
-    },
-    selectCardToEdit: (state, action) => {
-      state.editingCardIndex = action.payload;
-    },
-    saveCard: (state, action) => {
-      const { editingCardIndex, editingCards } = state;
-      const cardText = action.payload;
-
-      if (editingCardIndex || editingCardIndex === 0) {
-        editingCards[editingCardIndex] = cardText;
-      } else {
-        editingCards[editingCardIndex].push(cardText);
+    ById: {
+      [standardDeck.id]: {
+        id: standardDeck.id,
+        name: standardDeck.name,
+        type: standardDeck.type
+      },
+      [asianDeck.id]: {
+        id: asianDeck.id,
+        name: asianDeck.name,
+        type: asianDeck.type
       }
     },
-    deleteCard: (state, action) => {
-      state.editingCards.splice(action.payload, 1);
+    allIds: [standardDeck.id, asianDeck.id],
+    selectedId: standardDeck.id
+  },
+  reducers: {
+    saveDeck: (state, action) => {
+      const { id, name, type } = action.payload;
+      state.ById[id] = { id, name, type };
+    },
+    selectDeck: (state, action) => {
+      state.selectedId = action.payload;
+    },
+    deleteDeck: (state, action) => {
+      const { id } = action.payload;
+      delete state.ById[id];
     }
   }
 });
 
 export const {
-  createDeck,
-  updateDeck,
+  saveDeck,
   selectDeck,
   deleteDeck,
   selectDeckToEdit,

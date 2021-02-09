@@ -1,19 +1,10 @@
 import * as React from 'react';
-import {
-  ScrollView,
-  View,
-  TextInput,
-  Animated,
-  Easing,
-  Alert
-} from 'react-native';
-import StorageService from '../../services/storageService';
+import { ScrollView, View, TextInput, Animated, Easing } from 'react-native';
 import AppButton from '../common/AppButton';
 import styles from '../../styles/styles';
 import deckStyles from '../../styles/deckStyles';
 import LottieView from 'lottie-react-native';
 import { PanGestureHandler, State } from 'react-native-gesture-handler';
-import { ERROR_TITLE } from '../../utils/constants';
 import IconButton from '../common/IconButton';
 import { saveCard, selectCardToEdit } from './decksSlice';
 import { connect } from 'react-redux';
@@ -95,13 +86,13 @@ class ConfigureCardsScreen extends React.Component {
     // Only call functions once the user has finished swiping right or left a certain amount
     if (event.nativeEvent.state === State.END) {
       const { translationX } = event.nativeEvent;
-      const { cardIndex, cards } = this.state;
+      const { editingCardIndex, editingCards } = this.props.decks;
 
-      if (translationX > 50 && cardIndex !== 0) {
+      if (translationX > 50 && editingCardIndex !== 0) {
         this.goPreviousCard();
         return;
       }
-      if (translationX < -50 && cardIndex !== cards.length) {
+      if (translationX < -50 && editingCardIndex !== editingCards.length) {
         this.goNextCard();
         return;
       }
@@ -109,7 +100,8 @@ class ConfigureCardsScreen extends React.Component {
   };
 
   render() {
-    const { cardIndex, cardText, originalCardText, cards } = this.state;
+    const { editingCardIndex, editingCards } = this.props.decks;
+    const { cardText } = this.state;
 
     return (
       <PanGestureHandler onHandlerStateChange={this._onHandlerStateChange}>
@@ -119,7 +111,7 @@ class ConfigureCardsScreen extends React.Component {
             progress={this.state.tickProgress}
           />
           <View style={styles.topButtonsRow}>
-            {cardIndex < cards.length && (
+            {editingCardIndex < editingCards.length && (
               <IconButton
                 onPress={this.deleteCard}
                 iconName="trash-o"
@@ -139,19 +131,19 @@ class ConfigureCardsScreen extends React.Component {
             <AppButton
               title="<"
               onPress={this.goPreviousCard}
-              disabled={cardIndex === 0}
+              disabled={editingCardIndex === 0}
             />
             <AppButton
               title=">"
               onPress={this.goNextCard}
-              disabled={cardIndex === cards.length}
+              disabled={editingCardIndex === editingCards.length}
             />
           </View>
           <View style={[styles.buttonsRow, deckStyles.configButtonsRow]}>
             <AppButton
               title="Reset"
               onPress={this.resetCardText}
-              disabled={cardText === originalCardText}
+              disabled={cardText === editingCards[editingCardIndex]}
             />
             <AppButton title="Save" onPress={this.saveCard} />
           </View>

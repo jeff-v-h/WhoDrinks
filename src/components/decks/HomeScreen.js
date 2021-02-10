@@ -3,12 +3,10 @@ import { View, SafeAreaView, Text, Modal } from 'react-native';
 import styles from '../../styles/styles';
 import HeaderText from '../common/HeaderText';
 import AppButton from '../common/AppButton';
-import standardDeck from '../../utils/decks/standard-deck';
-import asianDeck from '../../utils/decks/asian-deck';
 import { DISCLAIMER } from '../../utils/constants';
 import deckStyles from '../../styles/deckStyles';
 import { connect } from 'react-redux';
-import { createDeck, selectDeck } from './decksSlice';
+import { selectDeck } from './decksSlice';
 import { confirmDisclaimer, logout } from '../../redux/userSlice';
 
 const mapState = (state) => ({
@@ -16,43 +14,23 @@ const mapState = (state) => ({
   user: state.user
 });
 
-const mapDispatch = { createDeck, selectDeck, confirmDisclaimer, logout };
+const mapDispatch = { selectDeck, confirmDisclaimer, logout };
 
 class HomeScreen extends React.Component {
   componentDidMount() {
     // this.props.logout();
-    this.loadSelectedDeck();
   }
 
-  loadSelectedDeck = () => {
-    const { selectDeck, decks } = this.props;
+  goToDeckSelection = () => this.props.navigation.navigate('DeckList');
 
-    if (decks.list.length > 0 && !decks.selectedId) {
-      selectDeck(decks.list[0].id);
-    }
-
-    if (decks.list.length === 0) {
-      this.firstTimeSetup();
-    }
-  };
-
-  firstTimeSetup = () => {
-    const { createDeck, selectDeck } = this.props;
-    createDeck(standardDeck);
-    createDeck(asianDeck);
-    selectDeck(standardDeck.id);
-  };
-
-  goToDeckSelection = () => {
-    const { selectedId, selectedName } = this.props.decks;
-    this.props.navigation.navigate('DeckList', {
-      selectedDeckId: selectedId,
-      selectedDeckName: selectedName
-    });
+  startNewGame = () => {
+    const { navigation } = this.props;
+    // redux action to start game
+    navigation.navigate('Game');
   };
 
   render() {
-    const { navigation, user, decks, confirmDisclaimer } = this.props;
+    const { user, decks, confirmDisclaimer } = this.props;
 
     return (
       <SafeAreaView style={styles.container}>
@@ -63,7 +41,7 @@ class HomeScreen extends React.Component {
         <View style={deckStyles.selectDeckView}>
           <Text style={styles.text}>Deck:</Text>
           <AppButton
-            title={decks.selectedName}
+            title={decks.byId[decks.selectedId]?.name ?? ''}
             onPress={this.goToDeckSelection}
             style={deckStyles.selectDeckButton}
             textStyle={deckStyles.selectDeckText}
@@ -73,16 +51,7 @@ class HomeScreen extends React.Component {
         <View style={styles.section}>
           <AppButton
             title="Start Game"
-            onPress={() =>
-              navigation.navigate('Game', {
-                screen: 'Game',
-                params: {
-                  deckId: decks.selectedId,
-                  deckName: decks.selectedName,
-                  newGame: true
-                }
-              })
-            }
+            onPress={this.startNewGame}
             disabled={!decks.selectedId}
             style={styles.button}
           />

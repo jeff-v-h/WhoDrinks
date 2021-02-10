@@ -26,14 +26,5 @@ const cardsSlice = createSlice({
   }
 });
 
-export const {
-  createDeck,
-  updateDeck,
-  selectDeck,
-  deleteDeck,
-  selectDeckToEdit,
-  selectCardToEdit,
-  saveCard,
-  deleteCard
-} = cardsSlice.actions;
+export const { selectDeckToEdit, saveCard, deleteCard } = cardsSlice.actions;
 export default cardsSlice.reducer;

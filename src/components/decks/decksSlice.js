@@ -5,7 +5,7 @@ import asianDeck from '../../utils/decks/asian-deck';
 const decksSlice = createSlice({
   name: 'decks',
   initialState: {
-    ById: {
+    byId: {
       [standardDeck.id]: {
         id: standardDeck.id,
         name: standardDeck.name,
@@ -23,25 +23,21 @@ const decksSlice = createSlice({
   reducers: {
     saveDeck: (state, action) => {
       const { id, name, type } = action.payload;
-      state.ById[id] = { id, name, type };
+      state.byId[id] = { id, name, type };
     },
     selectDeck: (state, action) => {
       state.selectedId = action.payload;
     },
     deleteDeck: (state, action) => {
-      const { id } = action.payload;
-      delete state.ById[id];
+      const id = action.payload;
+
+      if (state.selectedId != id) {
+        delete state.byId[id];
+        state.allIds = state.allIds.filter((i) => i !== id);
+      }
     }
   }
 });
 
-export const {
-  saveDeck,
-  selectDeck,
-  deleteDeck,
-  selectDeckToEdit,
-  selectCardToEdit,
-  saveCard,
-  deleteCard
-} = decksSlice.actions;
+export const { saveDeck, selectDeck, deleteDeck } = decksSlice.actions;
 export default decksSlice.reducer;

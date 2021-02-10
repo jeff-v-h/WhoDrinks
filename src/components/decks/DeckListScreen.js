@@ -14,15 +14,16 @@ const mapState = (state) => ({
 const mapDispatch = { selectDeck, selectDeckToEdit };
 
 class DeckListScreen extends React.Component {
-  selectDeck = async (id) => {
-    if (this.props.decks.selectedId != id) {
-      this.props.selectDeck(id);
+  selectDeck = (id) => {
+    const { decks, selectDeck } = this.props;
+    if (decks.selectedId !== id) {
+      selectDeck(id);
     }
   };
 
-  navigateToDeck = (deck) => () => {
+  navigateToDeck = (id) => () => {
     const { navigation, selectDeckToEdit } = this.props;
-    selectDeckToEdit(deck?.id ?? '');
+    selectDeckToEdit(id ?? '');
     navigation.navigate('Deck');
   };
 
@@ -33,19 +34,19 @@ class DeckListScreen extends React.Component {
       <SafeAreaView style={styles.container}>
         <View style={styles.list}>
           <FlatList
-            data={decks.list}
+            data={decks.allIds}
             ListHeaderComponent={
               <Text style={deckStyles.currentlySelectedHeading}>Selected</Text>
             }
             ListHeaderComponentStyle={deckStyles.deckListHeader}
             renderItem={({ item }) => (
               <ListLinkRow
-                onPress={() => this.selectDeck(item.id)}
-                text={item.name}
+                onPress={() => this.selectDeck(item)}
+                text={decks.byId[item].name}
                 viewStyle={deckStyles.listRow}
               >
                 <View style={deckStyles.selectedCol}>
-                  {item.id === decks.selectedId && (
+                  {item === decks.selectedId && (
                     <IconButton
                       iconName="check"
                       buttonStyle={deckStyles.selectedIcon}
@@ -53,7 +54,7 @@ class DeckListScreen extends React.Component {
                   )}
                 </View>
                 <Text style={styles.itemText} numberOfLines={1}>
-                  {item.name}
+                  {decks.byId[item].name}
                 </Text>
                 <IconButton
                   iconName="edit"
@@ -63,7 +64,7 @@ class DeckListScreen extends React.Component {
                 />
               </ListLinkRow>
             )}
-            keyExtractor={(item) => item.name}
+            keyExtractor={(item) => decks.byId[item].name}
           />
         </View>
         <IconButton

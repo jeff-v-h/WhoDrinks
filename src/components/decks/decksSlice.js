@@ -18,7 +18,8 @@ const decksSlice = createSlice({
       }
     },
     allIds: [standardDeck.id, asianDeck.id],
-    selectedId: standardDeck.id
+    selectedId: standardDeck.id,
+    editingDeckId: standardDeck.id
   },
   reducers: {
     saveDeck: (state, action) => {
@@ -26,6 +27,7 @@ const decksSlice = createSlice({
       state.byId[id] = { id, name, type };
     },
     selectDeck: (state, action) => {
+      console.log(action);
       state.selectedId = action.payload;
     },
     deleteDeck: (state, action) => {
@@ -35,9 +37,17 @@ const decksSlice = createSlice({
         delete state.byId[id];
         state.allIds = state.allIds.filter((i) => i !== id);
       }
+    },
+    selectDeckToEdit: (state, action) => {
+      state.editingDeckId = action.payload;
     }
   }
 });
 
-export const { saveDeck, selectDeck, deleteDeck } = decksSlice.actions;
+export const {
+  saveDeck,
+  selectDeck,
+  deleteDeck,
+  selectDeckToEdit
+} = decksSlice.actions;
 export default decksSlice.reducer;

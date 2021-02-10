@@ -17,29 +17,21 @@ import { GameTypesEnum } from '../../utils/enums';
 import Menu, { MenuItem } from 'react-native-material-menu';
 import AppButton from '../common/AppButton';
 import uuid from 'uuid';
-import {
-  createDeck,
-  updateDeck,
-  deleteDeck,
-  selectCardToEdit
-} from './decksSlice';
+import { saveDeck, deleteDeck, selectDeckToEdit } from './decksSlice';
+import { saveCards } from './cardsSlice';
 import { connect } from 'react-redux';
 
 const mapState = (state) => ({
-  decks: state.decks
+  decks: state.decks,
+  cards: state.cards
 });
 
-const mapDispatch = { createDeck, updateDeck, deleteDeck, selectCardToEdit };
+const mapDispatch = { saveDeck, deleteDeck, selectDeckToEdit, saveCards };
 
 class DeckScreen extends React.Component {
   state = {
     selection: Platform.OS === 'android' ? { start: 0 } : null,
     modalVisible: false,
-    deck: {
-      id: '',
-      name: '',
-      cards: []
-    },
     deckName: ''
   };
 
@@ -48,12 +40,16 @@ class DeckScreen extends React.Component {
   }
 
   loadDeck = () => {
-    const { decks } = this.props;
+    const { decks, selectDeckToEdit } = this.props;
     const deck = decks.editingDeckId
-      ? decks.list.find((d) => d.id == decks.editingDeckId)
+      ? decks.byId[decks.editingDeckId]
       : this.createNewDeck();
 
-    this.setState({ deck, deckName: deck.name });
+    if (!decks.editingDeckId) {
+      selectDeckToEdit(deck.id);
+    }
+
+    this.setState({ deckName: deck.name });
   };
 
   createNewDeck = () => {
@@ -63,17 +59,22 @@ class DeckScreen extends React.Component {
       cards: [],
       type: GameTypesEnum.custom
     };
-    this.props.createDeck(newDeck);
+    this.props.saveDeck(newDeck);
+    this.props.saveCards({ deckId: newDeck.id, cards: newDeck.cards });
     return newDeck;
   };
 
   getAvailableDeckName = () => {
+    const { decks } = this.props;
+    const names = Object.keys(decks.byId).map((key) => decks.byId[key].name);
     let name = 'My New Deck';
-    let count = 0;
-    while (this.props.decks.list.findIndex((d) => d.name === name) > -1) {
+    let count = 1;
+
+    while (names.includes(name)) {
       count++;
       name = 'My New Deck ' + count;
     }
+
     return name;
   };
 
@@ -107,22 +108,20 @@ class DeckScreen extends React.Component {
   onChangeDeckName = (deckName) => this.setState({ deckName });
 
   saveDeckName = () => {
-    const { deck, deckName } = this.state;
+    const { decks, saveDeck } = this.props;
+    const deck = decks.byId[decks.editingDeckId];
 
-    if (deck.name === deckName) {
-      this.setModalVisible(false);
-      return;
+    if (deck.name !== this.state.deckName) {
+      saveDeck({ ...deck, name: this.state.deckName });
     }
 
-    const newDeck = { ...deck, name: deckName };
-    this.props.updateDeck(newDeck);
-    this.setState({ deck: newDeck, modalVisible: false });
+    this.setModalVisible(false);
   };
   //#endregion
 
-  confirmDelete = async () => {
+  confirmDelete = () => {
     const { decks, deleteDeck, navigation } = this.props;
-    if (decks.selectedId === this.state.deck.id) {
+    if (decks.selectedId === decks.editingDeckId) {
       Alert.alert('', 'Cannot delete a selected deck');
       return;
     }
@@ -142,7 +141,7 @@ class DeckScreen extends React.Component {
         {
           text: 'Delete',
           onPress: () => {
-            deleteDeck(this.state.deck.id);
+            deleteDeck(decks.editingDeckId);
             navigation.navigate('DeckList');
           }
         }
@@ -151,20 +150,19 @@ class DeckScreen extends React.Component {
   };
 
   navigateToCard = (cardIndex) => {
-    const { navigation, selectCardToEdit } = this.props;
-    selectCardToEdit(cardIndex);
-    navigation.navigate('ConfigureCards');
+    this.props.navigation.navigate('ConfigureCards', { cardIndex });
   };
 
   render() {
-    const { deck, deckName, selection, modalVisible } = this.state;
+    const { deckName, selection, modalVisible } = this.state;
+    const { decks, cards } = this.props;
 
     return (
       <SafeAreaView style={styles.container}>
         <View style={deckStyles.titleRow}>
           <View style={deckStyles.titleView}>
             <Text style={deckStyles.title} numberOfLines={1}>
-              {deck.name}
+              {decks.byId[decks.editingDeckId]?.name ?? ''}
             </Text>
           </View>
           <View style={deckStyles.menuWrapper}>
@@ -214,7 +212,7 @@ class DeckScreen extends React.Component {
         </Modal>
         <View style={styles.list}>
           <FlatList
-            data={deck.cards}
+            data={cards.byDeckId[decks.editingDeckId]}
             renderItem={({ item, index }) => (
               <ListLinkRow
                 onPress={() => this.navigateToCard(index)}

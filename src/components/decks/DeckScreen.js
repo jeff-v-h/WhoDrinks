@@ -18,7 +18,7 @@ import Menu, { MenuItem } from 'react-native-material-menu';
 import AppButton from '../common/AppButton';
 import uuid from 'uuid';
 import { saveDeck, deleteDeck, selectDeckToEdit } from './decksSlice';
-import { saveCards } from './cardsSlice';
+import { saveCards, selectCardToEdit } from './cardsSlice';
 import { connect } from 'react-redux';
 
 const mapState = (state) => ({
@@ -26,7 +26,13 @@ const mapState = (state) => ({
   cards: state.cards
 });
 
-const mapDispatch = { saveDeck, deleteDeck, selectDeckToEdit, saveCards };
+const mapDispatch = {
+  saveDeck,
+  deleteDeck,
+  selectDeckToEdit,
+  saveCards,
+  selectCardToEdit
+};
 
 class DeckScreen extends React.Component {
   state = {
@@ -150,7 +156,9 @@ class DeckScreen extends React.Component {
   };
 
   navigateToCard = (cardIndex) => {
-    this.props.navigation.navigate('ConfigureCards', { cardIndex });
+    const { navigation, decks, cards, selectCardToEdit } = this.props;
+    selectCardToEdit(cardIndex ?? cards.byDeckId[decks.editingDeckId].length);
+    navigation.navigate('ConfigureCards');
   };
 
   render() {

@@ -6,14 +6,15 @@ import deckStyles from '../../styles/deckStyles';
 import LottieView from 'lottie-react-native';
 import { PanGestureHandler, State } from 'react-native-gesture-handler';
 import IconButton from '../common/IconButton';
-import { saveCard, selectCardToEdit } from './decksSlice';
+import { saveCard, deleteCard, selectCardToEdit } from './cardsSlice';
 import { connect } from 'react-redux';
 
 const mapState = (state) => ({
-  decks: state.decks
+  decks: state.decks,
+  cards: state.cards
 });
 
-const mapDispatch = { selectCardToEdit, saveCard };
+const mapDispatch = { saveCard, deleteCard, selectCardToEdit };
 
 class ConfigureCardsScreen extends React.Component {
   constructor(props) {
@@ -31,15 +32,24 @@ class ConfigureCardsScreen extends React.Component {
 
   componentDidUpdate() {
     const { navigation, route } = this.props;
-    if (route.params.reloadCard) {
+    if (route.params?.reloadCard) {
       navigation.setParams({ reloadCard: false });
       this.loadCard();
     }
   }
 
   loadCard = () => {
-    const { editingCardIndex, editingCards } = this.props.decks;
-    this.setState({ cardText: editingCards[editingCardIndex] });
+    const { decks, cards } = this.props;
+    const editingCards = cards.byDeckId[decks.editingDeckId];
+    console.log('cardIndex', cards.editingCardIndex);
+    console.log('cards in load card', editingCards);
+
+    this.setState({
+      cardText:
+        cards.editingCardIndex < editingCards.length
+          ? editingCards[cards.editingCardIndex]
+          : ''
+    });
   };
 
   onChangeText = (cardText) => this.setState({ cardText });
@@ -48,21 +58,38 @@ class ConfigureCardsScreen extends React.Component {
   goNextCard = () => this.goToCard(1);
 
   goToCard = (amountToAdd) => {
-    const { selectCardToEdit, navigation, decks } = this.props;
-    selectCardToEdit(decks.editingCardIndex + amountToAdd);
+    const { selectCardToEdit, decks, cards, navigation } = this.props;
+    const nextIndex = cards.editingCardIndex + amountToAdd;
+
+    if (
+      nextIndex < 0 ||
+      nextIndex > cards.byDeckId[decks.editingDeckId].length
+    ) {
+      return;
+    }
+
+    selectCardToEdit(nextIndex);
     navigation.navigate('ConfigureCards', { reloadCard: true });
   };
 
   resetCardText = () => this.loadCard();
 
   saveCard = () => {
-    this.props.saveCard(this.state.cardText);
+    const { saveCard, decks, cards } = this.props;
+    saveCard({
+      cardText: this.state.cardText,
+      deckId: decks.editingDeckId,
+      cardIndex: cards.editingCardIndex
+    });
     this.animateSuccess();
   };
 
   deleteCard = () => {
-    const { deleteCard, navigation, decks } = this.props;
-    deleteCard(decks.editingCardIndex);
+    const { deleteCard, navigation, decks, cards } = this.props;
+    deleteCard({
+      deckId: decks.editingDeckId,
+      cardIndex: cards.editingCardIndex
+    });
     navigation.navigate('Deck');
   };
 
@@ -86,13 +113,16 @@ class ConfigureCardsScreen extends React.Component {
     // Only call functions once the user has finished swiping right or left a certain amount
     if (event.nativeEvent.state === State.END) {
       const { translationX } = event.nativeEvent;
-      const { editingCardIndex, editingCards } = this.props.decks;
+      const { decks, cards, editingCardIndex } = this.props;
 
       if (translationX > 50 && editingCardIndex !== 0) {
         this.goPreviousCard();
         return;
       }
-      if (translationX < -50 && editingCardIndex !== editingCards.length) {
+      if (
+        translationX < -50 &&
+        editingCardIndex !== cards.byDeckId[decks.editingDeckId].length
+      ) {
         this.goNextCard();
         return;
       }
@@ -100,8 +130,9 @@ class ConfigureCardsScreen extends React.Component {
   };
 
   render() {
-    const { editingCardIndex, editingCards } = this.props.decks;
+    const { decks, cards } = this.props;
     const { cardText } = this.state;
+    const editingCards = cards.byDeckId[decks.editingDeckId];
 
     return (
       <PanGestureHandler onHandlerStateChange={this._onHandlerStateChange}>
@@ -111,7 +142,7 @@ class ConfigureCardsScreen extends React.Component {
             progress={this.state.tickProgress}
           />
           <View style={styles.topButtonsRow}>
-            {editingCardIndex < editingCards.length && (
+            {cards.editingCardIndex < editingCards.length && (
               <IconButton
                 onPress={this.deleteCard}
                 iconName="trash-o"
@@ -131,19 +162,19 @@ class ConfigureCardsScreen extends React.Component {
             <AppButton
               title="<"
               onPress={this.goPreviousCard}
-              disabled={editingCardIndex === 0}
+              disabled={cards.editingCardIndex === 0}
             />
             <AppButton
               title=">"
               onPress={this.goNextCard}
-              disabled={editingCardIndex === editingCards.length}
+              disabled={cards.editingCardIndex === editingCards.length}
             />
           </View>
           <View style={[styles.buttonsRow, deckStyles.configButtonsRow]}>
             <AppButton
               title="Reset"
               onPress={this.resetCardText}
-              disabled={cardText === editingCards[editingCardIndex]}
+              disabled={cardText === editingCards[cards.editingCardIndex]}
             />
             <AppButton title="Save" onPress={this.saveCard} />
           </View>

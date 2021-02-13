@@ -8,7 +8,8 @@ const cardsSlice = createSlice({
     byDeckId: {
       [standardDeck.id]: standardDeck.cards,
       [asianDeck.id]: asianDeck.cards
-    }
+    },
+    editingCardIndex: 0
   },
   reducers: {
     saveCards: (state, action) => {
@@ -28,9 +29,17 @@ const cardsSlice = createSlice({
     deleteCard: (state, action) => {
       const { cardIndex, deckId } = action.payload;
       state.byDeckId[deckId].splice(cardIndex, 1);
+    },
+    selectCardToEdit: (state, action) => {
+      state.editingCardIndex = action.payload;
     }
   }
 });
 
-export const { saveCards, saveCard, deleteCard } = cardsSlice.actions;
+export const {
+  saveCards,
+  saveCard,
+  deleteCard,
+  selectCardToEdit
+} = cardsSlice.actions;
 export default cardsSlice.reducer;

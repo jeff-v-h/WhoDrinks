@@ -18,7 +18,7 @@ import Menu, { MenuItem } from 'react-native-material-menu';
 import AppButton from '../common/AppButton';
 import uuid from 'uuid';
 import { saveDeck, deleteDeck, selectDeckToEdit } from './decksSlice';
-import { saveCards, selectCardToEdit } from './cardsSlice';
+import { selectCardToEdit } from './cardsSlice';
 import { connect } from 'react-redux';
 
 const mapState = (state) => ({
@@ -30,7 +30,6 @@ const mapDispatch = {
   saveDeck,
   deleteDeck,
   selectDeckToEdit,
-  saveCards,
   selectCardToEdit
 };
 
@@ -66,7 +65,6 @@ class DeckScreen extends React.Component {
       type: GameTypesEnum.custom
     };
     this.props.saveDeck(newDeck);
-    this.props.saveCards({ deckId: newDeck.id, cards: newDeck.cards });
     return newDeck;
   };
 

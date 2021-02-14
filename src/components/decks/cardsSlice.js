@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import standardDeck from '../../utils/decks/standard-deck';
 import asianDeck from '../../utils/decks/asian-deck';
+import { saveDeck } from './decksSlice';
 
 const cardsSlice = createSlice({
   name: 'cards',
@@ -12,10 +13,6 @@ const cardsSlice = createSlice({
     editingCardIndex: 0
   },
   reducers: {
-    saveCards: (state, action) => {
-      const { deckId, cards } = action.payload;
-      state.byDeckId[deckId] = cards;
-    },
     saveCard: (state, action) => {
       const { cardIndex, cardText, deckId } = action.payload;
       const cards = state.byDeckId[deckId];
@@ -33,13 +30,16 @@ const cardsSlice = createSlice({
     selectCardToEdit: (state, action) => {
       state.editingCardIndex = action.payload;
     }
+  },
+  extraReducers: (builder) => {
+    builder.addCase(saveDeck, (state, action) => {
+      const { cards, id } = action.payload;
+      if (cards) {
+        state.byDeckId[id] = cards;
+      }
+    });
   }
 });
 
-export const {
-  saveCards,
-  saveCard,
-  deleteCard,
-  selectCardToEdit
-} = cardsSlice.actions;
+export const { saveCard, deleteCard, selectCardToEdit } = cardsSlice.actions;
 export default cardsSlice.reducer;

@@ -30,24 +30,15 @@ class ConfigureCardsScreen extends React.Component {
     this.loadCard();
   }
 
-  componentDidUpdate() {
-    const { navigation, route } = this.props;
-    if (route.params?.reloadCard) {
-      navigation.setParams({ reloadCard: false });
-      this.loadCard();
-    }
-  }
-
-  loadCard = () => {
+  loadCard = (cardIndex) => {
     const { decks, cards } = this.props;
+    const editingCardIndex = cardIndex ?? cards.editingCardIndex;
     const editingCards = cards.byDeckId[decks.editingDeckId];
-    console.log('cardIndex', cards.editingCardIndex);
-    console.log('cards in load card', editingCards);
 
     this.setState({
       cardText:
-        cards.editingCardIndex < editingCards.length
-          ? editingCards[cards.editingCardIndex]
+        editingCardIndex < editingCards.length
+          ? editingCards[editingCardIndex]
           : ''
     });
   };
@@ -58,7 +49,7 @@ class ConfigureCardsScreen extends React.Component {
   goNextCard = () => this.goToCard(1);
 
   goToCard = (amountToAdd) => {
-    const { selectCardToEdit, decks, cards, navigation } = this.props;
+    const { selectCardToEdit, decks, cards } = this.props;
     const nextIndex = cards.editingCardIndex + amountToAdd;
 
     if (
@@ -69,7 +60,7 @@ class ConfigureCardsScreen extends React.Component {
     }
 
     selectCardToEdit(nextIndex);
-    navigation.navigate('ConfigureCards', { reloadCard: true });
+    this.loadCard(nextIndex);
   };
 
   resetCardText = () => this.loadCard();

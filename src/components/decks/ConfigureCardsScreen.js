@@ -174,7 +174,9 @@ class ConfigureCardsScreen extends React.Component {
             <AppButton
               title="Reset"
               onPress={this.resetCardText}
-              disabled={cardText === editingCards[cards.editingCardIndex]}
+              disabled={
+                cardText === (editingCards[cards.editingCardIndex] ?? '')
+              }
             />
             <AppButton title="Save" onPress={this.saveCard} />
           </View>

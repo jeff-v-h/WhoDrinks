@@ -8,7 +8,7 @@ import deckStyles from '../../styles/deckStyles';
 import { connect } from 'react-redux';
 import { selectDeck } from './decksSlice';
 import { confirmDisclaimer, logout } from '../../redux/userSlice';
-import { setupNewGame } from '../game/gameSlice';
+import { startNewGame } from '../game/gameSlice';
 
 const mapState = (state) => ({
   decks: state.decks,
@@ -16,7 +16,7 @@ const mapState = (state) => ({
   cards: state.cards
 });
 
-const mapDispatch = { selectDeck, confirmDisclaimer, logout, setupNewGame };
+const mapDispatch = { selectDeck, confirmDisclaimer, logout, startNewGame };
 
 class HomeScreen extends React.Component {
   componentDidMount() {
@@ -26,8 +26,8 @@ class HomeScreen extends React.Component {
   goToDeckSelection = () => this.props.navigation.navigate('DeckList');
 
   startNewGame = () => {
-    const { navigation, setupNewGame, decks, cards } = this.props;
-    setupNewGame(cards.byDeckId[decks.selectedId]);
+    const { navigation, startNewGame, decks, cards } = this.props;
+    startNewGame(cards.byDeckId[decks.selectedId]);
     navigation.navigate('Game');
   };
 

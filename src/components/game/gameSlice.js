@@ -14,10 +14,13 @@ const gameSlice = createSlice({
     gameId: ''
   },
   reducers: {
-    setupNewGame: (state, action) => {
-      state.drawPile = action.payload;
-      state.played = [];
-      state.indexToShow = -1;
+    startNewGame: (state, action) => {
+      state.drawPile = [...action.payload];
+      const randomIndex = randomIntFromInterval(0, state.drawPile.length - 1);
+
+      state.played = [state.drawPile[randomIndex]];
+      state.drawPile.splice(randomIndex, 1);
+      state.indexToShow = 0;
       state.gameId = uuid.v1();
     },
     playNewCard: (state) => {
@@ -28,10 +31,8 @@ const gameSlice = createSlice({
       const drawPile = state.drawPile;
       const randomIndex = randomIntFromInterval(0, drawPile.length - 1);
 
-      console.log('length before push', state.played.length);
       state.played.push(drawPile[randomIndex]);
       drawPile.splice(randomIndex, 1);
-      console.log('length after push', state.played.length);
       state.indexToShow = state.played.length - 1;
     },
     showCard: (state, action) => {
@@ -40,5 +41,5 @@ const gameSlice = createSlice({
   }
 });
 
-export const { setupNewGame, playNewCard, showCard } = gameSlice.actions;
+export const { startNewGame, playNewCard, showCard } = gameSlice.actions;
 export default gameSlice.reducer;

@@ -1,78 +1,95 @@
 import * as React from 'react';
-import { View, SafeAreaView, FlatList, TextInput, Alert, Text, Platform, Modal } from 'react-native';
+import {
+  View,
+  SafeAreaView,
+  FlatList,
+  TextInput,
+  Alert,
+  Text,
+  Platform,
+  Modal
+} from 'react-native';
 import styles from '../../styles/styles';
 import deckStyles from '../../styles/deckStyles';
 import ListLinkRow from '../common/ListLinkRow';
 import IconButton from '../common/IconButton';
-import StorageService from '../../services/storageService';
 import { GameTypesEnum } from '../../utils/enums';
-import { ERROR_TITLE } from '../../utils/constants';
 import Menu, { MenuItem } from 'react-native-material-menu';
 import AppButton from '../common/AppButton';
+import uuid from 'uuid';
+import { saveDeck, deleteDeck, selectDeckToEdit } from './decksSlice';
+import { selectCardToEdit } from './cardsSlice';
+import { connect } from 'react-redux';
+
+const mapState = (state) => ({
+  decks: state.decks,
+  cards: state.cards
+});
+
+const mapDispatch = {
+  saveDeck,
+  deleteDeck,
+  selectDeckToEdit,
+  selectCardToEdit
+};
 
 class DeckScreen extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      deck: {
-        name: '',
-        cards: []
-      },
-      selection: Platform.OS === 'android' ? { start: 0 } : null,
-      modalVisible: false
-    };
-  }
+  state = {
+    selection: Platform.OS === 'android' ? { start: 0 } : null,
+    modalVisible: false,
+    deckName: ''
+  };
 
   componentDidMount() {
     this.loadDeck();
   }
 
-  componentDidUpdate() {
-    const { navigation, route } = this.props;
-    if (route.params.reloadDeck) {
-      this.loadDeck();
-      navigation.setParams({ reloadDeck: false });
-    }
-  }
+  loadDeck = () => {
+    const { decks, selectDeckToEdit } = this.props;
+    const deck = decks.editingDeckId
+      ? decks.byId[decks.editingDeckId]
+      : this.createNewDeck();
 
-  loadDeck = async () => {
-    try {
-      const { deckId } = this.props.route.params;
-      const deck = deckId ? await StorageService.getDeck(deckId) : await this.createNewDeck();
-
-      this.setState({ deck, originalDeckName: deck.name });
-      this.props.navigation.setParams({ deckId: deck.id });
-    } catch (e) {
-      Alert.alert(ERROR_TITLE, e.message);
+    if (!decks.editingDeckId) {
+      selectDeckToEdit(deck.id);
     }
+
+    this.setState({ deckName: deck.name });
   };
 
-  createNewDeck = async () => {
-    try {
-      const deckList = await StorageService.getDeckList();
-      const newDeck = {
-        name: this.getAvailableDeckName(deckList),
-        cards: [],
-        type: GameTypesEnum.custom
-      };
-      newDeck.id = await StorageService.saveNewDeck(newDeck);
-      return newDeck;
-    } catch (e) {
-      Alert.alert(ERROR_TITLE, e.message);
-    }
+  createNewDeck = () => {
+    const newDeck = {
+      id: uuid.v1(),
+      name: this.getAvailableDeckName(),
+      cards: [],
+      type: GameTypesEnum.custom
+    };
+    this.props.saveDeck(newDeck);
+    return newDeck;
   };
 
-  getAvailableDeckName = (deckList) => {
+  getAvailableDeckName = () => {
+    const { decks } = this.props;
+    const names = Object.keys(decks.byId).map((key) => decks.byId[key].name);
     let name = 'My New Deck';
-    let count = 0;
-    while (deckList.findIndex((d) => d.name === name) > -1) {
+    let count = 1;
+
+    while (names.includes(name)) {
       count++;
       name = 'My New Deck ' + count;
     }
+
     return name;
   };
 
+  //#region dropdown menu
+  _menu = null;
+  setMenuRef = (ref) => (this._menu = ref);
+  showMenu = () => this._menu.show();
+  hideMenu = () => this._menu.hide();
+  //#endregion
+
+  //#region modal
   onFocus = () => {
     if (Platform.OS === 'android') {
       this.setState({ selection: null });
@@ -85,85 +102,86 @@ class DeckScreen extends React.Component {
     }
   };
 
-  _menu = null;
-  setMenuRef = ref => this._menu = ref;
-  showMenu = () => this._menu.show();
-  hideMenu = () => this._menu.hide();
-
   setModalVisible = (visible) => this.setState({ modalVisible: visible });
 
   openEditModal = () => {
     this.setModalVisible(true);
     this.hideMenu();
-  }
-
-  onChangeDeckName = (text) => {
-    this.setState((prevState) => ({
-      deck: { ...prevState.deck, name: text }
-    }));
-  }
-    
-  saveDeckName = async () => {
-    try {
-      const { deck, originalDeckName } = this.state;
-      if (deck.name === originalDeckName) {
-        this.setModalVisible(false);
-        return;
-      }
-      
-      await StorageService.updateDeckName(deck);
-      this.setState({ originalDeckName: deck.name, modalVisible: false });
-    } catch (e) {
-      Alert.alert(ERROR_TITLE, e.message);
-    }
   };
 
-  confirmDelete = async () => {
-    const selectedDeck = await StorageService.getSelectedDeck();
-    if (selectedDeck.id === this.state.deck.id) {
+  onChangeDeckName = (deckName) => this.setState({ deckName });
+
+  saveDeckName = () => {
+    const { decks, saveDeck } = this.props;
+    const deck = decks.byId[decks.editingDeckId];
+
+    if (deck.name !== this.state.deckName) {
+      saveDeck({ ...deck, name: this.state.deckName });
+    }
+
+    this.setModalVisible(false);
+  };
+  //#endregion
+
+  confirmDelete = () => {
+    const { decks, deleteDeck, navigation } = this.props;
+    if (decks.selectedId === decks.editingDeckId) {
       Alert.alert('', 'Cannot delete a selected deck');
       return;
     }
 
-    Alert.alert('Confirm Delete', 'Are you sure you want to permanently remove this deck from your device?', [
-      {
-        text: 'Cancel',
-        style: 'cancel'
-      },
-      {
-        text: 'Delete',
-        onPress: async () => {
-          await StorageService.deleteDeck(this.state.deck.id);
-          this.props.navigation.navigate('DeckList', { reloadDeckList: true });
+    Alert.alert(
+      'Confirm Delete',
+      'Are you sure you want to permanently remove this deck from your device?',
+      [
+        {
+          text: 'Cancel',
+          style: 'cancel',
+          onPress: () => {
+            this.setModalVisible(false);
+            this.hideMenu();
+          }
+        },
+        {
+          text: 'Delete',
+          onPress: () => {
+            deleteDeck(decks.editingDeckId);
+            navigation.navigate('DeckList');
+          }
         }
-      }
-    ]);
+      ]
+    );
   };
 
-  getNavigationToCardFunction = (cardIndex) => () => this.navigateToCard(cardIndex);
-
   navigateToCard = (cardIndex) => {
-    const { deck } = this.state;
-    this.props.navigation.navigate('ConfigureCards', {
-      deckId: deck.id,
-      cardIndex,
-      cards: deck.cards
-    });
+    const { navigation, decks, cards, selectCardToEdit } = this.props;
+    selectCardToEdit(cardIndex ?? cards.byDeckId[decks.editingDeckId].length);
+    navigation.navigate('ConfigureCards');
   };
 
   render() {
-    const { deck, originalDeckName, selection, modalVisible } = this.state;
+    const { deckName, selection, modalVisible } = this.state;
+    const { decks, cards } = this.props;
 
     return (
       <SafeAreaView style={styles.container}>
         <View style={deckStyles.titleRow}>
           <View style={deckStyles.titleView}>
-            <Text style={deckStyles.title} numberOfLines={1}>{originalDeckName}</Text>
+            <Text style={deckStyles.title} numberOfLines={1}>
+              {decks.byId[decks.editingDeckId]?.name ?? ''}
+            </Text>
           </View>
           <View style={deckStyles.menuWrapper}>
             <Menu
               ref={this.setMenuRef}
-              button={<IconButton onPress={this.showMenu} iconName="ellipsis-v" size={24} opacity={0.5} />}
+              button={
+                <IconButton
+                  onPress={this.showMenu}
+                  iconName="ellipsis-v"
+                  size={24}
+                  opacity={0.5}
+                />
+              }
             >
               <MenuItem onPress={this.openEditModal}>Edit Name</MenuItem>
               <MenuItem onPress={this.confirmDelete}>Delete</MenuItem>
@@ -180,7 +198,7 @@ class DeckScreen extends React.Component {
             <View style={deckStyles.modalContent}>
               <TextInput
                 style={deckStyles.titleInput}
-                value={deck.name}
+                value={deckName}
                 onChangeText={this.onChangeDeckName}
                 onFocus={this.onFocus}
                 onBlur={this.onBlur}
@@ -189,7 +207,10 @@ class DeckScreen extends React.Component {
                 maxLength={60}
               />
               <View style={styles.buttonsRow}>
-                <AppButton title="Cancel" onPress={() => this.setModalVisible(false)} />
+                <AppButton
+                  title="Cancel"
+                  onPress={() => this.setModalVisible(false)}
+                />
                 <AppButton title="Save" onPress={this.saveDeckName} />
               </View>
             </View>
@@ -197,10 +218,10 @@ class DeckScreen extends React.Component {
         </Modal>
         <View style={styles.list}>
           <FlatList
-            data={deck.cards}
+            data={cards.byDeckId[decks.editingDeckId]}
             renderItem={({ item, index }) => (
               <ListLinkRow
-                onPress={this.getNavigationToCardFunction(index)}
+                onPress={() => this.navigateToCard(index)}
                 viewStyle={[deckStyles.listRow, deckStyles.deckListRow]}
               >
                 <Text style={styles.itemText} numberOfLines={2}>
@@ -221,4 +242,4 @@ class DeckScreen extends React.Component {
   }
 }
 
-export default DeckScreen;
+export default connect(mapState, mapDispatch)(DeckScreen);

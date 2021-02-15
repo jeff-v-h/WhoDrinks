@@ -7,7 +7,6 @@ import GameScreen from '../components/game/GameScreen';
 import DeckListScreen from '../components/decks/DeckListScreen';
 import DeckScreen from '../components/decks/DeckScreen';
 import ConfigureCardsScreen from '../components/decks/ConfigureCardsScreen';
-import { HeaderBackButton } from '@react-navigation/stack';
 import ContactUsScreen from '../components/contact-us/ContactUsScreen';
 import HeaderMenuButton from '../components/common/HeaderMenuButton';
 import DisclaimerScreen from '../components/legal/DisclaimerScreen';
@@ -31,56 +30,34 @@ const DecksConfigNavigationStack = () => (
     <DecksConfigStack.Screen
       name="DeckList"
       component={DeckListScreen}
-      options={({ navigation, route }) => ({
+      options={{
         title: 'Decks',
-        headerLeft: (props) => (
-          <HeaderBackButton
-            {...props}
-            onPress={() =>
-              navigation.navigate('Home', {
-                reloadSelection: route.params.reloadSelection,
-                selectedDeckId: route.params.selectedDeckId,
-                selectedDeckName: route.params.selectedDeckName
-              })
-            }
-          />
-        ),
         headerRight: () => <HeaderMenuButton />
-      })}
+      }}
     />
     <DecksConfigStack.Screen
       name="Deck"
       component={DeckScreen}
-      options={({ navigation }) => ({
-        headerLeft: (props) => (
-          <HeaderBackButton {...props} onPress={() => navigation.navigate('DeckList', { reloadDeckList: true })} />
-        ),
+      options={{
         headerRight: () => <HeaderMenuButton />
-      })}
+      }}
     />
     <DecksConfigStack.Screen
       name="ConfigureCards"
       component={ConfigureCardsScreen}
-      options={({ navigation, route }) => ({
+      options={{
         title: 'Configure Card',
-        headerLeft: (props) => (
-          <HeaderBackButton
-            {...props}
-            onPress={() =>
-              navigation.navigate('Deck', {
-                reloadDeck: route.params.reloadDeck
-              })
-            }
-          />
-        ),
         headerRight: () => <HeaderMenuButton />
-      })}
+      }}
     />
   </DecksConfigStack.Navigator>
 );
 
 const GamesNavigationStack = () => (
-  <GameStack.Navigator initialRouteName="Game" options={{ title: 'Don\'t Think, Just Drink' }}>
+  <GameStack.Navigator
+    initialRouteName="Game"
+    options={{ title: "Don't Think, Just Drink" }}
+  >
     <GameStack.Screen
       name="Game"
       component={GameScreen}

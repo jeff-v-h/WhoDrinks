@@ -2,13 +2,24 @@ import * as React from 'react';
 import AppText from './AppText';
 import { Text } from 'react-native';
 import styles from '../../styles/styles';
+import PropTypes from 'prop-types';
 
-export default class HeaderText extends React.Component {
-  render() {
-    return (
-      <AppText>
-        <Text style={[styles.headerText, this.props.style]}>{this.props.children}</Text>
-      </AppText>
-    );
-  }
+HeaderText.propTypes = {
+  text: PropTypes.string,
+  style: PropTypes.object
+};
+
+HeaderText.defaultProps = {
+  text: ''
+};
+
+function HeaderText({ text, style }) {
+  const textStyles = style ? [styles.headerText, style] : styles.headerText;
+  return (
+    <AppText>
+      <Text style={textStyles}>{text}</Text>
+    </AppText>
+  );
 }
+
+export default HeaderText;

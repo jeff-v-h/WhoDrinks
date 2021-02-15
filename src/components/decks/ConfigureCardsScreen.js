@@ -1,108 +1,87 @@
 import * as React from 'react';
-import {
-  ScrollView,
-  View,
-  TextInput,
-  Animated,
-  Easing,
-  Alert
-} from 'react-native';
-import StorageService from '../../services/storageService';
+import { ScrollView, View, TextInput, Animated, Easing } from 'react-native';
 import AppButton from '../common/AppButton';
 import styles from '../../styles/styles';
 import deckStyles from '../../styles/deckStyles';
 import LottieView from 'lottie-react-native';
 import { PanGestureHandler, State } from 'react-native-gesture-handler';
-import { ERROR_TITLE } from '../../utils/constants';
 import IconButton from '../common/IconButton';
+import { saveCard, deleteCard, selectCardToEdit } from './cardsSlice';
+import { connect } from 'react-redux';
+
+const mapState = (state) => ({
+  decks: state.decks,
+  cards: state.cards
+});
+
+const mapDispatch = { saveCard, deleteCard, selectCardToEdit };
 
 class ConfigureCardsScreen extends React.Component {
   constructor(props) {
     super(props);
 
-    const { deckId, cardIndex, cards } = props.route.params;
-    const initialText = cards[cardIndex] ?? '';
-
     this.state = {
-      deckId,
-      cardIndex: cardIndex ?? cards.length,
-      cardText: initialText,
-      originalCardText: initialText,
-      cards,
+      cardText: '',
       tickProgress: new Animated.Value(0)
     };
   }
 
-  componentDidUpdate() {
-    const { navigation, route } = this.props;
-    if (route.params.reloadCard) {
-      this.refreshCard();
-      navigation.setParams({ reloadCard: false });
-    }
+  componentDidMount() {
+    this.loadCard();
   }
 
-  refreshCard = () => {
-    const { deckId, cardIndex, cards } = this.props.route.params;
-    const initialText = cards[cardIndex];
+  loadCard = (cardIndex) => {
+    const { decks, cards } = this.props;
+    const editingCardIndex = cardIndex ?? cards.editingCardIndex;
+    const editingCards = cards.byDeckId[decks.editingDeckId];
 
     this.setState({
-      deckId,
-      cardIndex,
-      cardText: initialText,
-      originalCardText: initialText
+      cardText:
+        editingCardIndex < editingCards.length
+          ? editingCards[editingCardIndex]
+          : ''
     });
   };
 
   onChangeText = (cardText) => this.setState({ cardText });
 
-  goPreviousCard = () => {
-    const { cards, cardIndex } = this.state;
-    this.props.navigation.navigate('ConfigureCards', {
-      cardIndex: cardIndex - 1,
-      cardText: cards[cardIndex - 1],
-      reloadCard: true
-    });
-  };
+  goPreviousCard = () => this.goToCard(-1);
+  goNextCard = () => this.goToCard(1);
 
-  goNextCard = () => {
-    const { cards, cardIndex } = this.state;
-    const nextCardIndex = cardIndex + 1;
-    this.props.navigation.navigate('ConfigureCards', {
-      cardIndex: nextCardIndex,
-      cardText: nextCardIndex < cards.length ? cards[cardIndex + 1] : '',
-      reloadCard: true
-    });
-  };
+  goToCard = (amountToAdd) => {
+    const { selectCardToEdit, decks, cards } = this.props;
+    const nextIndex = cards.editingCardIndex + amountToAdd;
 
-  resetCardText = () =>
-    this.setState((prevState) => ({
-      cardText: prevState.originalCardText
-    }));
-
-  saveCard = async () => {
-    try {
-      const { deckId, cardIndex, cardText, cards } = this.state;
-
-      if (cardIndex === cards.length) {
-        await StorageService.saveNewCard(deckId, cardText);
-        cards.push(cardText);
-      } else {
-        await StorageService.saveCard(deckId, cardText, cardIndex);
-        cards[cardIndex] = cardText;
-      }
-
-      this.setState({ originalCardText: cardText, cards });
-      this.animateSuccess();
-      this.props.navigation.setParams({ reloadDeck: true, cardIndex, cards });
-    } catch (e) {
-      Alert.alert(ERROR_TITLE, e.message);
+    if (
+      nextIndex < 0 ||
+      nextIndex > cards.byDeckId[decks.editingDeckId].length
+    ) {
+      return;
     }
+
+    selectCardToEdit(nextIndex);
+    this.loadCard(nextIndex);
   };
 
-  deleteCard = async () => {
-    const { deckId, cardIndex } = this.state;
-    await StorageService.deleteCard(deckId, cardIndex);
-    this.props.navigation.navigate('Deck', { reloadDeck: true });
+  resetCardText = () => this.loadCard();
+
+  saveCard = () => {
+    const { saveCard, decks, cards } = this.props;
+    saveCard({
+      cardText: this.state.cardText,
+      deckId: decks.editingDeckId,
+      cardIndex: cards.editingCardIndex
+    });
+    this.animateSuccess();
+  };
+
+  deleteCard = () => {
+    const { deleteCard, navigation, decks, cards } = this.props;
+    deleteCard({
+      deckId: decks.editingDeckId,
+      cardIndex: cards.editingCardIndex
+    });
+    navigation.navigate('Deck');
   };
 
   animateSuccess = () =>
@@ -125,13 +104,16 @@ class ConfigureCardsScreen extends React.Component {
     // Only call functions once the user has finished swiping right or left a certain amount
     if (event.nativeEvent.state === State.END) {
       const { translationX } = event.nativeEvent;
-      const { cardIndex, cards } = this.state;
+      const { decks, cards, editingCardIndex } = this.props;
 
-      if (translationX > 50 && cardIndex !== 0) {
+      if (translationX > 50 && editingCardIndex !== 0) {
         this.goPreviousCard();
         return;
       }
-      if (translationX < -50 && cardIndex !== cards.length) {
+      if (
+        translationX < -50 &&
+        editingCardIndex !== cards.byDeckId[decks.editingDeckId].length
+      ) {
         this.goNextCard();
         return;
       }
@@ -139,7 +121,9 @@ class ConfigureCardsScreen extends React.Component {
   };
 
   render() {
-    const { cardIndex, cardText, originalCardText, cards } = this.state;
+    const { decks, cards } = this.props;
+    const { cardText } = this.state;
+    const editingCards = cards.byDeckId[decks.editingDeckId];
 
     return (
       <PanGestureHandler onHandlerStateChange={this._onHandlerStateChange}>
@@ -149,7 +133,7 @@ class ConfigureCardsScreen extends React.Component {
             progress={this.state.tickProgress}
           />
           <View style={styles.topButtonsRow}>
-            {cardIndex < cards.length && (
+            {cards.editingCardIndex < editingCards.length && (
               <IconButton
                 onPress={this.deleteCard}
                 iconName="trash-o"
@@ -169,19 +153,21 @@ class ConfigureCardsScreen extends React.Component {
             <AppButton
               title="<"
               onPress={this.goPreviousCard}
-              disabled={cardIndex === 0}
+              disabled={cards.editingCardIndex === 0}
             />
             <AppButton
               title=">"
               onPress={this.goNextCard}
-              disabled={cardIndex === cards.length}
+              disabled={cards.editingCardIndex === editingCards.length}
             />
           </View>
           <View style={[styles.buttonsRow, deckStyles.configButtonsRow]}>
             <AppButton
               title="Reset"
               onPress={this.resetCardText}
-              disabled={cardText === originalCardText}
+              disabled={
+                cardText === (editingCards[cards.editingCardIndex] ?? '')
+              }
             />
             <AppButton title="Save" onPress={this.saveCard} />
           </View>
@@ -191,4 +177,4 @@ class ConfigureCardsScreen extends React.Component {
   }
 }
 
-export default ConfigureCardsScreen;
+export default connect(mapState, mapDispatch)(ConfigureCardsScreen);

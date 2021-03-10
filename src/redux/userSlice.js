@@ -1,10 +1,13 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import client from '../services/client';
 import { offlineActionTypes } from 'react-native-offline';
 
 const userSlice = createSlice({
   name: 'user',
   initialState: {
-    confirmedDisclaimer: false
+    confirmedDisclaimer: false,
+    status: 'idle',
+    error: null
   },
   reducers: {
     logout: (state) => {
@@ -16,6 +19,17 @@ const userSlice = createSlice({
     }
   }
 });
+
+export const postUserFeedback = createAsyncThunk(
+  'user/postUserFeedback',
+  async (feedback) => {
+    const response = await client.post(
+      'https://localhost:49155/api/userfeedback',
+      feedback
+    );
+    return response;
+  }
+);
 
 export const { confirmDisclaimer, logout } = userSlice.actions;
 export default userSlice.reducer;
@@ -40,4 +54,15 @@ export const fetchIssuesCount = (org, repo) => {
   thunk.interceptInOffline = true;
   return thunk;
 } 
+*/
+/* the above would ususally look like this:
+const fetchIssuesCount = (org, repo) => async dispatch => {
+  dispatch(getRepoDetailsStarted())
+  try {
+    const repoDetails = await getRepoDetails(org, repo)
+    dispatch(getRepoDetailsSuccess(repoDetails))
+  } catch (err) {
+    dispatch(getRepoDetailsFailed(err.toString()))
+  }
+}
 */

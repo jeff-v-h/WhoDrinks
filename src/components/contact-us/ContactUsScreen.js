@@ -1,10 +1,30 @@
-import * as React from 'react';
-import { View } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { View, TextInput } from 'react-native';
 import AppText from '../common/AppText';
+import AppButton from '../common/AppButton';
 import styles from '../../styles/styles';
 import contactStyles from '../../styles/contactStyles';
+import { useSelector, useDispatch } from 'react-redux';
+import { postUserFeedback } from '../../redux/userSlice';
 
-function ContactUsScreen() {
+const ContactUsScreen = () => {
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [email, setEmail] = useState('');
+  const [feedback, setFeedback] = useState('');
+
+  const dispatch = useDispatch();
+  const userSliceStatus = useSelector((state) => state.user.status);
+
+  const sendFeedback = () => {
+    dispatch(postUserFeedback());
+  };
+  // useEffect(() => {
+  //   if (userSliceStatus === 'idle') {
+  //     dispatch
+  //   }
+  // })
+
   return (
     <View style={[styles.container, contactStyles.screen]}>
       <View style={styles.section}>
@@ -19,13 +39,33 @@ function ContactUsScreen() {
         </AppText>
       </View>
       <View style={styles.section}>
-        <AppText style={contactStyles.text}>
-          Feel free to send an email to:
-        </AppText>
-        <AppText style={contactStyles.text}>hello@recaura.com</AppText>
+        <TextInput
+          style={contactStyles.feedbackInput}
+          value={firstName}
+          onChangeText={(name) => setFirstName(name)}
+        />
+        <TextInput
+          style={contactStyles.feedbackInput}
+          value={lastName}
+          onChangeText={(name) => setLastName(name)}
+        />
+        <TextInput
+          style={contactStyles.feedbackInput}
+          value={email}
+          onChangeText={(email) => setEmail(email)}
+        />
+        <TextInput
+          style={contactStyles.feedbackInput}
+          value={feedback}
+          onChangeText={(feedback) => setFeedback(feedback)}
+          multiline={true}
+        />
+      </View>
+      <View style={styles.section}>
+        <AppButton title="Save" onPress={sendFeedback} />
       </View>
     </View>
   );
-}
+};
 
 export default ContactUsScreen;

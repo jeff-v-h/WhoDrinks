@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { moderateScale } from '../utils/scaling';
+import { moderateScale, verticalScale } from '../utils/scaling';
 
 const contactStyles = StyleSheet.create({
   screen: {
@@ -10,6 +10,15 @@ const contactStyles = StyleSheet.create({
   },
   text: {
     marginBottom: moderateScale(20)
+  },
+  feedbackInput: {
+    paddingLeft: moderateScale(10),
+    paddingRight: moderateScale(10),
+    marginLeft: moderateScale(10),
+    marginRight: moderateScale(10),
+    marginBottom: verticalScale(30),
+    fontSize: moderateScale(24),
+    borderBottomWidth: 1
   }
 });
 

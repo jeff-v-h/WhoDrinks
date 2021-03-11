@@ -2,10 +2,22 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import client from '../services/client';
 import { offlineActionTypes } from 'react-native-offline';
 
+export const postUserFeedback = createAsyncThunk(
+  'user/postUserFeedback',
+  async (feedback) => {
+    const response = await client.post(
+      'https://localhost:49155/api/userfeedback',
+      feedback
+    );
+    return response;
+  }
+);
+
 const userSlice = createSlice({
   name: 'user',
   initialState: {
     confirmedDisclaimer: false,
+    feedback: [],
     status: 'idle',
     error: null
   },
@@ -17,19 +29,23 @@ const userSlice = createSlice({
     confirmDisclaimer: (state) => {
       state.confirmedDisclaimer = true;
     }
+  },
+  extraReducers: {
+    [postUserFeedback.pending]: (state, action) => {
+      state.status = 'loading';
+      console.log('action in pending', action);
+    },
+    [postUserFeedback.fulfilled]: (state, action) => {
+      state.status = 'succeeded';
+      console.log('action in succeeded', action);
+    },
+    [postUserFeedback.rejected]: (state, action) => {
+      state.status = 'failed';
+      console.log('action in failed', action);
+      state.error = action.error.message;
+    }
   }
 });
-
-export const postUserFeedback = createAsyncThunk(
-  'user/postUserFeedback',
-  async (feedback) => {
-    const response = await client.post(
-      'https://localhost:49155/api/userfeedback',
-      feedback
-    );
-    return response;
-  }
-);
 
 export const { confirmDisclaimer, logout } = userSlice.actions;
 export default userSlice.reducer;

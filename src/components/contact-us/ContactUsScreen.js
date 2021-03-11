@@ -1,71 +1,115 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { View, TextInput } from 'react-native';
 import AppText from '../common/AppText';
 import AppButton from '../common/AppButton';
 import styles from '../../styles/styles';
 import contactStyles from '../../styles/contactStyles';
-import { useSelector, useDispatch } from 'react-redux';
 import { postUserFeedback } from '../../redux/userSlice';
+import { connect } from 'react-redux';
 
-const ContactUsScreen = () => {
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [email, setEmail] = useState('');
-  const [feedback, setFeedback] = useState('');
+const mapState = (state) => ({
+  user: state.user
+});
 
-  const dispatch = useDispatch();
-  const userSliceStatus = useSelector((state) => state.user.status);
+const mapDispatch = { postUserFeedback };
 
-  const sendFeedback = () => {
-    dispatch(postUserFeedback());
+class ContactUsScreen extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      firstName: '',
+      lastName: '',
+      email: '',
+      feedback: ''
+    };
+
+    this.handleFirstNameChange = this.handleFirstNameChange.bind(this);
+    this.handleLastNameChange = this.handleLastNameChange.bind(this);
+    this.handleEmailChange = this.handleEmailChange.bind(this);
+    this.handleFeedbackChange = this.handleFeedbackChange.bind(this);
+  }
+
+  handleFirstNameChange(firstName) {
+    this.setState({ firstName });
+  }
+
+  handleLastNameChange(lastName) {
+    this.setState({ lastName });
+  }
+
+  handleEmailChange(email) {
+    this.setState({ email });
+  }
+
+  handleFeedbackChange(feedback) {
+    this.setState({ feedback });
+  }
+
+  sendFeedback = () => {
+    const { firstName, lastName, email, feedback } = this.state;
+    this.props.postUserFeedback({
+      firstName,
+      lastName,
+      email,
+      feedback
+    });
   };
-  // useEffect(() => {
-  //   if (userSliceStatus === 'idle') {
-  //     dispatch
-  //   }
-  // })
 
-  return (
-    <View style={[styles.container, contactStyles.screen]}>
-      <View style={styles.section}>
-        <AppText style={contactStyles.text}>
-          Want to make this game even more fun to play?
-        </AppText>
-        <AppText style={contactStyles.text}>
-          {"Or maybe you've found an error?"}
-        </AppText>
-        <AppText style={contactStyles.text}>
-          Either way, we would love to hear from you!
-        </AppText>
-      </View>
-      <View style={styles.section}>
-        <TextInput
-          style={contactStyles.feedbackInput}
-          value={firstName}
-          onChangeText={(name) => setFirstName(name)}
-        />
-        <TextInput
-          style={contactStyles.feedbackInput}
-          value={lastName}
-          onChangeText={(name) => setLastName(name)}
-        />
-        <TextInput
-          style={contactStyles.feedbackInput}
-          value={email}
-          onChangeText={(email) => setEmail(email)}
-        />
-        <TextInput
-          style={contactStyles.feedbackInput}
-          value={feedback}
-          onChangeText={(feedback) => setFeedback(feedback)}
-          multiline={true}
-        />
-      </View>
-      <View style={styles.section}>
-        <AppButton title="Save" onPress={sendFeedback} />
-      </View>
-    </View>
-  );
-};
+  render() {
+    const { firstName, lastName, email, feedback } = this.state;
+    const editable = this.props.user.status !== 'loading';
 
-export default ContactUsScreen;
+    return (
+      <View style={[styles.container, contactStyles.screen]}>
+        <View style={styles.section}>
+          <AppText style={contactStyles.text}>
+            Got ideas to make this game more fun?
+          </AppText>
+          <AppText style={contactStyles.text}>
+            {"Maybe you've found an error?"}
+          </AppText>
+          <AppText style={contactStyles.text}>
+            Either way, we would love to hear from you!
+          </AppText>
+        </View>
+        <View style={styles.section}>
+          <TextInput
+            style={contactStyles.contactUsInput}
+            value={firstName}
+            onChangeText={this.handleFirstNameChange}
+            placeholder="First name"
+            editable={editable}
+          />
+          <TextInput
+            style={contactStyles.contactUsInput}
+            value={lastName}
+            onChangeText={this.handleLastNameChange}
+            placeholder="Last name"
+            editable={editable}
+          />
+          <TextInput
+            style={contactStyles.contactUsInput}
+            value={email}
+            onChangeText={this.handleEmailChange}
+            placeholder="E-mail"
+            editable={editable}
+          />
+          <TextInput
+            style={[contactStyles.contactUsInput, contactStyles.feedbackInput]}
+            value={feedback}
+            onChangeText={this.handleFeedbackChange}
+            placeholder="Feedback"
+            multiline={true}
+            editable={editable}
+          />
+        </View>
+        <View style={styles.section}>
+          <AppButton title="Save" onPress={this.sendFeedback} />
+        </View>
+      </View>
+    );
+  }
+}
+
+export default connect(mapState, mapDispatch)(ContactUsScreen);

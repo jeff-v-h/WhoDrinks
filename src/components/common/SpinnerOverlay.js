@@ -12,7 +12,7 @@ function SpinnerOverlay({ show }) {
   if (!show) {
     return null;
   }
-  console.log('showing');
+
   return (
     <View style={styles.spinner}>
       <ActivityIndicator size="large" color={colours.primary} />

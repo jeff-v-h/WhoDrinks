@@ -41,7 +41,7 @@ const userSlice = createSlice({
     [postUserFeedback.rejected]: (state, action) => {
       state.status = 'failed';
       state.error = action.error.message;
-      state.feedback.push({ ...action.payload, status: 'failed' });
+      state.feedback.push({ ...action.meta.arg, status: 'failed' });
     }
   }
 });

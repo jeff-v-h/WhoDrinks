@@ -1,5 +1,11 @@
 import React from 'react';
-import { View, TextInput, KeyboardAvoidingView, Keyboard } from 'react-native';
+import {
+  View,
+  TextInput,
+  KeyboardAvoidingView,
+  Keyboard,
+  Alert
+} from 'react-native';
 import AppText from '../common/AppText';
 import AppButton from '../common/AppButton';
 import styles from '../../styles/styles';
@@ -27,7 +33,12 @@ class ContactUsScreen extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = { ...initialState };
+    const lastFeedback = props.user.feedback[props.user.feedback.length - 1];
+
+    this.state =
+      lastFeedback?.status === 'failed'
+        ? { ...lastFeedback }
+        : { ...initialState };
 
     this.keyboardDidShow = this.keyboardDidShow.bind(this);
     this.keyboardDidHide = this.keyboardDidHide.bind(this);
@@ -88,6 +99,19 @@ class ContactUsScreen extends React.Component {
     });
   };
 
+  showErrorMessage = () => {
+    Alert.alert(
+      '',
+      'Unable to send right now, please try again later. \n\nWe will keep your feedback here for you until you send successfully or change it yourself.',
+      [
+        {
+          text: 'OK',
+          onPress: () => this.props.resetStatus()
+        }
+      ]
+    );
+  };
+
   resetFeedbackScreen = () => {
     this.setState({ ...initialState });
     this.props.resetStatus();
@@ -102,9 +126,13 @@ class ContactUsScreen extends React.Component {
       keyboardShowing
     } = this.state;
     const { status } = this.props.user;
-
+    console.log(this.props.user.feedback);
     if (status === 'succeeded') {
       return <FeedbackSuccessScreen onPress={this.resetFeedbackScreen} />;
+    }
+
+    if (status === 'failed') {
+      this.showErrorMessage();
     }
 
     const isLoading = status === 'loading';
@@ -169,7 +197,7 @@ class ContactUsScreen extends React.Component {
               <View
                 style={[styles.section, contactStyles.feedbackButtonSection]}
               >
-                <AppButton title="Save" onPress={this.sendFeedback} />
+                <AppButton title="Send" onPress={this.sendFeedback} />
               </View>
             )}
           </View>

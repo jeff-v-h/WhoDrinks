@@ -6,10 +6,10 @@ export const postUserFeedback = createAsyncThunk(
   'user/postUserFeedback',
   async (feedback) => {
     const response = await client.post(
-      'https://localhost:49155/api/userfeedback',
+      'http://10.0.2.2:5000/api/userfeedback',
       feedback
     );
-    return response;
+    return response.data;
   }
 );
 
@@ -28,26 +28,28 @@ const userSlice = createSlice({
     },
     confirmDisclaimer: (state) => {
       state.confirmedDisclaimer = true;
+    },
+    resetStatus: (state) => {
+      state.status = 'idle';
     }
   },
   extraReducers: {
-    [postUserFeedback.pending]: (state, action) => {
+    [postUserFeedback.pending]: (state) => {
       state.status = 'loading';
-      console.log('action in pending', action);
     },
     [postUserFeedback.fulfilled]: (state, action) => {
       state.status = 'succeeded';
-      console.log('action in succeeded', action);
+      state.feedback.push({ ...action.payload, status: 'saved' });
     },
     [postUserFeedback.rejected]: (state, action) => {
       state.status = 'failed';
-      console.log('action in failed', action);
       state.error = action.error.message;
+      state.feedback.push({ ...action.payload, status: 'failed' });
     }
   }
 });
 
-export const { confirmDisclaimer, logout } = userSlice.actions;
+export const { confirmDisclaimer, logout, resetStatus } = userSlice.actions;
 export default userSlice.reducer;
 
 /**

@@ -27,7 +27,7 @@ Simple drinking game as a mobile application. Each card dictates who drinks or w
 
 Not currently deployed.
 
-1. Populate environment variables in .env file
+1. Create a .env file and populate environment variables. Use .env.development as example.
 
 ## Authors
 

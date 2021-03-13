@@ -126,7 +126,7 @@ class ContactUsScreen extends React.Component {
       keyboardShowing
     } = this.state;
     const { status } = this.props.user;
-    console.log(this.props.user.feedback);
+
     if (status === 'succeeded') {
       return <FeedbackSuccessScreen onPress={this.resetFeedbackScreen} />;
     }

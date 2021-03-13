@@ -1,11 +1,12 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import client from '../services/client';
+import { API_HOST } from '../utils/env';
 import { offlineActionTypes } from 'react-native-offline';
 
 export const postUserFeedback = createAsyncThunk(
   'user/postUserFeedback',
   async (feedback) => {
-    await client.post('http://10.0.2.2:5000/api/userfeedback', feedback);
+    await client.post(`${API_HOST}/api/userfeedback`, feedback);
     return feedback;
   }
 );

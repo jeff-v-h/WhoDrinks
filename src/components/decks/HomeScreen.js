@@ -7,7 +7,11 @@ import { DISCLAIMER } from '../../utils/constants';
 import deckStyles from '../../styles/deckStyles';
 import { connect } from 'react-redux';
 import { selectDeck } from './decksSlice';
-import { confirmDisclaimer, logout } from '../../redux/userSlice';
+import {
+  confirmDisclaimer,
+  logout,
+  getAppVersion
+} from '../../redux/userSlice';
 import { startNewGame } from '../game/gameSlice';
 
 const mapState = (state) => ({
@@ -16,11 +20,26 @@ const mapState = (state) => ({
   cards: state.cards
 });
 
-const mapDispatch = { selectDeck, confirmDisclaimer, logout, startNewGame };
+const mapDispatch = {
+  selectDeck,
+  confirmDisclaimer,
+  logout,
+  startNewGame,
+  getAppVersion
+};
 
 class HomeScreen extends React.Component {
   componentDidMount() {
     // this.props.logout();
+    const { dateObtained } = this.props.user.appVersion;
+    // Check for app version again after 7 days since last retrieval
+    if (
+      !dateObtained ||
+      new Date().getTime() >
+        new Date(dateObtained).getTime() + 7 * 24 * 60 * 60 * 1000
+    ) {
+      this.props.getAppVersion();
+    }
   }
 
   goToDeckSelection = () => this.props.navigation.navigate('DeckList');

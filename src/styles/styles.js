@@ -9,6 +9,19 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     padding: moderateScale(10)
   },
+  section: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: '100%'
+  },
+  keyboardAvoidingView: {
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'center',
+    width: '100%',
+    padding: moderateScale(10)
+  },
   scrollContainer: {
     flex: 1,
     padding: moderateScale(10)
@@ -20,12 +33,6 @@ const styles = StyleSheet.create({
   headerText: {
     fontSize: moderateScale(30),
     textAlign: 'center'
-  },
-  section: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: '100%'
   },
   flexStart: {
     justifyContent: 'flex-start'

@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, TextInput } from 'react-native';
+import { View, TextInput, KeyboardAvoidingView } from 'react-native';
 import AppText from '../common/AppText';
 import AppButton from '../common/AppButton';
 import styles from '../../styles/styles';
@@ -21,13 +21,16 @@ class ContactUsScreen extends React.Component {
       firstName: '',
       lastName: '',
       email: '',
-      feedback: ''
+      feedback: '',
+      inputFocused: false
     };
 
     this.handleFirstNameChange = this.handleFirstNameChange.bind(this);
     this.handleLastNameChange = this.handleLastNameChange.bind(this);
     this.handleEmailChange = this.handleEmailChange.bind(this);
     this.handleFeedbackChange = this.handleFeedbackChange.bind(this);
+    this.onFocus = this.onFocus.bind(this);
+    this.onBlur = this.onBlur.bind(this);
   }
 
   handleFirstNameChange(firstName) {
@@ -46,6 +49,14 @@ class ContactUsScreen extends React.Component {
     this.setState({ feedback });
   }
 
+  onFocus() {
+    this.setState({ inputFocused: true });
+  }
+
+  onBlur() {
+    this.setState({ inputFocused: false });
+  }
+
   sendFeedback = () => {
     const { firstName, lastName, email, feedback } = this.state;
     this.props.postUserFeedback({
@@ -57,57 +68,75 @@ class ContactUsScreen extends React.Component {
   };
 
   render() {
-    const { firstName, lastName, email, feedback } = this.state;
+    const { firstName, lastName, email, feedback, inputFocused } = this.state;
     const editable = this.props.user.status !== 'loading';
 
     return (
-      <View style={[styles.container, contactStyles.screen]}>
-        <View style={styles.section}>
-          <AppText style={contactStyles.text}>
-            Got ideas to make this game more fun?
-          </AppText>
-          <AppText style={contactStyles.text}>
-            {"Maybe you've found an error?"}
-          </AppText>
-          <AppText style={contactStyles.text}>
-            Either way, we would love to hear from you!
-          </AppText>
+      <KeyboardAvoidingView style={styles.keyboardAvoidingView}>
+        <View style={[styles.container, contactStyles.feedbackScreen]}>
+          {!inputFocused && (
+            <View style={[styles.section, contactStyles.textSection]}>
+              <AppText style={contactStyles.text}>
+                Got ideas to make this game more fun?
+              </AppText>
+              <AppText style={contactStyles.text}>
+                {"Maybe you've found an error?"}
+              </AppText>
+              <AppText style={contactStyles.text}>
+                Either way, we would love to hear from you!
+              </AppText>
+            </View>
+          )}
+          <View style={[styles.section, contactStyles.contactUsInputSection]}>
+            <TextInput
+              style={contactStyles.contactUsInput}
+              value={firstName}
+              onChangeText={this.handleFirstNameChange}
+              onFocus={this.onFocus}
+              onBlur={this.onBlur}
+              placeholder="First name"
+              editable={editable}
+            />
+            <TextInput
+              style={contactStyles.contactUsInput}
+              value={lastName}
+              onChangeText={this.handleLastNameChange}
+              onFocus={this.onFocus}
+              onBlur={this.onBlur}
+              placeholder="Last name"
+              editable={editable}
+            />
+            <TextInput
+              style={contactStyles.contactUsInput}
+              value={email}
+              onChangeText={this.handleEmailChange}
+              onFocus={this.onFocus}
+              onBlur={this.onBlur}
+              placeholder="E-mail"
+              editable={editable}
+            />
+            <TextInput
+              style={[
+                contactStyles.contactUsInput,
+                contactStyles.feedbackInput
+              ]}
+              value={feedback}
+              onChangeText={this.handleFeedbackChange}
+              onFocus={this.onFocus}
+              onBlur={this.onBlur}
+              placeholder="Feedback"
+              multiline={true}
+              editable={editable}
+              numberOfLines={5}
+            />
+          </View>
+          {!inputFocused && (
+            <View style={[styles.section, contactStyles.fedbackButtonSection]}>
+              <AppButton title="Save" onPress={this.sendFeedback} />
+            </View>
+          )}
         </View>
-        <View style={styles.section}>
-          <TextInput
-            style={contactStyles.contactUsInput}
-            value={firstName}
-            onChangeText={this.handleFirstNameChange}
-            placeholder="First name"
-            editable={editable}
-          />
-          <TextInput
-            style={contactStyles.contactUsInput}
-            value={lastName}
-            onChangeText={this.handleLastNameChange}
-            placeholder="Last name"
-            editable={editable}
-          />
-          <TextInput
-            style={contactStyles.contactUsInput}
-            value={email}
-            onChangeText={this.handleEmailChange}
-            placeholder="E-mail"
-            editable={editable}
-          />
-          <TextInput
-            style={[contactStyles.contactUsInput, contactStyles.feedbackInput]}
-            value={feedback}
-            onChangeText={this.handleFeedbackChange}
-            placeholder="Feedback"
-            multiline={true}
-            editable={editable}
-          />
-        </View>
-        <View style={styles.section}>
-          <AppButton title="Save" onPress={this.sendFeedback} />
-        </View>
-      </View>
+      </KeyboardAvoidingView>
     );
   }
 }

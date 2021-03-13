@@ -19,9 +19,15 @@ Simple drinking game as a mobile application. Each card dictates who drinks or w
 4. Open another terminal and run `npm run android`. Following a successful build, return to first CLI to see the installation
 5. On successful installation, the app should begin on your phone.
 
+## Notes for Development
+
+- If any environment variables are changed in any .env file, you will need to stop any react-native processes and start again while also resetting cache using `npm run start-rc`.
+
 ## Production
 
 Not currently deployed.
+
+1. Populate environment variables in .env file
 
 ## Authors
 

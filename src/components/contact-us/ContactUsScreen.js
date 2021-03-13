@@ -7,6 +7,7 @@ import contactStyles from '../../styles/contactStyles';
 import { postUserFeedback, resetStatus } from '../../redux/userSlice';
 import { connect } from 'react-redux';
 import FeedbackSuccessScreen from './FeedbackSuccessScreen';
+import SpinnerOverlay from '../common/SpinnerOverlay';
 
 const mapState = (state) => ({
   user: state.user
@@ -106,68 +107,75 @@ class ContactUsScreen extends React.Component {
       return <FeedbackSuccessScreen onPress={this.resetFeedbackScreen} />;
     }
 
+    const isLoading = status === 'loading';
+
     return (
-      <KeyboardAvoidingView style={styles.keyboardAvoidingView}>
-        <View style={[styles.container, contactStyles.feedbackScreen]}>
-          {!keyboardShowing && (
-            <View style={[styles.section, contactStyles.textSection]}>
-              <AppText style={contactStyles.text}>
-                Got ideas to make this game more fun?
-              </AppText>
-              <AppText style={contactStyles.text}>
-                {"Or maybe you've found an error?"}
-              </AppText>
-              <AppText style={contactStyles.text}>
-                {"Either way, we'd love to hear from you!"}
-              </AppText>
+      <>
+        <KeyboardAvoidingView style={styles.keyboardAvoidingView}>
+          <View style={[styles.container, contactStyles.feedbackScreen]}>
+            {!keyboardShowing && (
+              <View style={[styles.section, contactStyles.textSection]}>
+                <AppText style={contactStyles.text}>
+                  Got ideas to make this game more fun?
+                </AppText>
+                <AppText style={contactStyles.text}>
+                  {"Or maybe you've found an error?"}
+                </AppText>
+                <AppText style={contactStyles.text}>
+                  {"Either way, we'd love to hear from you!"}
+                </AppText>
+              </View>
+            )}
+            <View style={[styles.section, contactStyles.contactUsInputSection]}>
+              <TextInput
+                style={contactStyles.contactUsInput}
+                value={firstName}
+                onChangeText={this.handleFirstNameChange}
+                onFocus={this.keyboardDidShow}
+                placeholder="First name"
+                editable={!isLoading}
+              />
+              <TextInput
+                style={contactStyles.contactUsInput}
+                value={lastName}
+                onChangeText={this.handleLastNameChange}
+                onFocus={this.keyboardDidShow}
+                placeholder="Last name"
+                editable={!isLoading}
+              />
+              <TextInput
+                style={contactStyles.contactUsInput}
+                value={email}
+                onChangeText={this.handleEmailChange}
+                onFocus={this.keyboardDidShow}
+                placeholder="E-mail"
+                editable={!isLoading}
+              />
+              <TextInput
+                style={[
+                  contactStyles.contactUsInput,
+                  contactStyles.feedbackInput
+                ]}
+                value={feedback}
+                onChangeText={this.handleFeedbackChange}
+                onFocus={this.keyboardDidShow}
+                placeholder="Feedback"
+                multiline={true}
+                editable={!isLoading}
+                numberOfLines={5}
+              />
             </View>
-          )}
-          <View style={[styles.section, contactStyles.contactUsInputSection]}>
-            <TextInput
-              style={contactStyles.contactUsInput}
-              value={firstName}
-              onChangeText={this.handleFirstNameChange}
-              onFocus={this.keyboardDidShow}
-              placeholder="First name"
-              editable={status !== 'loading'}
-            />
-            <TextInput
-              style={contactStyles.contactUsInput}
-              value={lastName}
-              onChangeText={this.handleLastNameChange}
-              onFocus={this.keyboardDidShow}
-              placeholder="Last name"
-              editable={status !== 'loading'}
-            />
-            <TextInput
-              style={contactStyles.contactUsInput}
-              value={email}
-              onChangeText={this.handleEmailChange}
-              onFocus={this.keyboardDidShow}
-              placeholder="E-mail"
-              editable={status !== 'loading'}
-            />
-            <TextInput
-              style={[
-                contactStyles.contactUsInput,
-                contactStyles.feedbackInput
-              ]}
-              value={feedback}
-              onChangeText={this.handleFeedbackChange}
-              onFocus={this.keyboardDidShow}
-              placeholder="Feedback"
-              multiline={true}
-              editable={status !== 'loading'}
-              numberOfLines={5}
-            />
+            {!keyboardShowing && (
+              <View
+                style={[styles.section, contactStyles.feedbackButtonSection]}
+              >
+                <AppButton title="Save" onPress={this.sendFeedback} />
+              </View>
+            )}
           </View>
-          {!keyboardShowing && (
-            <View style={[styles.section, contactStyles.feedbackButtonSection]}>
-              <AppButton title="Save" onPress={this.sendFeedback} />
-            </View>
-          )}
-        </View>
-      </KeyboardAvoidingView>
+        </KeyboardAvoidingView>
+        <SpinnerOverlay show={isLoading} />
+      </>
     );
   }
 }

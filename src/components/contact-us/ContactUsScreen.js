@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, TextInput, KeyboardAvoidingView } from 'react-native';
+import { View, TextInput, KeyboardAvoidingView, Keyboard } from 'react-native';
 import AppText from '../common/AppText';
 import AppButton from '../common/AppButton';
 import styles from '../../styles/styles';
@@ -22,15 +22,39 @@ class ContactUsScreen extends React.Component {
       lastName: '',
       email: '',
       feedback: '',
-      inputFocused: false
+      keyboardShowing: false
     };
 
+    this.keyboardDidShow = this.keyboardDidShow.bind(this);
+    this.keyboardDidHide = this.keyboardDidHide.bind(this);
     this.handleFirstNameChange = this.handleFirstNameChange.bind(this);
     this.handleLastNameChange = this.handleLastNameChange.bind(this);
     this.handleEmailChange = this.handleEmailChange.bind(this);
     this.handleFeedbackChange = this.handleFeedbackChange.bind(this);
-    this.onFocus = this.onFocus.bind(this);
-    this.onBlur = this.onBlur.bind(this);
+  }
+
+  componentDidMount() {
+    this.keyboardDidShowListener = Keyboard.addListener(
+      'keyboardDidShow',
+      this.keyboardDidShow
+    );
+    this.keyboardDidHideListener = Keyboard.addListener(
+      'keyboardDidHide',
+      this.keyboardDidHide
+    );
+  }
+
+  componentWillUnmount() {
+    this.keyboardDidShowListener.remove();
+    this.keyboardDidHideListener.remove();
+  }
+
+  keyboardDidShow() {
+    this.setState({ keyboardShowing: true });
+  }
+
+  keyboardDidHide() {
+    this.setState({ keyboardShowing: false });
   }
 
   handleFirstNameChange(firstName) {
@@ -49,14 +73,6 @@ class ContactUsScreen extends React.Component {
     this.setState({ feedback });
   }
 
-  onFocus() {
-    this.setState({ inputFocused: true });
-  }
-
-  onBlur() {
-    this.setState({ inputFocused: false });
-  }
-
   sendFeedback = () => {
     const { firstName, lastName, email, feedback } = this.state;
     this.props.postUserFeedback({
@@ -68,13 +84,19 @@ class ContactUsScreen extends React.Component {
   };
 
   render() {
-    const { firstName, lastName, email, feedback, inputFocused } = this.state;
+    const {
+      firstName,
+      lastName,
+      email,
+      feedback,
+      keyboardShowing
+    } = this.state;
     const editable = this.props.user.status !== 'loading';
 
     return (
       <KeyboardAvoidingView style={styles.keyboardAvoidingView}>
         <View style={[styles.container, contactStyles.feedbackScreen]}>
-          {!inputFocused && (
+          {!keyboardShowing && (
             <View style={[styles.section, contactStyles.textSection]}>
               <AppText style={contactStyles.text}>
                 Got ideas to make this game more fun?
@@ -92,8 +114,7 @@ class ContactUsScreen extends React.Component {
               style={contactStyles.contactUsInput}
               value={firstName}
               onChangeText={this.handleFirstNameChange}
-              onFocus={this.onFocus}
-              onBlur={this.onBlur}
+              onFocus={this.keyboardDidShow}
               placeholder="First name"
               editable={editable}
             />
@@ -101,8 +122,7 @@ class ContactUsScreen extends React.Component {
               style={contactStyles.contactUsInput}
               value={lastName}
               onChangeText={this.handleLastNameChange}
-              onFocus={this.onFocus}
-              onBlur={this.onBlur}
+              onFocus={this.keyboardDidShow}
               placeholder="Last name"
               editable={editable}
             />
@@ -110,8 +130,7 @@ class ContactUsScreen extends React.Component {
               style={contactStyles.contactUsInput}
               value={email}
               onChangeText={this.handleEmailChange}
-              onFocus={this.onFocus}
-              onBlur={this.onBlur}
+              onFocus={this.keyboardDidShow}
               placeholder="E-mail"
               editable={editable}
             />
@@ -122,15 +141,14 @@ class ContactUsScreen extends React.Component {
               ]}
               value={feedback}
               onChangeText={this.handleFeedbackChange}
-              onFocus={this.onFocus}
-              onBlur={this.onBlur}
+              onFocus={this.keyboardDidShow}
               placeholder="Feedback"
               multiline={true}
               editable={editable}
               numberOfLines={5}
             />
           </View>
-          {!inputFocused && (
+          {!keyboardShowing && (
             <View style={[styles.section, contactStyles.fedbackButtonSection]}>
               <AppButton title="Save" onPress={this.sendFeedback} />
             </View>

@@ -4,26 +4,29 @@ import AppText from '../common/AppText';
 import AppButton from '../common/AppButton';
 import styles from '../../styles/styles';
 import contactStyles from '../../styles/contactStyles';
-import { postUserFeedback } from '../../redux/userSlice';
+import { postUserFeedback, resetStatus } from '../../redux/userSlice';
 import { connect } from 'react-redux';
+import FeedbackSuccessScreen from './FeedbackSuccessScreen';
 
 const mapState = (state) => ({
   user: state.user
 });
 
-const mapDispatch = { postUserFeedback };
+const mapDispatch = { postUserFeedback, resetStatus };
+
+const initialState = {
+  firstName: 'aaa',
+  lastName: 's',
+  email: 'd',
+  feedback: 'sss',
+  keyboardShowing: false
+};
 
 class ContactUsScreen extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      firstName: '',
-      lastName: '',
-      email: '',
-      feedback: '',
-      keyboardShowing: false
-    };
+    this.state = { ...initialState };
 
     this.keyboardDidShow = this.keyboardDidShow.bind(this);
     this.keyboardDidHide = this.keyboardDidHide.bind(this);
@@ -79,8 +82,14 @@ class ContactUsScreen extends React.Component {
       firstName,
       lastName,
       email,
-      feedback
+      feedback,
+      userCreatedOn: new Date().toISOString()
     });
+  };
+
+  resetFeedbackScreen = () => {
+    this.setState({ ...initialState });
+    this.props.resetStatus();
   };
 
   render() {
@@ -91,7 +100,11 @@ class ContactUsScreen extends React.Component {
       feedback,
       keyboardShowing
     } = this.state;
-    const editable = this.props.user.status !== 'loading';
+    const { status } = this.props.user;
+
+    if (status === 'succeeded') {
+      return <FeedbackSuccessScreen onPress={this.resetFeedbackScreen} />;
+    }
 
     return (
       <KeyboardAvoidingView style={styles.keyboardAvoidingView}>
@@ -102,10 +115,10 @@ class ContactUsScreen extends React.Component {
                 Got ideas to make this game more fun?
               </AppText>
               <AppText style={contactStyles.text}>
-                {"Maybe you've found an error?"}
+                {"Or maybe you've found an error?"}
               </AppText>
               <AppText style={contactStyles.text}>
-                Either way, we would love to hear from you!
+                {"Either way, we'd love to hear from you!"}
               </AppText>
             </View>
           )}
@@ -116,7 +129,7 @@ class ContactUsScreen extends React.Component {
               onChangeText={this.handleFirstNameChange}
               onFocus={this.keyboardDidShow}
               placeholder="First name"
-              editable={editable}
+              editable={status !== 'loading'}
             />
             <TextInput
               style={contactStyles.contactUsInput}
@@ -124,7 +137,7 @@ class ContactUsScreen extends React.Component {
               onChangeText={this.handleLastNameChange}
               onFocus={this.keyboardDidShow}
               placeholder="Last name"
-              editable={editable}
+              editable={status !== 'loading'}
             />
             <TextInput
               style={contactStyles.contactUsInput}
@@ -132,7 +145,7 @@ class ContactUsScreen extends React.Component {
               onChangeText={this.handleEmailChange}
               onFocus={this.keyboardDidShow}
               placeholder="E-mail"
-              editable={editable}
+              editable={status !== 'loading'}
             />
             <TextInput
               style={[
@@ -144,12 +157,12 @@ class ContactUsScreen extends React.Component {
               onFocus={this.keyboardDidShow}
               placeholder="Feedback"
               multiline={true}
-              editable={editable}
+              editable={status !== 'loading'}
               numberOfLines={5}
             />
           </View>
           {!keyboardShowing && (
-            <View style={[styles.section, contactStyles.fedbackButtonSection]}>
+            <View style={[styles.section, contactStyles.feedbackButtonSection]}>
               <AppButton title="Save" onPress={this.sendFeedback} />
             </View>
           )}

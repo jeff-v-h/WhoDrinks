@@ -5,11 +5,8 @@ import { offlineActionTypes } from 'react-native-offline';
 export const postUserFeedback = createAsyncThunk(
   'user/postUserFeedback',
   async (feedback) => {
-    const response = await client.post(
-      'http://10.0.2.2:5000/api/userfeedback',
-      feedback
-    );
-    return response.data;
+    await client.post('http://10.0.2.2:5000/api/userfeedback', feedback);
+    return feedback;
   }
 );
 

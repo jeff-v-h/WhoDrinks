@@ -15,7 +15,8 @@ const contactStyles = StyleSheet.create({
   text: {
     marginBottom: moderateScale(10),
     fontSize: moderateScale(18),
-    textAlign: 'left'
+    textAlign: 'left',
+    width: '100%'
   },
   contactUsInputSection: {
     flex: 2,
@@ -30,7 +31,7 @@ const contactStyles = StyleSheet.create({
     borderBottomWidth: 1,
     width: '100%'
   },
-  fedbackButtonSection: {
+  feedbackButtonSection: {
     flex: 1,
     justifyContent: 'flex-start'
   },

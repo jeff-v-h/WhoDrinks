@@ -10,7 +10,8 @@ import { selectDeck } from './decksSlice';
 import {
   confirmDisclaimer,
   logout,
-  getAppVersion
+  getAppVersion,
+  dismissUpgrade
 } from '../../redux/userSlice';
 import { startNewGame } from '../game/gameSlice';
 
@@ -25,7 +26,8 @@ const mapDispatch = {
   confirmDisclaimer,
   logout,
   startNewGame,
-  getAppVersion
+  getAppVersion,
+  dismissUpgrade
 };
 
 class HomeScreen extends React.Component {
@@ -50,8 +52,11 @@ class HomeScreen extends React.Component {
     navigation.navigate('Game');
   };
 
+  redirectToAppStore = () => {};
+
   render() {
-    const { user, decks, confirmDisclaimer } = this.props;
+    const { user, decks, confirmDisclaimer, dismissUpgrade } = this.props;
+    const { appVersion, dismissedUpgrade } = user;
 
     return (
       <SafeAreaView style={styles.container}>
@@ -84,13 +89,46 @@ class HomeScreen extends React.Component {
           onRequestClose={() => confirmDisclaimer()}
         >
           <View style={styles.bottomPopupModal}>
-            <View style={styles.bottomPopupContent}>
+            <View style={styles.modalContent}>
               <Text style={styles.bold}>Disclaimer</Text>
               <Text>{DISCLAIMER}</Text>
               <View style={styles.rightButtonsView}>
                 <AppButton
-                  title="Okay"
+                  title="OK"
                   onPress={() => confirmDisclaimer()}
+                  style={styles.modalButton}
+                  textStyle={styles.modalButtonText}
+                />
+              </View>
+            </View>
+          </View>
+        </Modal>
+        <Modal
+          animationType="slide"
+          transparent={true}
+          visible={
+            (appVersion.recommendUpgrade && !dismissedUpgrade) ||
+            appVersion.forceUpgrade
+          }
+          onRequestClose={() => console.log('requested close')}
+        >
+          <View style={styles.modal}>
+            <View style={styles.modalContent}>
+              <Text style={styles.bold}>Upgrade</Text>
+              <Text>
+                A newer version of this app is available. Would you like to
+                download it?
+              </Text>
+              <View style={styles.rightButtonsView}>
+                <AppButton
+                  title="No"
+                  onPress={() => dismissUpgrade()}
+                  style={styles.modalButton}
+                  textStyle={styles.modalButtonText}
+                />
+                <AppButton
+                  title="OK"
+                  onPress={() => this.redirectToAppStore()}
                   style={styles.modalButton}
                   textStyle={styles.modalButtonText}
                 />

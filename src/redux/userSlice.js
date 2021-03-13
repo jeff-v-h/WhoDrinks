@@ -27,7 +27,11 @@ export const getAppVersion = createAsyncThunk(
 const userSlice = createSlice({
   name: 'user',
   initialState: {
-    appVersion: {},
+    appVersion: {
+      version,
+      latestVersion: version
+    },
+    dismissedUpgrade: false,
     confirmedDisclaimer: false,
     feedback: [],
     status: 'idle',
@@ -37,6 +41,9 @@ const userSlice = createSlice({
     logout: (state) => {
       // User login currently not implemented. Used to simply reset the redux store
       // which is completed in rootReducer
+    },
+    dismissUpgrade: (state) => {
+      state.dismissedUpgrade = true;
     },
     confirmDisclaimer: (state) => {
       state.confirmedDisclaimer = true;
@@ -59,15 +66,24 @@ const userSlice = createSlice({
       state.feedback.push({ ...action.meta.arg, status: 'failed' });
     },
     [getAppVersion.fulfilled]: (state, action) => {
-      state.appVersion = {
-        ...action.payload,
-        dateObtained: new Date().toISOString()
-      };
+      if (state.appVersion.latestVersion !== state.appVersion.version) {
+        state.appVersion = {
+          ...action.payload
+        };
+        state.dismissedUpgrade = false;
+      }
+
+      state.appVersion.dateObtained = new Date().toISOString();
     }
   }
 });
 
-export const { confirmDisclaimer, logout, resetStatus } = userSlice.actions;
+export const {
+  confirmDisclaimer,
+  logout,
+  resetStatus,
+  dismissUpgrade
+} = userSlice.actions;
 export default userSlice.reducer;
 
 /**

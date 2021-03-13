@@ -24,9 +24,10 @@ const mapDispatch = { postUserFeedback, resetStatus };
 const initialState = {
   firstName: 'aaa',
   lastName: 's',
-  email: 'd',
+  email: '',
   feedback: 'sss',
-  keyboardShowing: false
+  keyboardShowing: false,
+  emailValid: false
 };
 
 class ContactUsScreen extends React.Component {
@@ -81,7 +82,7 @@ class ContactUsScreen extends React.Component {
   }
 
   handleEmailChange(email) {
-    this.setState({ email });
+    this.setState({ email, emailValid: /\S+@\S+\.\S+/.test(email) });
   }
 
   handleFeedbackChange(feedback) {
@@ -123,7 +124,8 @@ class ContactUsScreen extends React.Component {
       lastName,
       email,
       feedback,
-      keyboardShowing
+      keyboardShowing,
+      emailValid
     } = this.state;
     const { status } = this.props.user;
 
@@ -136,6 +138,10 @@ class ContactUsScreen extends React.Component {
     }
 
     const isLoading = status === 'loading';
+    const emailInputStyles = [contactStyles.contactUsInput];
+    if (email.length > 0 && !emailValid) {
+      emailInputStyles.push(styles.redBorder);
+    }
 
     return (
       <>
@@ -172,7 +178,7 @@ class ContactUsScreen extends React.Component {
                 editable={!isLoading}
               />
               <TextInput
-                style={contactStyles.contactUsInput}
+                style={emailInputStyles}
                 value={email}
                 onChangeText={this.handleEmailChange}
                 onFocus={this.keyboardDidShow}
@@ -197,7 +203,11 @@ class ContactUsScreen extends React.Component {
               <View
                 style={[styles.section, contactStyles.feedbackButtonSection]}
               >
-                <AppButton title="Send" onPress={this.sendFeedback} />
+                <AppButton
+                  title="Send"
+                  onPress={this.sendFeedback}
+                  disabled={!emailValid || feedback.trim().length < 1}
+                />
               </View>
             )}
           </View>

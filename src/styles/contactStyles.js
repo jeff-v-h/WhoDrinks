@@ -27,17 +27,17 @@ const contactStyles = StyleSheet.create({
     paddingRight: moderateScale(10),
     marginLeft: moderateScale(10),
     marginRight: moderateScale(10),
-    fontSize: moderateScale(18),
-    borderBottomWidth: 1,
+    marginBottom: verticalScale(6),
+    fontSize: moderateScale(16),
+    borderWidth: 1,
     width: '100%'
   },
   feedbackButtonSection: {
     flex: 1,
-    justifyContent: 'flex-start'
+    justifyContent: 'flex-start',
+    paddingTop: verticalScale(20)
   },
   feedbackInput: {
-    borderWidth: 1,
-    borderTopWidth: 0,
     textAlignVertical: 'top'
   }
 });

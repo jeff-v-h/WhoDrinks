@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import client from '../services/client';
-import { API_HOST } from '../utils/env';
+import { API_HOST, API_TOKEN } from '../utils/env';
+import { version } from '../../package.json';
 import { offlineActionTypes } from 'react-native-offline';
 
 export const postUserFeedback = createAsyncThunk(
@@ -11,9 +12,40 @@ export const postUserFeedback = createAsyncThunk(
   }
 );
 
+export const getAppVersion = createAsyncThunk(
+  'user/getAppVersion',
+  async () => {
+    const resp = await client.get(`${API_HOST}/api/appversion/${version}`, {
+      headers: {
+        Authorization: `Basic ${API_TOKEN}`
+      }
+    });
+    return resp.data;
+  }
+);
+
 const userSlice = createSlice({
   name: 'user',
   initialState: {
+    appVersion: {
+      version: version,
+      latestVersion: version
+      // forceUpdate: false,
+      // recommendUpdate: false,
+      // announcement: '',
+      // androidUpdateUrl: 'market://details?id=',
+      // iOSUpdateUrl:
+      //   'itms://itunes.apple.com/us/app/apple-store/myiosappid?mt=8',
+      // associatedPrivacyPolicyVersion: 'fe-' + version,
+      // associatedTCsVersion: 'fe-' + version,
+      // forceNewTCsAgreement: false,
+      // forceNewPrivacyPolicyAgreement: false
+      // termsAndConditions: '',
+      // privacyPolicy: ''
+      // dateObtained: new Date().toISOString()
+    },
+    dismissedUpdate: false,
+    confirmedAnnouncement: false,
     confirmedDisclaimer: false,
     feedback: [],
     status: 'idle',
@@ -23,6 +55,12 @@ const userSlice = createSlice({
     logout: (state) => {
       // User login currently not implemented. Used to simply reset the redux store
       // which is completed in rootReducer
+    },
+    dismissUpdate: (state) => {
+      state.dismissedUpdate = true;
+    },
+    confirmAnnouncement: (state) => {
+      state.confirmedAnnouncement = true;
     },
     confirmDisclaimer: (state) => {
       state.confirmedDisclaimer = true;
@@ -43,11 +81,28 @@ const userSlice = createSlice({
       state.status = 'failed';
       state.error = action.error.message;
       state.feedback.push({ ...action.meta.arg, status: 'failed' });
+    },
+    [getAppVersion.fulfilled]: (state, action) => {
+      if (state.appVersion.latestVersion !== action.payload.latestVersion) {
+        state.appVersion = {
+          ...action.payload
+        };
+        state.dismissedUpdate = false;
+        state.confirmedAnnouncement = false;
+      }
+
+      state.appVersion.dateObtained = new Date().toISOString();
     }
   }
 });
 
-export const { confirmDisclaimer, logout, resetStatus } = userSlice.actions;
+export const {
+  confirmDisclaimer,
+  logout,
+  resetStatus,
+  dismissUpdate,
+  confirmAnnouncement
+} = userSlice.actions;
 export default userSlice.reducer;
 
 /**

@@ -113,12 +113,18 @@ const styles = StyleSheet.create({
   bold: {
     fontWeight: '700'
   },
+  modal: {
+    flex: 1,
+    justifyContent: 'center',
+    backgroundColor: colours.modalBlack,
+    padding: moderateScale(15)
+  },
   bottomPopupModal: {
     flex: 1,
     justifyContent: 'flex-end',
     backgroundColor: colours.modalBlack
   },
-  bottomPopupContent: {
+  modalContent: {
     padding: moderateScale(15),
     backgroundColor: colours.white
   },
@@ -126,10 +132,12 @@ const styles = StyleSheet.create({
     alignItems: 'flex-end'
   },
   modalButton: {
-    minWidth: scale(60)
+    minWidth: scale(50),
+    padding: moderateScale(2),
+    marginTop: verticalScale(5)
   },
   modalButtonText: {
-    fontSize: moderateScale(16)
+    fontSize: moderateScale(14)
   },
   spinner: {
     position: 'absolute',

@@ -23,6 +23,15 @@ Simple drinking game as a mobile application. Each card dictates who drinks or w
 
 - If any environment variables are changed in any .env file, you will need to stop any react-native processes and start again while also resetting cache using `npm run start-rc`.
 
+### Debugging
+
+Open the developer menu on phone by one of the following methods:
+
+- Once the app has finished building, in the same terminal that is currently running react-native (the one where command `npm start` was used), type the letter `d`.
+- With the emulator window open (at least for android), hit Ctrl + M to display the developer menu.
+
+Then select 'Debug' which should open up browser to http://localhost:8081/debugger-ui/. Otherwise manually open this up in chrome browser. Open developer tools. Use Ctrl + P to search for file and starting adding breakpoints for debugging.
+
 ## Production
 
 Not currently deployed.

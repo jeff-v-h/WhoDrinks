@@ -1,5 +1,13 @@
 import * as React from 'react';
-import { View, SafeAreaView, Text, Modal, Alert } from 'react-native';
+import {
+  View,
+  SafeAreaView,
+  Text,
+  Modal,
+  Alert,
+  Linking,
+  Platform
+} from 'react-native';
 import styles from '../../styles/styles';
 import HeaderText from '../common/HeaderText';
 import AppButton from '../common/AppButton';
@@ -11,7 +19,7 @@ import {
   confirmDisclaimer,
   logout,
   getAppVersion,
-  dismissUpgrade,
+  dismissedUpdate,
   confirmAnnouncement
 } from '../../redux/userSlice';
 import { startNewGame } from '../game/gameSlice';
@@ -28,7 +36,7 @@ const mapDispatch = {
   logout,
   startNewGame,
   getAppVersion,
-  dismissUpgrade,
+  dismissedUpdate,
   confirmAnnouncement
 };
 
@@ -57,13 +65,27 @@ class HomeScreen extends React.Component {
   };
 
   //#region alerts
-  redirectToAppStore() {
-    console.log('redirected');
-  }
+  redirectToAppStore = async () => {
+    const url =
+      Platform.OS === 'ios'
+        ? this.props.user.appVersion.iOSUpdateUrl
+        : this.props.user.appVersion.androidUpdateUrl;
 
-  alertForcedUpgrade = () => {
+    try {
+      const canOpen = await Linking.canOpenURL(url);
+      if (!canOpen) {
+        this.props.navigation.navigate('RedirectError');
+        return;
+      }
+      Linking.openURL(url);
+    } catch {
+      this.props.navigation.navigate('RedirectError');
+    }
+  };
+
+  forcedUpdateAlert = () => {
     Alert.alert(
-      'Update',
+      'Upgrade Required',
       'Your version is outdated, please update to the newest version!',
       [
         {
@@ -74,7 +96,7 @@ class HomeScreen extends React.Component {
     );
   };
 
-  alertRecommendedUpgrade = () => {
+  recommendUpdateAlert = () => {
     Alert.alert(
       'Update',
       'A newer version of this app is available. Would you like to download it?',
@@ -82,12 +104,12 @@ class HomeScreen extends React.Component {
         {
           text: 'Cancel',
           style: 'cancel',
-          onPress: () => this.props.dismissUpgrade()
+          onPress: () => this.props.dismissedUpdate()
         },
         {
           text: 'OK',
           onPress: () => {
-            this.props.dismissUpgrade();
+            this.props.dismissedUpdate();
             this.redirectToAppStore();
           }
         }
@@ -95,28 +117,29 @@ class HomeScreen extends React.Component {
     );
   };
 
-  alertAccouncement(announcement) {
-    Alert.alert('Accouncement', announcement, [
+  announcementAlert = () => {
+    const { user, confirmAnnouncement } = this.props;
+    Alert.alert('Accouncement', user.appVersion.announcement, [
       {
         text: 'OK',
-        onPress: () => this.props.confirmAnnouncement()
+        onPress: () => confirmAnnouncement()
       }
     ]);
-  }
+  };
 
   checkAlerts = () => {
     const {
       appVersion,
-      dismissedUpgrade,
+      dismissedUpdate,
       confirmedAnnouncement
     } = this.props.user;
 
-    if (appVersion.forceUpgrade) {
-      this.alertForcedUpgrade();
-    } else if (appVersion.recommendUpgrade && !dismissedUpgrade) {
-      this.alertRecommendedUpgrade();
+    if (appVersion.forceUpdate) {
+      this.forcedUpdateAlert();
+    } else if (appVersion.recommendUpdate && !dismissedUpdate) {
+      this.recommendUpdateAlert();
     } else if (appVersion.announcement && !confirmedAnnouncement) {
-      this.alertAccouncement(appVersion.announcement);
+      this.announcementAlert();
     }
   };
   //#endregion
@@ -124,6 +147,10 @@ class HomeScreen extends React.Component {
   render() {
     const { user, decks, confirmDisclaimer } = this.props;
     this.checkAlerts();
+
+    if (user.appVersion.forceUpdate) {
+      return <View style={styles.container} />;
+    }
 
     return (
       <SafeAreaView style={styles.container}>

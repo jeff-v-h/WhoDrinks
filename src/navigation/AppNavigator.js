@@ -10,6 +10,7 @@ import ConfigureCardsScreen from '../components/decks/ConfigureCardsScreen';
 import ContactUsScreen from '../components/contact-us/ContactUsScreen';
 import HeaderMenuButton from '../components/common/HeaderMenuButton';
 import DisclaimerScreen from '../components/legal/DisclaimerScreen';
+import RedirectError from '../components/errors/RedirectError';
 
 const Drawer = createDrawerNavigator();
 const DecksConfigStack = createStackNavigator();
@@ -116,6 +117,7 @@ function AppNavigator() {
       <Drawer.Screen name="Rules" component={RulesNavigationStack} />
       <Drawer.Screen name="Contact Us" component={ContactNavigationStack} />
       <Drawer.Screen name="Legal/Disclaimer" component={LegalNavigationStack} />
+      <Drawer.Screen name="RedirectError" component={RedirectError} />
     </Drawer.Navigator>
   );
 }

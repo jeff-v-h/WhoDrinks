@@ -31,7 +31,7 @@ const userSlice = createSlice({
       version: version,
       latestVersion: version
     },
-    dismissedUpgrade: false,
+    dismissedUpdate: false,
     confirmedAnnouncement: false,
     confirmedDisclaimer: false,
     feedback: [],
@@ -43,8 +43,8 @@ const userSlice = createSlice({
       // User login currently not implemented. Used to simply reset the redux store
       // which is completed in rootReducer
     },
-    dismissUpgrade: (state) => {
-      state.dismissedUpgrade = true;
+    dismissUpdate: (state) => {
+      state.dismissedUpdate = true;
     },
     confirmAnnouncement: (state) => {
       state.confirmedAnnouncement = true;
@@ -74,7 +74,7 @@ const userSlice = createSlice({
         state.appVersion = {
           ...action.payload
         };
-        state.dismissedUpgrade = false;
+        state.dismissedUpdate = false;
         state.confirmedAnnouncement = false;
       }
 
@@ -87,7 +87,7 @@ export const {
   confirmDisclaimer,
   logout,
   resetStatus,
-  dismissUpgrade,
+  dismissUpdate,
   confirmAnnouncement
 } = userSlice.actions;
 export default userSlice.reducer;

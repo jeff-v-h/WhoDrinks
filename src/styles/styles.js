@@ -126,10 +126,12 @@ const styles = StyleSheet.create({
     alignItems: 'flex-end'
   },
   modalButton: {
-    minWidth: scale(60)
+    minWidth: scale(50),
+    padding: moderateScale(2),
+    marginTop: verticalScale(5)
   },
   modalButtonText: {
-    fontSize: moderateScale(16)
+    fontSize: moderateScale(14)
   },
   spinner: {
     position: 'absolute',

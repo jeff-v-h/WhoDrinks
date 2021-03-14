@@ -32,6 +32,7 @@ const userSlice = createSlice({
       latestVersion: version
     },
     dismissedUpgrade: false,
+    confirmedAnnouncement: false,
     confirmedDisclaimer: false,
     feedback: [],
     status: 'idle',
@@ -44,6 +45,9 @@ const userSlice = createSlice({
     },
     dismissUpgrade: (state) => {
       state.dismissedUpgrade = true;
+    },
+    confirmAnnouncement: (state) => {
+      state.confirmedAnnouncement = true;
     },
     confirmDisclaimer: (state) => {
       state.confirmedDisclaimer = true;
@@ -71,6 +75,7 @@ const userSlice = createSlice({
           ...action.payload
         };
         state.dismissedUpgrade = false;
+        state.confirmedAnnouncement = false;
       }
 
       state.appVersion.dateObtained = new Date().toISOString();
@@ -82,7 +87,8 @@ export const {
   confirmDisclaimer,
   logout,
   resetStatus,
-  dismissUpgrade
+  dismissUpgrade,
+  confirmAnnouncement
 } = userSlice.actions;
 export default userSlice.reducer;
 

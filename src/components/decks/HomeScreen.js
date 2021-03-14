@@ -11,7 +11,8 @@ import {
   confirmDisclaimer,
   logout,
   getAppVersion,
-  dismissUpgrade
+  dismissUpgrade,
+  confirmAnnouncement
 } from '../../redux/userSlice';
 import { startNewGame } from '../game/gameSlice';
 
@@ -27,7 +28,8 @@ const mapDispatch = {
   logout,
   startNewGame,
   getAppVersion,
-  dismissUpgrade
+  dismissUpgrade,
+  confirmAnnouncement
 };
 
 class HomeScreen extends React.Component {
@@ -54,8 +56,22 @@ class HomeScreen extends React.Component {
     navigation.navigate('Game');
   };
 
-  redirectToAppStore = () => {
+  //#region alerts
+  redirectToAppStore() {
     console.log('redirected');
+  }
+
+  alertForcedUpgrade = () => {
+    Alert.alert(
+      'Update',
+      'Your version is outdated, please update to the newest version!',
+      [
+        {
+          text: 'Open app store',
+          onPress: () => this.redirectToAppStore()
+        }
+      ]
+    );
   };
 
   alertRecommendedUpgrade = () => {
@@ -79,13 +95,35 @@ class HomeScreen extends React.Component {
     );
   };
 
+  alertAccouncement(announcement) {
+    Alert.alert('Accouncement', announcement, [
+      {
+        text: 'OK',
+        onPress: () => this.props.confirmAnnouncement()
+      }
+    ]);
+  }
+
+  checkAlerts = () => {
+    const {
+      appVersion,
+      dismissedUpgrade,
+      confirmedAnnouncement
+    } = this.props.user;
+
+    if (appVersion.forceUpgrade) {
+      this.alertForcedUpgrade();
+    } else if (appVersion.recommendUpgrade && !dismissedUpgrade) {
+      this.alertRecommendedUpgrade();
+    } else if (appVersion.announcement && !confirmedAnnouncement) {
+      this.alertAccouncement(appVersion.announcement);
+    }
+  };
+  //#endregion
+
   render() {
     const { user, decks, confirmDisclaimer } = this.props;
-    const { appVersion, dismissedUpgrade } = user;
-
-    if (appVersion.recommendUpgrade && !dismissedUpgrade) {
-      this.alertRecommendedUpgrade();
-    }
+    this.checkAlerts();
 
     return (
       <SafeAreaView style={styles.container}>

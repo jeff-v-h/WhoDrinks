@@ -30,6 +30,19 @@ const userSlice = createSlice({
     appVersion: {
       version: version,
       latestVersion: version
+      // forceUpdate: false,
+      // recommendUpdate: false,
+      // announcement: '',
+      // androidUpdateUrl: 'market://details?id=',
+      // iOSUpdateUrl:
+      //   'itms://itunes.apple.com/us/app/apple-store/myiosappid?mt=8',
+      // associatedPrivacyPolicyVersion: 'fe-' + version,
+      // associatedTCsVersion: 'fe-' + version,
+      // forceNewTCsAgreement: false,
+      // forceNewPrivacyPolicyAgreement: false
+      // termsAndConditions: '',
+      // privacyPolicy: ''
+      // dateObtained: new Date().toISOString()
     },
     dismissedUpdate: false,
     confirmedAnnouncement: false,

@@ -28,7 +28,7 @@ const userSlice = createSlice({
   name: 'user',
   initialState: {
     appVersion: {
-      version,
+      version: version,
       latestVersion: version
     },
     dismissedUpgrade: false,
@@ -66,7 +66,7 @@ const userSlice = createSlice({
       state.feedback.push({ ...action.meta.arg, status: 'failed' });
     },
     [getAppVersion.fulfilled]: (state, action) => {
-      if (state.appVersion.latestVersion !== state.appVersion.version) {
+      if (state.appVersion.latestVersion !== action.payload.latestVersion) {
         state.appVersion = {
           ...action.payload
         };

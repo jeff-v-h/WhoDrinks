@@ -113,12 +113,6 @@ const styles = StyleSheet.create({
   bold: {
     fontWeight: '700'
   },
-  modal: {
-    flex: 1,
-    justifyContent: 'center',
-    padding: moderateScale(20),
-    backgroundColor: colours.modalBlack
-  },
   bottomPopupModal: {
     flex: 1,
     justifyContent: 'flex-end',

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { View, SafeAreaView, Text, Modal } from 'react-native';
+import { View, SafeAreaView, Text, Modal, Alert } from 'react-native';
 import styles from '../../styles/styles';
 import HeaderText from '../common/HeaderText';
 import AppButton from '../common/AppButton';
@@ -34,14 +34,16 @@ class HomeScreen extends React.Component {
   componentDidMount() {
     // this.props.logout();
     const { dateObtained } = this.props.user.appVersion;
-    // Check for app version again after 7 days since last retrieval
-    if (
-      !dateObtained ||
-      new Date().getTime() >
-        new Date(dateObtained).getTime() + 7 * 24 * 60 * 60 * 1000
-    ) {
+    if (!dateObtained || this.isDateOverOneWeekAgo(dateObtained)) {
       this.props.getAppVersion();
     }
+  }
+
+  isDateOverOneWeekAgo(dateString) {
+    return (
+      new Date().getTime() >
+      new Date(dateString).getTime() + 7 * 24 * 60 * 60 * 1000
+    );
   }
 
   goToDeckSelection = () => this.props.navigation.navigate('DeckList');
@@ -52,11 +54,38 @@ class HomeScreen extends React.Component {
     navigation.navigate('Game');
   };
 
-  redirectToAppStore = () => {};
+  redirectToAppStore = () => {
+    console.log('redirected');
+  };
+
+  alertRecommendedUpgrade = () => {
+    Alert.alert(
+      'Update',
+      'A newer version of this app is available. Would you like to download it?',
+      [
+        {
+          text: 'Cancel',
+          style: 'cancel',
+          onPress: () => this.props.dismissUpgrade()
+        },
+        {
+          text: 'OK',
+          onPress: () => {
+            this.props.dismissUpgrade();
+            this.redirectToAppStore();
+          }
+        }
+      ]
+    );
+  };
 
   render() {
-    const { user, decks, confirmDisclaimer, dismissUpgrade } = this.props;
+    const { user, decks, confirmDisclaimer } = this.props;
     const { appVersion, dismissedUpgrade } = user;
+
+    if (appVersion.recommendUpgrade && !dismissedUpgrade) {
+      this.alertRecommendedUpgrade();
+    }
 
     return (
       <SafeAreaView style={styles.container}>
@@ -96,39 +125,6 @@ class HomeScreen extends React.Component {
                 <AppButton
                   title="OK"
                   onPress={() => confirmDisclaimer()}
-                  style={styles.modalButton}
-                  textStyle={styles.modalButtonText}
-                />
-              </View>
-            </View>
-          </View>
-        </Modal>
-        <Modal
-          animationType="slide"
-          transparent={true}
-          visible={
-            (appVersion.recommendUpgrade && !dismissedUpgrade) ||
-            appVersion.forceUpgrade
-          }
-          onRequestClose={() => console.log('requested close')}
-        >
-          <View style={styles.modal}>
-            <View style={styles.modalContent}>
-              <Text style={styles.bold}>Upgrade</Text>
-              <Text>
-                A newer version of this app is available. Would you like to
-                download it?
-              </Text>
-              <View style={styles.rightButtonsView}>
-                <AppButton
-                  title="No"
-                  onPress={() => dismissUpgrade()}
-                  style={styles.modalButton}
-                  textStyle={styles.modalButtonText}
-                />
-                <AppButton
-                  title="OK"
-                  onPress={() => this.redirectToAppStore()}
                   style={styles.modalButton}
                   textStyle={styles.modalButtonText}
                 />

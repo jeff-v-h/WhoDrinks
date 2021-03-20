@@ -110,10 +110,10 @@ export const asianCardContentList = [
 ];
 
 const asianDeck = {
-  id: 'c308e166-4d70-11eb-ae93-0242ac130002',
+  id: '60532062c0302a59f26c4117',
   name: 'Asian',
   cards: asianCardContentList,
-  type: GameTypesEnum.asian
+  tags: [GameTypesEnum.standard, GameTypesEnum.preMade]
 };
 
 export default asianDeck;

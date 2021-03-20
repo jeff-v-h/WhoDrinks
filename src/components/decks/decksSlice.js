@@ -9,12 +9,12 @@ const decksSlice = createSlice({
       [standardDeck.id]: {
         id: standardDeck.id,
         name: standardDeck.name,
-        type: standardDeck.type
+        tags: standardDeck.tags
       },
       [asianDeck.id]: {
         id: asianDeck.id,
         name: asianDeck.name,
-        type: asianDeck.type
+        tags: asianDeck.tags
       }
     },
     allIds: [standardDeck.id, asianDeck.id],
@@ -23,13 +23,13 @@ const decksSlice = createSlice({
   },
   reducers: {
     saveDeck: (state, action) => {
-      const { id, name, type } = action.payload;
+      const { id, name, tags } = action.payload;
 
       if (!state.byId[id]) {
         state.allIds.push(id);
       }
 
-      state.byId[id] = { id, name, type };
+      state.byId[id] = { id, name, tags };
     },
     selectDeck: (state, action) => {
       state.selectedId = action.payload;

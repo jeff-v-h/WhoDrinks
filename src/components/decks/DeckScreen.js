@@ -62,7 +62,7 @@ class DeckScreen extends React.Component {
       id: uuid.v1(),
       name: this.getAvailableDeckName(),
       cards: [],
-      type: GameTypesEnum.custom
+      tags: [GameTypesEnum.custom]
     };
     this.props.saveDeck(newDeck);
     return newDeck;

@@ -193,10 +193,10 @@ export const cardContentList = [
 ];
 
 const standardDeck = {
-  id: 'b7ab77ca-4d70-11eb-ae93-0242ac130002',
+  id: '605320d3ee13192611b07a76',
   name: 'Standard',
   cards: cardContentList,
-  type: GameTypesEnum.standard
+  tags: [GameTypesEnum.standard, GameTypesEnum.preMade]
 };
 
 export default standardDeck;

@@ -20,24 +20,24 @@ import ObjectId from 'bson-objectid';
 import {
   saveDeck,
   deleteDeck,
-  selectDeckToEdit,
-  postCreateDeck
+  selectDeckToEdit
+  // postCreateDeck
 } from './decksSlice';
 import { selectCardToEdit } from './cardsSlice';
 import { connect } from 'react-redux';
 
 const mapState = (state) => ({
   decks: state.decks,
-  cards: state.cards,
-  user: state.user
+  cards: state.cards
+  // user: state.user
 });
 
 const mapDispatch = {
   saveDeck,
   deleteDeck,
   selectDeckToEdit,
-  selectCardToEdit,
-  postCreateDeck
+  selectCardToEdit
+  // postCreateDeck
 };
 
 class DeckScreen extends React.Component {
@@ -89,16 +89,16 @@ class DeckScreen extends React.Component {
     return name;
   };
 
-  publishDeck = async () => {
-    const { postCreateDeck, decks, user, cards } = this.props;
-    const deckToPost = {
-      ...decks.byId[decks.editingDeckId],
-      cards: cards.byDeckId[decks.editingDeckId],
-      userId: ObjectId().toHexString()
-    };
-    this.hideMenu();
-    await postCreateDeck(deckToPost);
-  };
+  // publishDeck = async () => {
+  //   const { postCreateDeck, decks, user, cards } = this.props;
+  //   const deckToPost = {
+  //     ...decks.byId[decks.editingDeckId],
+  //     cards: cards.byDeckId[decks.editingDeckId],
+  //     userId: ObjectId().toHexString()
+  //   };
+  //   this.hideMenu();
+  //   await postCreateDeck(deckToPost);
+  // };
 
   //#region dropdown menu
   _menu = null;
@@ -180,7 +180,6 @@ class DeckScreen extends React.Component {
   render() {
     const { deckName, selection, modalVisible } = this.state;
     const { decks, cards } = this.props;
-    console.log('decks by id', decks.byId);
 
     return (
       <SafeAreaView style={styles.container}>
@@ -203,9 +202,9 @@ class DeckScreen extends React.Component {
               }
             >
               <MenuItem onPress={this.openEditModal}>Edit Name</MenuItem>
-              <MenuItem onPress={this.publishDeck}>
+              {/* <MenuItem onPress={this.publishDeck}>
                 Publish Deck Online
-              </MenuItem>
+              </MenuItem> */}
               <MenuItem onPress={this.confirmDelete}>Delete</MenuItem>
             </Menu>
           </View>

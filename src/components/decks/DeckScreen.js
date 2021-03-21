@@ -16,7 +16,7 @@ import IconButton from '../common/IconButton';
 import { GameTypesEnum } from '../../utils/enums';
 import Menu, { MenuItem } from 'react-native-material-menu';
 import AppButton from '../common/AppButton';
-import uuid from 'uuid';
+import ObjectId from 'bson-objectid';
 import { saveDeck, deleteDeck, selectDeckToEdit } from './decksSlice';
 import { selectCardToEdit } from './cardsSlice';
 import { connect } from 'react-redux';
@@ -59,7 +59,7 @@ class DeckScreen extends React.Component {
 
   createNewDeck = () => {
     const newDeck = {
-      id: uuid.v1(),
+      id: ObjectId(),
       name: this.getAvailableDeckName(),
       cards: [],
       tags: [GameTypesEnum.custom]

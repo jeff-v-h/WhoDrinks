@@ -16,7 +16,7 @@ export const postUserFeedback = createAsyncThunk(
 export const getAppVersion = createAsyncThunk(
   'user/getAppVersion',
   async () => {
-    const resp = await client.get(`${API_HOST}/api/appversion/${version}`, {
+    const resp = await client.get(`${API_HOST}/api/appversions/${version}`, {
       headers: {
         Authorization: `Basic ${API_TOKEN}`
       }

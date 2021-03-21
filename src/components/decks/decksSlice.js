@@ -12,7 +12,7 @@ const headers = {
 export const postCreateDeck = createAsyncThunk(
   'decks/postCreateDeck',
   async (deck) => {
-    const resp = await client.post(`${API_HOST}/api/deck`, deck, { headers });
+    const resp = await client.post(`${API_HOST}/api/decks`, deck, { headers });
 
     return {
       ...deck,

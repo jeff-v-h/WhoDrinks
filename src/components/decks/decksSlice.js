@@ -5,20 +5,27 @@ import client from '../../services/client';
 import { API_HOST, API_TOKEN } from '../../utils/env';
 import { RequestStatusEnum } from '../../utils/enums';
 
+const headers = {
+  Authorization: `Basic ${API_TOKEN}`
+};
+
 export const postCreateDeck = createAsyncThunk(
   'decks/postCreateDeck',
   async (deck) => {
-    const resp = await client.post(`${API_HOST}/api/deck`, deck, {
-      headers: {
-        Authorization: `Basic ${API_TOKEN}`
-      }
-    });
+    const resp = await client.post(`${API_HOST}/api/deck`, deck, { headers });
 
     return {
       ...deck,
       previousDeckId: deck.id,
       id: resp.data.id
     };
+  }
+);
+
+export const getPublicDecks = createAsyncThunk(
+  'decks/getPublicDecks',
+  async () => {
+    return await client.get(`${API_HOST}/api/decks`, { headers }).data;
   }
 );
 
@@ -42,7 +49,10 @@ const decksSlice = createSlice({
     selectedId: standardDeck.id,
     editingDeckId: standardDeck.id,
     status: RequestStatusEnum.idle,
-    error: null
+    error: null,
+    publicById: {},
+    allPublicIds: [],
+    selectedPublicId: null
   },
   reducers: {
     saveDeck: (state, action) => {
@@ -95,6 +105,25 @@ const decksSlice = createSlice({
       state.status = RequestStatusEnum.succeeded;
     },
     [postCreateDeck.rejected]: (state, action) => {
+      state.status = RequestStatusEnum.failed;
+      state.error = action.error.message;
+    },
+    [getPublicDecks.pending]: (state) => {
+      state.status = RequestStatusEnum.loading;
+    },
+    [getPublicDecks.fulfilled]: (state, action) => {
+      const ids = [];
+      const deckData = {};
+      action.payload.forEach((deck) => {
+        ids.push(deck.id);
+        deckData[id] = deck;
+      });
+
+      state.publicById = deckData;
+      state.allPublicIds = ids;
+      state.status = RequestStatusEnum.succeeded;
+    },
+    [getPublicDecks.rejected]: (state) => {
       state.status = RequestStatusEnum.failed;
       state.error = action.error.message;
     }

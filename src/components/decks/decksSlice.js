@@ -84,6 +84,7 @@ const decksSlice = createSlice({
     [postCreateDeck.rejected]: (state, action) => {
       state.status = RequestStatusEnum.failed;
       state.error = action.error.message;
+      console.log('action pauyload in failed', action.error);
     }
   }
 });

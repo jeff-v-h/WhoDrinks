@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import standardDeck from '../../utils/decks/standard-deck';
 import asianDeck from '../../utils/decks/asian-deck';
-import { saveDeck } from './decksSlice';
+import { saveDeck, postCreateDeck } from './decksSlice';
 
 const cardsSlice = createSlice({
   name: 'cards',
@@ -32,12 +32,19 @@ const cardsSlice = createSlice({
     }
   },
   extraReducers: (builder) => {
-    builder.addCase(saveDeck, (state, action) => {
-      const { cards, id } = action.payload;
-      if (cards) {
-        state.byDeckId[id] = cards;
-      }
-    });
+    builder
+      .addCase(saveDeck, (state, action) => {
+        const { cards, id } = action.payload;
+        if (cards) {
+          state.byDeckId[id] = cards;
+        }
+      })
+      .addCase(postCreateDeck.fulfilled, (state, action) => {
+        console.log('postcreatedeck in cardslice succeeded', action.payload);
+      })
+      .addCase(postCreateDeck.rejected, (state, action) => {
+        console.log('postcreatedeck in cardslice failed', action.error);
+      });
   }
 });
 

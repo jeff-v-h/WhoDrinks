@@ -17,20 +17,27 @@ import { GameTypesEnum } from '../../utils/enums';
 import Menu, { MenuItem } from 'react-native-material-menu';
 import AppButton from '../common/AppButton';
 import ObjectId from 'bson-objectid';
-import { saveDeck, deleteDeck, selectDeckToEdit } from './decksSlice';
+import {
+  saveDeck,
+  deleteDeck,
+  selectDeckToEdit,
+  postCreateDeck
+} from './decksSlice';
 import { selectCardToEdit } from './cardsSlice';
 import { connect } from 'react-redux';
 
 const mapState = (state) => ({
   decks: state.decks,
-  cards: state.cards
+  cards: state.cards,
+  user: state.user
 });
 
 const mapDispatch = {
   saveDeck,
   deleteDeck,
   selectDeckToEdit,
-  selectCardToEdit
+  selectCardToEdit,
+  postCreateDeck
 };
 
 class DeckScreen extends React.Component {
@@ -123,6 +130,18 @@ class DeckScreen extends React.Component {
   };
   //#endregion
 
+  publishDeck = () => {
+    const { postCreateDeck, decks, user, cards } = this.props;
+    const deckToPost = {
+      ...decks.byId[decks.editingDeckId],
+      cards: cards.byDeckId[decks.editingDeckId],
+      userId: ObjectId()
+    };
+    this.hideMenu();
+    console.log('deecktopost', deckToPost);
+    postCreateDeck(deckToPost);
+  };
+
   confirmDelete = () => {
     const { decks, deleteDeck, navigation } = this.props;
     if (decks.selectedId === decks.editingDeckId) {
@@ -184,6 +203,9 @@ class DeckScreen extends React.Component {
               }
             >
               <MenuItem onPress={this.openEditModal}>Edit Name</MenuItem>
+              <MenuItem onPress={this.publishDeck}>
+                Publish Deck Online
+              </MenuItem>
               <MenuItem onPress={this.confirmDelete}>Delete</MenuItem>
             </Menu>
           </View>

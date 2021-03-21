@@ -3,6 +3,7 @@ import decksReducer from '../components/decks/decksSlice';
 import cardsReducer from '../components/decks/cardsSlice';
 import gameReducer from '../components/game/gameSlice';
 import userReducer from './userSlice';
+import communityReducer from '../components/community/communitySlice';
 import { reducer as network } from 'react-native-offline';
 
 const appReducer = combineReducers({
@@ -10,6 +11,7 @@ const appReducer = combineReducers({
   decks: decksReducer,
   cards: cardsReducer,
   game: gameReducer,
+  community: communityReducer,
   network
 });
 

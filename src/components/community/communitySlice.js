@@ -10,7 +10,8 @@ const headers = {
 export const getCommunityDecks = createAsyncThunk(
   'decks/getCommunityDecks',
   async () => {
-    return await client.get(`${API_HOST}/api/decks`, { headers }).data;
+    const resp = await client.get(`${API_HOST}/api/decks`, { headers });
+    return resp.data;
   }
 );
 
@@ -38,7 +39,7 @@ const communitySlice = createSlice({
 
       action.payload.forEach((deck) => {
         state.allIds.push(deck.id);
-        state.byId[id] = deck;
+        state.byId[deck.id] = deck;
       });
 
       state.status = RequestStatusEnum.succeeded;

@@ -11,6 +11,7 @@ import ContactUsScreen from '../components/contact-us/ContactUsScreen';
 import HeaderMenuButton from '../components/common/HeaderMenuButton';
 import DisclaimerScreen from '../components/legal/DisclaimerScreen';
 import RedirectError from '../components/errors/RedirectError';
+import CommunityDeckListScreen from '../components/community/CommunityDeckListScreen';
 
 const Drawer = createDrawerNavigator();
 const DecksConfigStack = createStackNavigator();
@@ -18,6 +19,7 @@ const GameStack = createStackNavigator();
 const RulesStack = createStackNavigator();
 const ContactStack = createStackNavigator();
 const LegalStack = createStackNavigator();
+const CommunityStack = createStackNavigator();
 
 const DecksConfigNavigationStack = () => (
   <DecksConfigStack.Navigator initialRouteName="Home">
@@ -70,6 +72,22 @@ const GamesNavigationStack = () => (
   </GameStack.Navigator>
 );
 
+const CommunityNavigationStack = () => (
+  <CommunityStack.Navigator
+    initialRouteName="CommunityDeckList"
+    options={{ title: 'Community' }}
+  >
+    <CommunityStack.Screen
+      name="CommunityDeckList"
+      component={CommunityDeckListScreen}
+      options={{
+        title: 'Community Decks',
+        headerRight: () => <HeaderMenuButton />
+      }}
+    />
+  </CommunityStack.Navigator>
+);
+
 const RulesNavigationStack = () => (
   <RulesStack.Navigator initialRouteName="Rules">
     <RulesStack.Screen
@@ -114,6 +132,7 @@ function AppNavigator() {
     <Drawer.Navigator drawerPosition="right" drawerType="slide">
       <Drawer.Screen name="Decks" component={DecksConfigNavigationStack} />
       <Drawer.Screen name="Game" component={GamesNavigationStack} />
+      <Drawer.Screen name="Community" component={CommunityNavigationStack} />
       <Drawer.Screen name="Rules" component={RulesNavigationStack} />
       <Drawer.Screen name="Contact Us" component={ContactNavigationStack} />
       <Drawer.Screen name="Legal/Disclaimer" component={LegalNavigationStack} />

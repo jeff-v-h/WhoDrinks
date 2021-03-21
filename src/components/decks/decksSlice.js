@@ -13,8 +13,12 @@ export const postCreateDeck = createAsyncThunk(
         Authorization: `Basic ${API_TOKEN}`
       }
     });
-    console.log('returned id', resp);
-    return deck;
+
+    return {
+      ...deck,
+      previousDeckId: deck.id,
+      id: resp.data.id
+    };
   }
 );
 
@@ -77,14 +81,22 @@ const decksSlice = createSlice({
       state.status = RequestStatusEnum.loading;
     },
     [postCreateDeck.fulfilled]: (state, action) => {
+      const { id, userId, name, tags, previousDeckId } = action.payload;
+      // Update id because id made by backend is the source of truth
+      state.byId[id] = { id, name, userId, tags };
+      state.allIds = state.allIds.map((prevId) =>
+        prevId === previousDeckId ? id : prevId
+      );
+      delete state.byId[previousDeckId];
+      if (state.selectedId === previousDeckId) {
+        state.selectedId = id;
+      }
+      state.editingDeckId = id;
       state.status = RequestStatusEnum.succeeded;
-      console.log('action pauyload in fulfilled', action.payload);
-      // state.byId[action.payload]
     },
     [postCreateDeck.rejected]: (state, action) => {
       state.status = RequestStatusEnum.failed;
       state.error = action.error.message;
-      console.log('action pauyload in failed', action.error);
     }
   }
 });

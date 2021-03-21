@@ -89,6 +89,17 @@ class DeckScreen extends React.Component {
     return name;
   };
 
+  publishDeck = async () => {
+    const { postCreateDeck, decks, user, cards } = this.props;
+    const deckToPost = {
+      ...decks.byId[decks.editingDeckId],
+      cards: cards.byDeckId[decks.editingDeckId],
+      userId: ObjectId().toHexString()
+    };
+    this.hideMenu();
+    await postCreateDeck(deckToPost);
+  };
+
   //#region dropdown menu
   _menu = null;
   setMenuRef = (ref) => (this._menu = ref);
@@ -130,18 +141,6 @@ class DeckScreen extends React.Component {
   };
   //#endregion
 
-  publishDeck = () => {
-    const { postCreateDeck, decks, user, cards } = this.props;
-    const deckToPost = {
-      ...decks.byId[decks.editingDeckId],
-      cards: cards.byDeckId[decks.editingDeckId],
-      userId: ObjectId()
-    };
-    this.hideMenu();
-    console.log('deecktopost', deckToPost);
-    postCreateDeck(deckToPost);
-  };
-
   confirmDelete = () => {
     const { decks, deleteDeck, navigation } = this.props;
     if (decks.selectedId === decks.editingDeckId) {
@@ -181,6 +180,7 @@ class DeckScreen extends React.Component {
   render() {
     const { deckName, selection, modalVisible } = this.state;
     const { decks, cards } = this.props;
+    console.log('decks by id', decks.byId);
 
     return (
       <SafeAreaView style={styles.container}>

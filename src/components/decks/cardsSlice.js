@@ -40,10 +40,9 @@ const cardsSlice = createSlice({
         }
       })
       .addCase(postCreateDeck.fulfilled, (state, action) => {
-        console.log('postcreatedeck in cardslice succeeded', action.payload);
-      })
-      .addCase(postCreateDeck.rejected, (state, action) => {
-        console.log('postcreatedeck in cardslice failed', action.error);
+        const { id, previousDeckId, cards } = action.payload;
+        state.byDeckId[id] = cards;
+        delete state.byDeckId[previousDeckId];
       });
   }
 });

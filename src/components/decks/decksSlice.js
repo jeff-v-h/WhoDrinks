@@ -22,13 +22,6 @@ export const postCreateDeck = createAsyncThunk(
   }
 );
 
-export const getPublicDecks = createAsyncThunk(
-  'decks/getPublicDecks',
-  async () => {
-    return await client.get(`${API_HOST}/api/decks`, { headers }).data;
-  }
-);
-
 const decksSlice = createSlice({
   name: 'decks',
   initialState: {
@@ -49,10 +42,7 @@ const decksSlice = createSlice({
     selectedId: standardDeck.id,
     editingDeckId: standardDeck.id,
     status: RequestStatusEnum.idle,
-    error: null,
-    publicById: {},
-    allPublicIds: [],
-    selectedPublicId: null
+    error: null
   },
   reducers: {
     saveDeck: (state, action) => {
@@ -105,25 +95,6 @@ const decksSlice = createSlice({
       state.status = RequestStatusEnum.succeeded;
     },
     [postCreateDeck.rejected]: (state, action) => {
-      state.status = RequestStatusEnum.failed;
-      state.error = action.error.message;
-    },
-    [getPublicDecks.pending]: (state) => {
-      state.status = RequestStatusEnum.loading;
-    },
-    [getPublicDecks.fulfilled]: (state, action) => {
-      const ids = [];
-      const deckData = {};
-      action.payload.forEach((deck) => {
-        ids.push(deck.id);
-        deckData[id] = deck;
-      });
-
-      state.publicById = deckData;
-      state.allPublicIds = ids;
-      state.status = RequestStatusEnum.succeeded;
-    },
-    [getPublicDecks.rejected]: (state) => {
       state.status = RequestStatusEnum.failed;
       state.error = action.error.message;
     }

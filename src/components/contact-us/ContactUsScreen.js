@@ -14,6 +14,7 @@ import { postUserFeedback, resetStatus } from '../../redux/userSlice';
 import { connect } from 'react-redux';
 import FeedbackSuccessScreen from './FeedbackSuccessScreen';
 import SpinnerOverlay from '../common/SpinnerOverlay';
+import { RequestStatusEnum } from '../../utils/enums';
 
 const mapState = (state) => ({
   user: state.user
@@ -22,10 +23,10 @@ const mapState = (state) => ({
 const mapDispatch = { postUserFeedback, resetStatus };
 
 const initialState = {
-  firstName: 'aaa',
-  lastName: 's',
+  firstName: '',
+  lastName: '',
   email: '',
-  feedback: 'sss',
+  feedback: '',
   keyboardShowing: false,
   emailValid: false
 };
@@ -37,7 +38,7 @@ class ContactUsScreen extends React.Component {
     const lastFeedback = props.user.feedback[props.user.feedback.length - 1];
 
     this.state =
-      lastFeedback?.status === 'failed'
+      lastFeedback?.status === RequestStatusEnum.failed
         ? { ...lastFeedback }
         : { ...initialState };
 
@@ -129,15 +130,15 @@ class ContactUsScreen extends React.Component {
     } = this.state;
     const { status } = this.props.user;
 
-    if (status === 'succeeded') {
+    if (status === RequestStatusEnum.succeeded) {
       return <FeedbackSuccessScreen onPress={this.resetFeedbackScreen} />;
     }
 
-    if (status === 'failed') {
+    if (status === RequestStatusEnum.failed) {
       this.showErrorMessage();
     }
 
-    const isLoading = status === 'loading';
+    const isLoading = status === RequestStatusEnum.loading;
     const emailInputStyles = [contactStyles.contactUsInput];
     if (email.length > 0 && !emailValid) {
       emailInputStyles.push(styles.redBorder);

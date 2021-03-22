@@ -3,7 +3,8 @@ import { View, SafeAreaView, FlatList, Text } from 'react-native';
 import styles from '../../styles/styles';
 import communityStyles from '../../styles/communityStyles';
 import ListLinkRow from '../common/ListLinkRow';
-import { getCommunityDecks } from './communitySlice';
+import { saveDeck } from '../decks/decksSlice';
+import { getCommunityDeck } from './communitySlice';
 import { connect } from 'react-redux';
 import { RequestStatusEnum } from '../../utils/enums';
 import SpinnerOverlay from '../common/SpinnerOverlay';
@@ -14,27 +15,26 @@ const mapState = (state) => ({
   community: state.community
 });
 
-const mapDispatch = { getCommunityDecks };
+const mapDispatch = { getCommunityDeck, saveDeck };
 
-class CommunityDeckListScreen extends React.Component {
+class CommunityDeckScreen extends React.Component {
   componentDidMount() {
-    this.props.getCommunityDecks();
+    this.fetchDeck();
   }
 
-  previewDeck = (id) => {
-    const { navigation, previewDeck } = this.props;
-    previewDeck(id);
-    navigation.navigate('CommunityDeck');
+  saveDeck = async (id) => {
+    // this.saveDeck(id)
   };
 
-  fetchCommunityDecks = () => {
-    this.props.getCommunityDecks();
+  fetchDeck = () => {
+    const { community, getCommunityDeck } = this.props;
+    getCommunityDeck(community.selectedId);
   };
 
   render() {
     const { community } = this.props;
     const isLoading = community.status === RequestStatusEnum.loading;
-
+    console.log('community deck', community.deck);
     if (community.error) {
       return (
         <View style={styles.container}>
@@ -62,19 +62,22 @@ class CommunityDeckListScreen extends React.Component {
       <SafeAreaView style={styles.container}>
         <View style={styles.list}>
           <FlatList
-            data={community.allIds}
-            renderItem={({ item: id }) => (
+            data={community.decks}
+            // ListHeaderComponent={
+            //   <Text style={deckStyles.currentlySelectedHeading}>Selected</Text>
+            // }
+            // ListHeaderComponentStyle={deckStyles.deckListHeader}
+            renderItem={({ item, index }) => (
               <ListLinkRow
-                onPress={() => this.previewDeck(id)}
-                text={community.byId[id].name}
-                viewStyle={communityStyles.listRow}
+                onPress={() => this.navigateToCard(index)}
+                // viewStyle={[deckStyles.listRow, deckStyles.deckListRow]}
               >
-                <Text style={styles.itemText} numberOfLines={1}>
-                  {community.byId[id].name}
+                <Text style={styles.itemText} numberOfLines={2}>
+                  {item}
                 </Text>
               </ListLinkRow>
             )}
-            keyExtractor={(id) => id}
+            keyExtractor={(item, index) => index.toString()}
           />
         </View>
         <SpinnerOverlay show={isLoading} />
@@ -83,4 +86,4 @@ class CommunityDeckListScreen extends React.Component {
   }
 }
 
-export default connect(mapState, mapDispatch)(CommunityDeckListScreen);
+export default connect(mapState, mapDispatch)(CommunityDeckScreen);

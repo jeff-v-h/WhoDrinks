@@ -15,6 +15,15 @@ export const getCommunityDecks = createAsyncThunk(
   }
 );
 
+export const getCommunityDeck = createAsyncThunk(
+  'decks/getCommunityDeck',
+  async (id) => {
+    const resp = await client.get(`${API_HOST}/api/decks/${id}`, { headers });
+    console.log('resp', resp.data);
+    return resp.data;
+  }
+);
+
 const communitySlice = createSlice({
   name: 'community',
   initialState: {
@@ -22,11 +31,18 @@ const communitySlice = createSlice({
     error: null,
     byId: {},
     allIds: [],
-    selectedId: null
+    selectedId: null,
+    deck: {
+      name: '',
+      cards: []
+    }
   },
   reducers: {
     resetCommunityRequestStatus: (state) => {
       state.status = RequestStatusEnum.idle;
+    },
+    previewDeck: (state, action) => {
+      state.selectedId = action.payload;
     }
   },
   extraReducers: {
@@ -46,6 +62,18 @@ const communitySlice = createSlice({
       state.status = RequestStatusEnum.succeeded;
     },
     [getCommunityDecks.rejected]: (state, action) => {
+      state.status = RequestStatusEnum.failed;
+      state.error = action.error.message;
+    },
+    [getCommunityDeck.pending]: (state) => {
+      state.status = RequestStatusEnum.loading;
+    },
+    [getCommunityDeck.fulfilled]: (state, action) => {
+      state.error = null;
+      state.deck = action.payload;
+      state.status = RequestStatusEnum.succeeded;
+    },
+    [getCommunityDeck.rejected]: (state, action) => {
       state.status = RequestStatusEnum.failed;
       state.error = action.error.message;
     }

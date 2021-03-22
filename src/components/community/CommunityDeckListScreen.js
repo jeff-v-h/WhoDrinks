@@ -6,6 +6,10 @@ import ListLinkRow from '../common/ListLinkRow';
 import { saveDeck } from '../decks/decksSlice';
 import { getCommunityDecks } from './communitySlice';
 import { connect } from 'react-redux';
+import { RequestStatusEnum } from '../../utils/enums';
+import SpinnerOverlay from '../common/SpinnerOverlay';
+import AppButton from '../common/AppButton';
+import AppText from '../common/AppText';
 
 const mapState = (state) => ({
   community: state.community
@@ -24,8 +28,36 @@ class CommunityDeckListScreen extends React.Component {
     navigation.navigate('PreviewDeck');
   };
 
+  fetchCommunityDecks = () => {
+    this.props.getCommunityDecks();
+  };
+
   render() {
     const { community } = this.props;
+    const isLoading = community.status === RequestStatusEnum.loading;
+
+    if (community.error) {
+      return (
+        <View style={styles.container}>
+          <View style={styles.section}>
+            <AppText>Unable to get data</AppText>
+            {community.error.includes('Network Error') && (
+              <View style={communityStyles.networkErrorView}>
+                <AppText>There was a network error</AppText>
+              </View>
+            )}
+          </View>
+          <View style={styles.section}>
+            <AppButton
+              title="Try Again"
+              onPress={this.fetchCommunityDecks}
+              disabled={isLoading}
+            />
+          </View>
+          <SpinnerOverlay show={isLoading} />
+        </View>
+      );
+    }
 
     return (
       <SafeAreaView style={styles.container}>
@@ -46,6 +78,7 @@ class CommunityDeckListScreen extends React.Component {
             keyExtractor={(id) => id}
           />
         </View>
+        <SpinnerOverlay show={isLoading} />
       </SafeAreaView>
     );
   }

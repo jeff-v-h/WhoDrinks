@@ -34,6 +34,7 @@ const communitySlice = createSlice({
       state.status = RequestStatusEnum.loading;
     },
     [getCommunityDecks.fulfilled]: (state, action) => {
+      state.error = null;
       state.allIds = [];
       state.byId = {};
 
@@ -44,7 +45,7 @@ const communitySlice = createSlice({
 
       state.status = RequestStatusEnum.succeeded;
     },
-    [getCommunityDecks.rejected]: (state) => {
+    [getCommunityDecks.rejected]: (state, action) => {
       state.status = RequestStatusEnum.failed;
       state.error = action.error.message;
     }

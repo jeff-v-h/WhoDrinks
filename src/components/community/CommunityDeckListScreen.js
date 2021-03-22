@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { View, SafeAreaView, FlatList, Text } from 'react-native';
 import styles from '../../styles/styles';
-import deckStyles from '../../styles/deckStyles';
+import communityStyles from '../../styles/communityStyles';
 import ListLinkRow from '../common/ListLinkRow';
 import { saveDeck } from '../decks/decksSlice';
 import { getCommunityDecks } from './communitySlice';
@@ -36,7 +36,7 @@ class CommunityDeckListScreen extends React.Component {
               <ListLinkRow
                 onPress={() => this.previewDeck(id)}
                 text={community.byId[id].name}
-                viewStyle={deckStyles.listRow}
+                viewStyle={communityStyles.listRow}
               >
                 <Text style={styles.itemText} numberOfLines={1}>
                   {community.byId[id].name}

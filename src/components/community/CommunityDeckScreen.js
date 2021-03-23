@@ -10,6 +10,8 @@ import { RequestStatusEnum } from '../../utils/enums';
 import SpinnerOverlay from '../common/SpinnerOverlay';
 import AppButton from '../common/AppButton';
 import AppText from '../common/AppText';
+import IconButton from '../common/IconButton';
+import ObjectId from 'bson-objectid';
 
 const mapState = (state) => ({
   community: state.community
@@ -29,14 +31,18 @@ class CommunityDeckScreen extends React.Component {
     this.fetchDeck();
   }
 
-  saveDeck = async (id) => {
-    // this.saveDeck(id)
-  };
-
   fetchDeck() {
     const { community, getCommunityDeck } = this.props;
     getCommunityDeck(community.selectedId);
   }
+
+  saveDeck = () => {
+    const { saveDeck, community } = this.props;
+    saveDeck({
+      ...community.deck,
+      id: ObjectId().toHexString()
+    });
+  };
 
   previewCard(index) {
     const cardText = this.props.community.deck.cards[index];
@@ -76,9 +82,19 @@ class CommunityDeckScreen extends React.Component {
           <FlatList
             data={community.deck.cards}
             ListHeaderComponent={
-              <AppText style={communityStyles.deckHeader}>
-                {community.deck.name}
-              </AppText>
+              <View>
+                <AppText style={communityStyles.deckHeader}>
+                  {community.deck.name}
+                </AppText>
+                <View>
+                  <IconButton
+                    onPress={this.saveDeck}
+                    iconName="download"
+                    size={24}
+                    opacity={0.5}
+                  />
+                </View>
+              </View>
             }
             ListHeaderComponentStyle={communityStyles.deckListHeader}
             renderItem={({ item, index }) => (

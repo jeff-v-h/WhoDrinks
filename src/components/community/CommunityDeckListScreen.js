@@ -3,7 +3,7 @@ import { View, SafeAreaView, FlatList, Text } from 'react-native';
 import styles from '../../styles/styles';
 import communityStyles from '../../styles/communityStyles';
 import ListLinkRow from '../common/ListLinkRow';
-import { getCommunityDecks } from './communitySlice';
+import { getCommunityDecks, previewDeck } from './communitySlice';
 import { connect } from 'react-redux';
 import { RequestStatusEnum } from '../../utils/enums';
 import SpinnerOverlay from '../common/SpinnerOverlay';
@@ -14,21 +14,19 @@ const mapState = (state) => ({
   community: state.community
 });
 
-const mapDispatch = { getCommunityDecks };
+const mapDispatch = { getCommunityDecks, previewDeck };
 
 class CommunityDeckListScreen extends React.Component {
   componentDidMount() {
-    this.props.getCommunityDecks();
+    this.fetchCommunityDecks();
   }
+
+  fetchCommunityDecks = () => this.props.getCommunityDecks();
 
   previewDeck = (id) => {
     const { navigation, previewDeck } = this.props;
     previewDeck(id);
     navigation.navigate('CommunityDeck');
-  };
-
-  fetchCommunityDecks = () => {
-    this.props.getCommunityDecks();
   };
 
   render() {

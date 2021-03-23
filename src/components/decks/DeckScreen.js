@@ -243,7 +243,7 @@ class DeckScreen extends React.Component {
             renderItem={({ item, index }) => (
               <ListLinkRow
                 onPress={() => this.navigateToCard(index)}
-                viewStyle={[deckStyles.listRow, deckStyles.deckListRow]}
+                viewStyle={[styles.listRow, styles.paddedRow]}
               >
                 <Text style={styles.itemText} numberOfLines={2}>
                   {item}

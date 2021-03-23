@@ -12,6 +12,7 @@ import HeaderMenuButton from '../components/common/HeaderMenuButton';
 import DisclaimerScreen from '../components/legal/DisclaimerScreen';
 import RedirectError from '../components/errors/RedirectError';
 import CommunityDeckListScreen from '../components/community/CommunityDeckListScreen';
+import CommunityDeckScreen from '../components/community/CommunityDeckScreen';
 
 const Drawer = createDrawerNavigator();
 const DecksConfigStack = createStackNavigator();
@@ -82,6 +83,14 @@ const CommunityNavigationStack = () => (
       component={CommunityDeckListScreen}
       options={{
         title: 'Community Decks',
+        headerRight: () => <HeaderMenuButton />
+      }}
+    />
+    <CommunityStack.Screen
+      name="CommunityDeck"
+      component={CommunityDeckScreen}
+      options={{
+        title: 'Community Deck',
         headerRight: () => <HeaderMenuButton />
       }}
     />

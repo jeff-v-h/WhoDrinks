@@ -34,7 +34,7 @@ class CommunityDeckScreen extends React.Component {
   render() {
     const { community } = this.props;
     const isLoading = community.status === RequestStatusEnum.loading;
-    console.log('community deck', community.deck);
+
     if (community.error) {
       return (
         <View style={styles.container}>
@@ -49,7 +49,7 @@ class CommunityDeckScreen extends React.Component {
           <View style={styles.section}>
             <AppButton
               title="Try Again"
-              onPress={this.fetchCommunityDecks}
+              onPress={this.fetchDeck}
               disabled={isLoading}
             />
           </View>
@@ -62,15 +62,17 @@ class CommunityDeckScreen extends React.Component {
       <SafeAreaView style={styles.container}>
         <View style={styles.list}>
           <FlatList
-            data={community.decks}
-            // ListHeaderComponent={
-            //   <Text style={deckStyles.currentlySelectedHeading}>Selected</Text>
-            // }
-            // ListHeaderComponentStyle={deckStyles.deckListHeader}
+            data={community.deck.cards}
+            ListHeaderComponent={
+              <AppText style={communityStyles.deckHeader}>
+                Name: {community.deck.name}
+              </AppText>
+            }
+            ListHeaderComponentStyle={communityStyles.deckListHeader}
             renderItem={({ item, index }) => (
               <ListLinkRow
                 onPress={() => this.navigateToCard(index)}
-                // viewStyle={[deckStyles.listRow, deckStyles.deckListRow]}
+                viewStyle={[styles.listRow, styles.paddedRow]}
               >
                 <Text style={styles.itemText} numberOfLines={2}>
                   {item}

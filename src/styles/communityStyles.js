@@ -8,6 +8,17 @@ const communityStyles = StyleSheet.create({
   },
   networkErrorView: {
     paddingTop: verticalScale(50)
+  },
+  deckListHeader: {
+    justifyContent: 'flex-start',
+    borderBottomWidth: 1,
+    paddingBottom: verticalScale(10),
+    marginBottom: verticalScale(5),
+    paddingHorizontal: moderateScale(10)
+  },
+  deckHeader: {
+    textAlign: 'left',
+    fontSize: moderateScale(20)
   }
 });
 

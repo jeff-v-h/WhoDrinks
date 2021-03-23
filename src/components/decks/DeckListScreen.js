@@ -43,7 +43,7 @@ class DeckListScreen extends React.Component {
               <ListLinkRow
                 onPress={() => this.selectDeck(item)}
                 text={decks.byId[item].name}
-                viewStyle={deckStyles.listRow}
+                viewStyle={styles.listRow}
               >
                 <View style={deckStyles.selectedCol}>
                   {item === decks.selectedId && (

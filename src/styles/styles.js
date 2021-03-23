@@ -41,6 +41,12 @@ const styles = StyleSheet.create({
     flex: 1,
     width: '100%'
   },
+  listRow: {
+    height: verticalScale(50)
+  },
+  paddedRow: {
+    paddingHorizontal: moderateScale(10)
+  },
   topButtonsRow: {
     flexDirection: 'row',
     justifyContent: 'flex-end',
@@ -87,7 +93,7 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   itemText: {
-    fontSize: moderateScale(20),
+    fontSize: moderateScale(18),
     flex: 1
   },
   IconButton: {

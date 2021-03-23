@@ -19,7 +19,6 @@ export const getCommunityDeck = createAsyncThunk(
   'decks/getCommunityDeck',
   async (id) => {
     const resp = await client.get(`${API_HOST}/api/decks/${id}`, { headers });
-    console.log('resp', resp.data);
     return resp.data;
   }
 );
@@ -80,5 +79,8 @@ const communitySlice = createSlice({
   }
 });
 
-export const { resetCommunityRequestStatus } = communitySlice.actions;
+export const {
+  resetCommunityRequestStatus,
+  previewDeck
+} = communitySlice.actions;
 export default communitySlice.reducer;

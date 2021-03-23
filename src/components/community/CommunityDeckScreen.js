@@ -40,7 +40,7 @@ class CommunityDeckScreen extends React.Component {
 
   previewCard(index) {
     const cardText = this.props.community.deck.cards[index];
-    Alert.alert('', cardText, null, { cancelable: true });
+    Alert.alert(null, cardText, null, { cancelable: true });
   }
 
   render() {

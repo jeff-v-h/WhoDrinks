@@ -7,7 +7,8 @@ const selectedColWidth = moderateScale(56);
 const deckStyles = StyleSheet.create({
   deckListHeader: {
     borderBottomWidth: 1,
-    paddingBottom: moderateScale(10)
+    paddingBottom: verticalScale(5),
+    marginBottom: verticalScale(5)
   },
   currentlySelectedHeading: {
     width: selectedColWidth,
@@ -41,7 +42,8 @@ const deckStyles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     width: '100%',
-    marginBottom: verticalScale(10),
+    marginBottom: verticalScale(5),
+    paddingBottom: verticalScale(5),
     borderBottomColor: colours.black,
     borderBottomWidth: 1
   },
@@ -51,7 +53,8 @@ const deckStyles = StyleSheet.create({
     paddingRight: moderateScale(10)
   },
   title: {
-    fontSize: moderateScale(22)
+    fontSize: moderateScale(20),
+    fontWeight: 'bold'
   },
   modalView: {
     flex: 1,

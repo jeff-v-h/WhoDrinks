@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { View, SafeAreaView, FlatList, Text } from 'react-native';
+import { View, SafeAreaView, FlatList, Text, Alert } from 'react-native';
 import styles from '../../styles/styles';
 import communityStyles from '../../styles/communityStyles';
 import ListLinkRow from '../common/ListLinkRow';
@@ -18,6 +18,13 @@ const mapState = (state) => ({
 const mapDispatch = { getCommunityDeck, saveDeck };
 
 class CommunityDeckScreen extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.fetchDeck = this.fetchDeck.bind(this);
+    this.previewCard = this.previewCard.bind(this);
+  }
+
   componentDidMount() {
     this.fetchDeck();
   }
@@ -26,10 +33,15 @@ class CommunityDeckScreen extends React.Component {
     // this.saveDeck(id)
   };
 
-  fetchDeck = () => {
+  fetchDeck() {
     const { community, getCommunityDeck } = this.props;
     getCommunityDeck(community.selectedId);
-  };
+  }
+
+  previewCard(index) {
+    const cardText = this.props.community.deck.cards[index];
+    Alert.alert('', cardText, null, { cancelable: true });
+  }
 
   render() {
     const { community } = this.props;
@@ -65,13 +77,13 @@ class CommunityDeckScreen extends React.Component {
             data={community.deck.cards}
             ListHeaderComponent={
               <AppText style={communityStyles.deckHeader}>
-                Name: {community.deck.name}
+                {community.deck.name}
               </AppText>
             }
             ListHeaderComponentStyle={communityStyles.deckListHeader}
             renderItem={({ item, index }) => (
               <ListLinkRow
-                onPress={() => this.navigateToCard(index)}
+                onPress={() => this.previewCard(index)}
                 viewStyle={[styles.listRow, styles.paddedRow]}
               >
                 <Text style={styles.itemText} numberOfLines={2}>

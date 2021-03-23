@@ -12,13 +12,14 @@ const communityStyles = StyleSheet.create({
   deckListHeader: {
     justifyContent: 'flex-start',
     borderBottomWidth: 1,
-    paddingBottom: verticalScale(10),
+    paddingBottom: verticalScale(5),
     marginBottom: verticalScale(5),
     paddingHorizontal: moderateScale(10)
   },
   deckHeader: {
     textAlign: 'left',
-    fontSize: moderateScale(20)
+    fontSize: moderateScale(20),
+    fontWeight: 'bold'
   }
 });
 

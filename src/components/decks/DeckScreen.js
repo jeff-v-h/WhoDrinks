@@ -215,10 +215,10 @@ class DeckScreen extends React.Component {
           visible={modalVisible}
           onRequestClose={() => this.setModalVisible(false)}
         >
-          <View style={deckStyles.modalView}>
-            <View style={deckStyles.modalContent}>
+          <View style={styles.inputModalView}>
+            <View style={styles.inputModalContent}>
               <TextInput
-                style={deckStyles.titleInput}
+                style={styles.modalInput}
                 value={deckName}
                 onChangeText={this.onChangeDeckName}
                 onFocus={this.onFocus}

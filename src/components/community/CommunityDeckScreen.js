@@ -82,11 +82,11 @@ class CommunityDeckScreen extends React.Component {
           <FlatList
             data={community.deck.cards}
             ListHeaderComponent={
-              <View>
+              <View style={communityStyles.titleRow}>
                 <AppText style={communityStyles.deckHeader}>
                   {community.deck.name}
                 </AppText>
-                <View>
+                <View style={communityStyles.downloadButtonWrapper}>
                   <IconButton
                     onPress={this.saveDeck}
                     iconName="download"

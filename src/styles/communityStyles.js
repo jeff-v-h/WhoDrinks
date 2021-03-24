@@ -20,6 +20,14 @@ const communityStyles = StyleSheet.create({
     textAlign: 'left',
     fontSize: moderateScale(20),
     fontWeight: 'bold'
+  },
+  titleRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: '100%'
+  },
+  downloadButtonWrapper: {
+    justifyContent: 'center'
   }
 });
 

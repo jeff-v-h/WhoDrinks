@@ -1,5 +1,13 @@
 import * as React from 'react';
-import { View, SafeAreaView, FlatList, Text, Alert } from 'react-native';
+import {
+  View,
+  SafeAreaView,
+  FlatList,
+  Text,
+  Alert,
+  Modal,
+  TextInput
+} from 'react-native';
 import styles from '../../styles/styles';
 import communityStyles from '../../styles/communityStyles';
 import ListLinkRow from '../common/ListLinkRow';
@@ -38,6 +46,7 @@ class CommunityDeckScreen extends React.Component {
     this.saveDeck = this.saveDeck.bind(this);
     this.previewCard = this.previewCard.bind(this);
     this.closeModal = this.closeModal.bind(this);
+    this.onChangeDeckName = this.onChangeDeckName.bind(this);
   }
 
   componentDidMount() {
@@ -52,12 +61,16 @@ class CommunityDeckScreen extends React.Component {
   saveDeck() {
     const { saveDeck, community, decks } = this.props;
     const names = Object.keys(decks.byId).map((key) => decks.byId[key].name);
+    const name =
+      this.state.deckName.trim() !== ''
+        ? this.state.deckName
+        : community.deck.name;
 
-    if (names.contains(community.deck.name)) {
-      const deckName = this.suggestNewDeckName(names, community.deck.name);
+    if (names.includes(name)) {
+      const deckName = this.suggestNewDeckName(names, name);
       this.setState({
         nameModalVisible: true,
-        attemptedDeckName: community.deck.name,
+        attemptedDeckName: name,
         deckName
       });
       return;
@@ -65,11 +78,9 @@ class CommunityDeckScreen extends React.Component {
 
     const newDeck = {
       ...community.deck,
+      name,
       id: ObjectId().toHexString()
     };
-    if (this.state.deckName) {
-      newDeck.name = this.state.deckName;
-    }
 
     saveDeck(newDeck);
     this.setState({ ...initialState });
@@ -86,6 +97,10 @@ class CommunityDeckScreen extends React.Component {
 
     return name;
   };
+
+  onChangeDeckName(deckName) {
+    this.setState({ deckName });
+  }
 
   closeModal() {
     this.setState({ nameModalVisible: false });
@@ -165,17 +180,16 @@ class CommunityDeckScreen extends React.Component {
         >
           <View style={styles.inputModalView}>
             <View style={styles.inputModalContent}>
-              <Text>
-                You already have a deck named {this.state.attemptedDeckName}.
-              </Text>
-              <Text>Please provide another name.</Text>
+              <View style={styles.inputModalDetails}>
+                <AppText style={styles.inputModalDetailsText}>
+                  You already have a deck named "{this.state.attemptedDeckName}
+                  ". Please provide another name.
+                </AppText>
+              </View>
               <TextInput
                 style={styles.modalInput}
                 value={this.state.deckName}
                 onChangeText={this.onChangeDeckName}
-                // onFocus={this.onFocus}
-                // onBlur={this.onBlur}
-                // selection={selection}
                 multiline={true}
                 maxLength={60}
               />

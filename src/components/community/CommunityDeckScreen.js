@@ -20,6 +20,7 @@ import AppButton from '../common/AppButton';
 import AppText from '../common/AppText';
 import DeckListHeader from './DeckListHeader';
 import ObjectId from 'bson-objectid';
+import RequestErrorScreen from './RequestErrorScreen';
 
 const mapState = (state) => ({
   community: state.community,
@@ -117,24 +118,11 @@ class CommunityDeckScreen extends React.Component {
 
     if (community.error) {
       return (
-        <View style={styles.container}>
-          <View style={styles.section}>
-            <AppText>Unable to get data</AppText>
-            {community.error.includes('Network Error') && (
-              <View style={communityStyles.networkErrorView}>
-                <AppText>There was a network error</AppText>
-              </View>
-            )}
-          </View>
-          <View style={styles.section}>
-            <AppButton
-              title="Try Again"
-              onPress={this.fetchDeck}
-              disabled={isLoading}
-            />
-          </View>
-          <SpinnerOverlay show={isLoading} />
-        </View>
+        <RequestErrorScreen
+          error={community.error}
+          onPress={this.fetchDeck}
+          isLoading={isLoading}
+        />
       );
     }
 

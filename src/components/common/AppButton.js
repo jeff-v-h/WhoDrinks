@@ -1,5 +1,5 @@
 import React from 'react';
-import { TouchableHighlight, Text } from 'react-native';
+import { TouchableOpacity, Text } from 'react-native';
 import PropTypes from 'prop-types';
 import styles from '../../styles/styles';
 import { createStylesArray } from '../../utils/helpers';
@@ -11,7 +11,8 @@ AppButton.propTypes = {
   textStyle: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
   disabled: PropTypes.bool,
   disabledStyle: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
-  numberOfLines: PropTypes.number
+  numberOfLines: PropTypes.number,
+  opacity: PropTypes.number
 };
 
 AppButton.defaultProps = {
@@ -20,10 +21,20 @@ AppButton.defaultProps = {
   style: [],
   textStyle: [],
   disabledStyle: [],
-  numberOfLines: 0
+  numberOfLines: 0,
+  opacity: 0.85
 };
 
-function AppButton({ title, onPress, disabled, style, disabledStyle, textStyle, numberOfLines }) {
+function AppButton({
+  title,
+  onPress,
+  disabled,
+  style,
+  disabledStyle,
+  textStyle,
+  numberOfLines,
+  opacity
+}) {
   const buttonStyles = disabled
     ? createStylesArray(styles.disabledButton, disabledStyle)
     : createStylesArray(styles.button, style);
@@ -31,11 +42,16 @@ function AppButton({ title, onPress, disabled, style, disabledStyle, textStyle, 
   const allTextStyles = createStylesArray(styles.buttonText, textStyle);
 
   return (
-    <TouchableHighlight style={buttonStyles} onPress={onPress} disabled={disabled}>
+    <TouchableOpacity
+      style={buttonStyles}
+      onPress={onPress}
+      disabled={disabled}
+      activeOpacity={opacity}
+    >
       <Text style={allTextStyles} numberOfLines={numberOfLines}>
         {title}
       </Text>
-    </TouchableHighlight>
+    </TouchableOpacity>
   );
 }
 

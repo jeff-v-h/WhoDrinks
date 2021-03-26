@@ -18,7 +18,7 @@ import { RequestStatusEnum } from '../../utils/enums';
 import SpinnerOverlay from '../common/SpinnerOverlay';
 import AppButton from '../common/AppButton';
 import AppText from '../common/AppText';
-import IconButton from '../common/IconButton';
+import DeckListHeader from './DeckListHeader';
 import ObjectId from 'bson-objectid';
 
 const mapState = (state) => ({
@@ -144,19 +144,10 @@ class CommunityDeckScreen extends React.Component {
           <FlatList
             data={community.deck.cards}
             ListHeaderComponent={
-              <View style={communityStyles.titleRow}>
-                <AppText style={communityStyles.deckHeader}>
-                  {community.deck.name}
-                </AppText>
-                <View style={communityStyles.downloadButtonWrapper}>
-                  <IconButton
-                    onPress={this.saveDeck}
-                    iconName="download"
-                    size={24}
-                    opacity={0.5}
-                  />
-                </View>
-              </View>
+              <DeckListHeader
+                text={community.deck.name}
+                onPress={this.saveDeck}
+              />
             }
             ListHeaderComponentStyle={communityStyles.deckListHeader}
             renderItem={({ item, index }) => (

@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import client from '../services/client';
 import { API_HOST, API_TOKEN } from '../utils/env';
+import { RequestStatusEnum } from '../utils/enums';
 import { version } from '../../package.json';
 import { offlineActionTypes } from 'react-native-offline';
 
@@ -15,7 +16,7 @@ export const postUserFeedback = createAsyncThunk(
 export const getAppVersion = createAsyncThunk(
   'user/getAppVersion',
   async () => {
-    const resp = await client.get(`${API_HOST}/api/appversion/${version}`, {
+    const resp = await client.get(`${API_HOST}/api/appversions/${version}`, {
       headers: {
         Authorization: `Basic ${API_TOKEN}`
       }
@@ -48,7 +49,7 @@ const userSlice = createSlice({
     confirmedAnnouncement: false,
     confirmedDisclaimer: false,
     feedback: [],
-    status: 'idle',
+    status: RequestStatusEnum.idle,
     error: null
   },
   reducers: {
@@ -66,21 +67,27 @@ const userSlice = createSlice({
       state.confirmedDisclaimer = true;
     },
     resetStatus: (state) => {
-      state.status = 'idle';
+      state.status = RequestStatusEnum.idle;
     }
   },
   extraReducers: {
     [postUserFeedback.pending]: (state) => {
-      state.status = 'loading';
+      state.status = RequestStatusEnum.loading;
     },
     [postUserFeedback.fulfilled]: (state, action) => {
-      state.status = 'succeeded';
-      state.feedback.push({ ...action.payload, status: 'saved' });
+      state.status = RequestStatusEnum.succeeded;
+      state.feedback.push({
+        ...action.payload,
+        status: RequestStatusEnum.succeeded
+      });
     },
     [postUserFeedback.rejected]: (state, action) => {
-      state.status = 'failed';
+      state.status = RequestStatusEnum.failed;
       state.error = action.error.message;
-      state.feedback.push({ ...action.meta.arg, status: 'failed' });
+      state.feedback.push({
+        ...action.meta.arg,
+        status: RequestStatusEnum.failed
+      });
     },
     [getAppVersion.fulfilled]: (state, action) => {
       if (state.appVersion.latestVersion !== action.payload.latestVersion) {

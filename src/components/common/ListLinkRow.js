@@ -20,7 +20,12 @@ function ListLinkRow({ onPress, viewStyle, children }) {
   const style = createStylesArray(styles.touchableView, viewStyle);
 
   return (
-    <TouchableHighlight style={styles.touchable} onPress={onPress}>
+    <TouchableHighlight
+      style={styles.touchable}
+      onPress={onPress}
+      activeOpacity={0.6}
+      underlayColor="none"
+    >
       <View style={style}>{children}</View>
     </TouchableHighlight>
   );

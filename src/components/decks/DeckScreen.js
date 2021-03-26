@@ -16,14 +16,20 @@ import IconButton from '../common/IconButton';
 import { GameTypesEnum } from '../../utils/enums';
 import Menu, { MenuItem } from 'react-native-material-menu';
 import AppButton from '../common/AppButton';
-import uuid from 'uuid';
-import { saveDeck, deleteDeck, selectDeckToEdit } from './decksSlice';
+import ObjectId from 'bson-objectid';
+import {
+  saveDeck,
+  deleteDeck,
+  selectDeckToEdit
+  // postCreateDeck
+} from './decksSlice';
 import { selectCardToEdit } from './cardsSlice';
 import { connect } from 'react-redux';
 
 const mapState = (state) => ({
   decks: state.decks,
   cards: state.cards
+  // user: state.user
 });
 
 const mapDispatch = {
@@ -31,6 +37,7 @@ const mapDispatch = {
   deleteDeck,
   selectDeckToEdit,
   selectCardToEdit
+  // postCreateDeck
 };
 
 class DeckScreen extends React.Component {
@@ -59,7 +66,7 @@ class DeckScreen extends React.Component {
 
   createNewDeck = () => {
     const newDeck = {
-      id: uuid.v1(),
+      id: ObjectId(),
       name: this.getAvailableDeckName(),
       cards: [],
       tags: [GameTypesEnum.custom]
@@ -81,6 +88,17 @@ class DeckScreen extends React.Component {
 
     return name;
   };
+
+  // publishDeck = async () => {
+  //   const { postCreateDeck, decks, user, cards } = this.props;
+  //   const deckToPost = {
+  //     ...decks.byId[decks.editingDeckId],
+  //     cards: cards.byDeckId[decks.editingDeckId],
+  //     userId: ObjectId().toHexString()
+  //   };
+  //   this.hideMenu();
+  //   await postCreateDeck(deckToPost);
+  // };
 
   //#region dropdown menu
   _menu = null;
@@ -184,6 +202,9 @@ class DeckScreen extends React.Component {
               }
             >
               <MenuItem onPress={this.openEditModal}>Edit Name</MenuItem>
+              {/* <MenuItem onPress={this.publishDeck}>
+                Publish Deck Online
+              </MenuItem> */}
               <MenuItem onPress={this.confirmDelete}>Delete</MenuItem>
             </Menu>
           </View>
@@ -194,10 +215,10 @@ class DeckScreen extends React.Component {
           visible={modalVisible}
           onRequestClose={() => this.setModalVisible(false)}
         >
-          <View style={deckStyles.modalView}>
-            <View style={deckStyles.modalContent}>
+          <View style={styles.inputModalView}>
+            <View style={styles.inputModalContent}>
               <TextInput
-                style={deckStyles.titleInput}
+                style={styles.modalInput}
                 value={deckName}
                 onChangeText={this.onChangeDeckName}
                 onFocus={this.onFocus}
@@ -222,7 +243,7 @@ class DeckScreen extends React.Component {
             renderItem={({ item, index }) => (
               <ListLinkRow
                 onPress={() => this.navigateToCard(index)}
-                viewStyle={[deckStyles.listRow, deckStyles.deckListRow]}
+                viewStyle={[styles.listRow, styles.paddedRow]}
               >
                 <Text style={styles.itemText} numberOfLines={2}>
                   {item}

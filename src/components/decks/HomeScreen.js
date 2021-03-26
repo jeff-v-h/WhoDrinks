@@ -12,6 +12,7 @@ import styles from '../../styles/styles';
 import HeaderText from '../common/HeaderText';
 import AppButton from '../common/AppButton';
 import { DISCLAIMER } from '../../utils/constants';
+import { isDateOverOneWeekAgo } from '../../utils/helpers';
 import deckStyles from '../../styles/deckStyles';
 import { connect } from 'react-redux';
 import { selectDeck } from './decksSlice';
@@ -44,16 +45,9 @@ class HomeScreen extends React.Component {
   componentDidMount() {
     // this.props.logout();
     const { dateObtained } = this.props.user.appVersion;
-    if (!dateObtained || this.isDateOverOneWeekAgo(dateObtained)) {
+    if (!dateObtained || isDateOverOneWeekAgo(dateObtained)) {
       this.props.getAppVersion();
     }
-  }
-
-  isDateOverOneWeekAgo(dateString) {
-    return (
-      new Date().getTime() >
-      new Date(dateString).getTime() + 7 * 24 * 60 * 60 * 1000
-    );
   }
 
   goToDeckSelection = () => this.props.navigation.navigate('DeckList');

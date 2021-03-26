@@ -5,16 +5,10 @@ import { colours } from './variables';
 const selectedColWidth = moderateScale(56);
 
 const deckStyles = StyleSheet.create({
-  listRow: {
-    height: verticalScale(50)
-  },
-  deckListRow: {
-    paddingLeft: moderateScale(20),
-    paddingRight: moderateScale(20)
-  },
   deckListHeader: {
     borderBottomWidth: 1,
-    paddingBottom: moderateScale(10)
+    paddingBottom: verticalScale(5),
+    marginBottom: verticalScale(5)
   },
   currentlySelectedHeading: {
     width: selectedColWidth,
@@ -48,7 +42,8 @@ const deckStyles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     width: '100%',
-    marginBottom: verticalScale(10),
+    marginBottom: verticalScale(5),
+    paddingBottom: verticalScale(5),
     borderBottomColor: colours.black,
     borderBottomWidth: 1
   },
@@ -58,32 +53,8 @@ const deckStyles = StyleSheet.create({
     paddingRight: moderateScale(10)
   },
   title: {
-    fontSize: moderateScale(22)
-  },
-  modalView: {
-    flex: 1,
-    backgroundColor: colours.modalBlack,
-    justifyContent: 'center'
-  },
-  modalContent: {
-    backgroundColor: colours.white,
-    minHeight: verticalScale(130),
-    justifyContent: 'space-around',
-    paddingLeft: moderateScale(10),
-    paddingRight: moderateScale(10),
-    paddingTop: verticalScale(20),
-    paddingBottom: verticalScale(20),
-    marginLeft: moderateScale(20),
-    marginRight: moderateScale(20)
-  },
-  titleInput: {
-    paddingLeft: moderateScale(10),
-    paddingRight: moderateScale(10),
-    marginLeft: moderateScale(10),
-    marginRight: moderateScale(10),
-    marginBottom: verticalScale(30),
-    fontSize: moderateScale(24),
-    borderBottomWidth: 1
+    fontSize: moderateScale(20),
+    fontWeight: 'bold'
   },
   menuWrapper: {
     padding: moderateScale(5),

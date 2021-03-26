@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import uuid from 'uuid';
+import ObjectId from 'bson-objectid';
 
 // Min and max included as possible outcomes
 const randomIntFromInterval = (min, max) =>
@@ -21,7 +21,7 @@ const gameSlice = createSlice({
       state.played = [state.drawPile[randomIndex]];
       state.drawPile.splice(randomIndex, 1);
       state.indexToShow = 0;
-      state.gameId = uuid.v1();
+      state.gameId = ObjectId();
     },
     playNewCard: (state) => {
       if (state.drawPile.length < 1) {

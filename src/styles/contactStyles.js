@@ -39,6 +39,10 @@ const contactStyles = StyleSheet.create({
   },
   feedbackInput: {
     textAlignVertical: 'top'
+  },
+  deckListHeader: {
+    borderBottomWidth: 1,
+    paddingBottom: moderateScale(10)
   }
 });
 

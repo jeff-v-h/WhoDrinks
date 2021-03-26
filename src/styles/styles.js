@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
     padding: moderateScale(10)
   },
   text: {
-    fontSize: moderateScale(24),
+    fontSize: moderateScale(20),
     textAlign: 'center'
   },
   headerText: {
@@ -40,6 +40,12 @@ const styles = StyleSheet.create({
   list: {
     flex: 1,
     width: '100%'
+  },
+  listRow: {
+    height: verticalScale(50)
+  },
+  paddedRow: {
+    paddingHorizontal: moderateScale(10)
   },
   topButtonsRow: {
     flexDirection: 'row',
@@ -87,7 +93,7 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   itemText: {
-    fontSize: moderateScale(20),
+    fontSize: moderateScale(18),
     flex: 1
   },
   IconButton: {
@@ -127,6 +133,39 @@ const styles = StyleSheet.create({
   modalContent: {
     padding: moderateScale(15),
     backgroundColor: colours.white
+  },
+  inputModalView: {
+    flex: 1,
+    backgroundColor: colours.modalBlack,
+    justifyContent: 'center'
+  },
+  inputModalDetails: {
+    paddingHorizontal: moderateScale(10),
+    marginBottom: verticalScale(5)
+  },
+  inputModalDetailsText: {
+    textAlign: 'left'
+  },
+  inputModalContent: {
+    backgroundColor: colours.white,
+    minHeight: verticalScale(130),
+    justifyContent: 'space-around',
+    paddingLeft: moderateScale(10),
+    paddingRight: moderateScale(10),
+    paddingTop: verticalScale(20),
+    paddingBottom: verticalScale(20),
+    marginLeft: moderateScale(20),
+    marginRight: moderateScale(20)
+  },
+  modalInput: {
+    paddingLeft: moderateScale(4),
+    paddingRight: moderateScale(4),
+    paddingBottom: verticalScale(4),
+    marginLeft: moderateScale(10),
+    marginRight: moderateScale(10),
+    marginBottom: verticalScale(20),
+    fontSize: moderateScale(20),
+    borderBottomWidth: 1
   },
   rightButtonsView: {
     alignItems: 'flex-end'

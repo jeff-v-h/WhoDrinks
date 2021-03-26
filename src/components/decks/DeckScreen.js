@@ -89,16 +89,20 @@ class DeckScreen extends React.Component {
     return name;
   };
 
-  // publishDeck = async () => {
-  //   const { postCreateDeck, decks, user, cards } = this.props;
-  //   const deckToPost = {
-  //     ...decks.byId[decks.editingDeckId],
-  //     cards: cards.byDeckId[decks.editingDeckId],
-  //     userId: ObjectId().toHexString()
-  //   };
-  //   this.hideMenu();
-  //   await postCreateDeck(deckToPost);
-  // };
+  uploadDeck = () => {
+    Alert.alert(
+      'Online community coming soon!',
+      'Feel free to hit the top right menu and go to the "Contact Us" section to let us know your thoughts.'
+    );
+    // const { postCreateDeck, decks, user, cards } = this.props;
+    // const deckToPost = {
+    //   ...decks.byId[decks.editingDeckId],
+    //   cards: cards.byDeckId[decks.editingDeckId],
+    //   userId: ObjectId().toHexString()
+    // };
+    // this.hideMenu();
+    // await postCreateDeck(deckToPost);
+  };
 
   //#region dropdown menu
   _menu = null;
@@ -202,9 +206,7 @@ class DeckScreen extends React.Component {
               }
             >
               <MenuItem onPress={this.openEditModal}>Edit Name</MenuItem>
-              {/* <MenuItem onPress={this.publishDeck}>
-                Publish Deck Online
-              </MenuItem> */}
+              <MenuItem onPress={this.uploadDeck}>Upload</MenuItem>
               <MenuItem onPress={this.confirmDelete}>Delete</MenuItem>
             </Menu>
           </View>

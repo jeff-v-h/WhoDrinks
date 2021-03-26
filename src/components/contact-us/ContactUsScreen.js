@@ -3,6 +3,7 @@ import {
   View,
   TextInput,
   KeyboardAvoidingView,
+  ScrollView,
   Keyboard,
   Alert
 } from 'react-native';
@@ -147,60 +148,62 @@ class ContactUsScreen extends React.Component {
     return (
       <>
         <KeyboardAvoidingView style={styles.keyboardAvoidingView}>
-          <View style={[styles.container, contactStyles.feedbackScreen]}>
-            {!keyboardShowing && (
-              <View style={[styles.section, contactStyles.textSection]}>
-                <AppText style={contactStyles.text}>
-                  Got ideas to make this game more fun?
-                </AppText>
-                <AppText style={contactStyles.text}>
-                  {"Or maybe you've found an error?"}
-                </AppText>
-                <AppText style={contactStyles.text}>
-                  {"Either way, we'd love to hear from you!"}
-                </AppText>
+          <ScrollView keyboardShouldPersistTaps="handled">
+            <View style={[styles.container, contactStyles.feedbackScreen]}>
+              {!keyboardShowing && (
+                <View style={[styles.section, contactStyles.textSection]}>
+                  <AppText style={contactStyles.text}>
+                    Got ideas to make this game more fun?
+                  </AppText>
+                  <AppText style={contactStyles.text}>
+                    {"Or maybe you've found an error?"}
+                  </AppText>
+                  <AppText style={contactStyles.text}>
+                    {"Either way, we'd love to hear from you!"}
+                  </AppText>
+                </View>
+              )}
+              <View
+                style={[styles.section, contactStyles.contactUsInputSection]}
+              >
+                <TextInput
+                  style={contactStyles.contactUsInput}
+                  value={firstName}
+                  onChangeText={this.handleFirstNameChange}
+                  onFocus={this.keyboardDidShow}
+                  placeholder="First name"
+                  editable={!isLoading}
+                />
+                <TextInput
+                  style={contactStyles.contactUsInput}
+                  value={lastName}
+                  onChangeText={this.handleLastNameChange}
+                  onFocus={this.keyboardDidShow}
+                  placeholder="Last name"
+                  editable={!isLoading}
+                />
+                <TextInput
+                  style={emailInputStyles}
+                  value={email}
+                  onChangeText={this.handleEmailChange}
+                  onFocus={this.keyboardDidShow}
+                  placeholder="E-mail"
+                  editable={!isLoading}
+                />
+                <TextInput
+                  style={[
+                    contactStyles.contactUsInput,
+                    contactStyles.feedbackInput
+                  ]}
+                  value={feedback}
+                  onChangeText={this.handleFeedbackChange}
+                  onFocus={this.keyboardDidShow}
+                  placeholder="Feedback"
+                  multiline={true}
+                  editable={!isLoading}
+                  numberOfLines={5}
+                />
               </View>
-            )}
-            <View style={[styles.section, contactStyles.contactUsInputSection]}>
-              <TextInput
-                style={contactStyles.contactUsInput}
-                value={firstName}
-                onChangeText={this.handleFirstNameChange}
-                onFocus={this.keyboardDidShow}
-                placeholder="First name"
-                editable={!isLoading}
-              />
-              <TextInput
-                style={contactStyles.contactUsInput}
-                value={lastName}
-                onChangeText={this.handleLastNameChange}
-                onFocus={this.keyboardDidShow}
-                placeholder="Last name"
-                editable={!isLoading}
-              />
-              <TextInput
-                style={emailInputStyles}
-                value={email}
-                onChangeText={this.handleEmailChange}
-                onFocus={this.keyboardDidShow}
-                placeholder="E-mail"
-                editable={!isLoading}
-              />
-              <TextInput
-                style={[
-                  contactStyles.contactUsInput,
-                  contactStyles.feedbackInput
-                ]}
-                value={feedback}
-                onChangeText={this.handleFeedbackChange}
-                onFocus={this.keyboardDidShow}
-                placeholder="Feedback"
-                multiline={true}
-                editable={!isLoading}
-                numberOfLines={5}
-              />
-            </View>
-            {!keyboardShowing && (
               <View
                 style={[styles.section, contactStyles.feedbackButtonSection]}
               >
@@ -210,8 +213,8 @@ class ContactUsScreen extends React.Component {
                   disabled={!emailValid || feedback.trim().length < 1}
                 />
               </View>
-            )}
-          </View>
+            </View>
+          </ScrollView>
         </KeyboardAvoidingView>
         <SpinnerOverlay show={isLoading} />
       </>

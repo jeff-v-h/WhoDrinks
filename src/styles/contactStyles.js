@@ -9,7 +9,7 @@ const contactStyles = StyleSheet.create({
     flex: 0,
     justifyContent: 'flex-start',
     height: verticalScale(110),
-    marginBottom: verticalScale(30),
+    marginBottom: verticalScale(20),
     alignItems: 'flex-start'
   },
   text: {
@@ -23,10 +23,9 @@ const contactStyles = StyleSheet.create({
     justifyContent: 'flex-start'
   },
   contactUsInput: {
-    paddingLeft: moderateScale(10),
-    paddingRight: moderateScale(10),
-    marginLeft: moderateScale(10),
-    marginRight: moderateScale(10),
+    paddingHorizontal: moderateScale(10),
+    paddingVertical: verticalScale(8),
+    marginHorizontal: moderateScale(10),
     marginBottom: verticalScale(6),
     fontSize: moderateScale(16),
     borderWidth: 1,

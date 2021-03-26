@@ -44,6 +44,7 @@ const userSlice = createSlice({
       // termsAndConditions: '',
       // privacyPolicy: ''
       // dateObtained: new Date().toISOString()
+      // dateObtained: d.setDate(d.getDate() - 8)
     },
     dismissedUpdate: false,
     confirmedAnnouncement: false,

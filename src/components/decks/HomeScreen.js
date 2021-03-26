@@ -20,7 +20,7 @@ import {
   confirmDisclaimer,
   logout,
   getAppVersion,
-  dismissedUpdate,
+  dismissUpdate,
   confirmAnnouncement
 } from '../../redux/userSlice';
 import { startNewGame } from '../game/gameSlice';
@@ -37,7 +37,7 @@ const mapDispatch = {
   logout,
   startNewGame,
   getAppVersion,
-  dismissedUpdate,
+  dismissUpdate,
   confirmAnnouncement
 };
 
@@ -98,12 +98,12 @@ class HomeScreen extends React.Component {
         {
           text: 'Cancel',
           style: 'cancel',
-          onPress: () => this.props.dismissedUpdate()
+          onPress: () => this.props.dismissUpdate()
         },
         {
           text: 'OK',
           onPress: () => {
-            this.props.dismissedUpdate();
+            this.props.dismissUpdate();
             this.redirectToAppStore();
           }
         }

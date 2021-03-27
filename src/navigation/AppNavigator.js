@@ -13,6 +13,7 @@ import DisclaimerScreen from '../components/legal/DisclaimerScreen';
 import RedirectError from '../components/decks/RedirectError';
 import CommunityDeckListScreen from '../components/community/CommunityDeckListScreen';
 import CommunityDeckScreen from '../components/community/CommunityDeckScreen';
+// import GameHeaderTitle from '../components/game/GameHeaderTitle';
 
 const Drawer = createDrawerNavigator();
 const DecksConfigStack = createStackNavigator();
@@ -67,7 +68,7 @@ const GamesNavigationStack = () => (
       name="Game"
       component={GameScreen}
       options={({ route }) => ({
-        title: 'Deck: ' + (route.params?.deckName ?? ''),
+        title: 'Deck: ' + (route.params?.name ?? ''),
         headerRight: () => <HeaderMenuButton />
       })}
     />

@@ -11,7 +11,8 @@ const gameSlice = createSlice({
     drawPile: [],
     played: [],
     indexToShow: 0,
-    gameId: ''
+    gameId: '',
+    deckName: ''
   },
   reducers: {
     startNewGame: (state, action) => {
@@ -21,7 +22,7 @@ const gameSlice = createSlice({
       state.played = [state.drawPile[randomIndex]];
       state.drawPile.splice(randomIndex, 1);
       state.indexToShow = 0;
-      state.gameId = ObjectId();
+      state.gameId = ObjectId().toHexString();
     },
     playNewCard: (state) => {
       if (state.drawPile.length < 1) {

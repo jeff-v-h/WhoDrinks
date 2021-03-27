@@ -54,8 +54,13 @@ class HomeScreen extends React.Component {
 
   startNewGame = () => {
     const { navigation, startNewGame, decks, cards } = this.props;
+    const name = decks.byId[decks.selectedId].name;
     startNewGame(cards.byDeckId[decks.selectedId]);
-    navigation.navigate('Game');
+    // For params to pass through, must specify screen name since it is same as stack name
+    navigation.navigate('Game', {
+      screen: 'Game',
+      params: { name }
+    });
   };
 
   //#region alerts

@@ -123,7 +123,8 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     backgroundColor: colours.modalBlack,
-    padding: moderateScale(15)
+    paddingHorizontal: moderateScale(15),
+    paddingVertical: verticalScale(25)
   },
   bottomPopupModal: {
     flex: 1,

@@ -6,14 +6,18 @@ import { DISCLAIMER, LEGAL_RECOMMENDATION } from '../../utils/constants';
 import TermsAndConditionsModal from './TermsAndConditionsModal';
 
 function DisclaimerScreen() {
-  const [modalVisible, setModalVisible] = useState(false);
+  const [modalVisible, setModalVisible] = useState(true);
 
   return (
     <View style={legalStyles.disclaimerContainer}>
-      <Text style={legalStyles.subHeading}>DRINK RESPONSIBLY:</Text>
-      <Text style={legalStyles.text}>{LEGAL_RECOMMENDATION}</Text>
-      <Text style={legalStyles.subHeading}>DISCLAIMER:</Text>
-      <Text style={legalStyles.text}>{DISCLAIMER}</Text>
+      <View style={legalStyles.section}>
+        <Text style={legalStyles.subHeading}>DRINK RESPONSIBLY</Text>
+        <Text style={legalStyles.text}>{LEGAL_RECOMMENDATION}</Text>
+      </View>
+      <View style={legalStyles.section}>
+        <Text style={legalStyles.subHeading}>DISCLAIMER</Text>
+        <Text style={legalStyles.text}>{DISCLAIMER}</Text>
+      </View>
       <Text
         style={[legalStyles.text, styles.linkText]}
         onPress={() => setModalVisible(true)}

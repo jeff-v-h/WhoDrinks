@@ -7,7 +7,7 @@ class BulletListItem extends React.Component {
     return (
       <View style={styles.listItem}>
         <Text style={styles.bullet}>{'\u2B24'}</Text>
-        <Text>{this.props.children}</Text>
+        {this.props.children}
       </View>
     );
   }

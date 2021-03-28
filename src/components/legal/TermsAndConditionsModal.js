@@ -23,11 +23,11 @@ function TermsAndConditionsModal({ close, modalVisible }) {
     >
       <View style={styles.modal}>
         <View style={styles.modalContent}>
-          <View>
+          <View style={styles.rightButtonsView}>
             <IconButton
               onPress={close}
               iconName="times"
-              size={24}
+              size={18}
               opacity={0.5}
             />
           </View>

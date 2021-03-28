@@ -131,7 +131,7 @@ const LegalNavigationStack = () => (
       name="Disclaimer"
       component={DisclaimerScreen}
       options={{
-        title: 'Legal/Disclaimer',
+        title: 'Legal',
         headerRight: () => <HeaderMenuButton />
       }}
     />
@@ -146,7 +146,7 @@ function AppNavigator() {
       <Drawer.Screen name="Community" component={CommunityNavigationStack} />
       <Drawer.Screen name="Rules" component={RulesNavigationStack} />
       <Drawer.Screen name="Contact Us" component={ContactNavigationStack} />
-      <Drawer.Screen name="Legal/Disclaimer" component={LegalNavigationStack} />
+      <Drawer.Screen name="Legal" component={LegalNavigationStack} />
     </Drawer.Navigator>
   );
 }

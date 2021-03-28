@@ -193,6 +193,15 @@ const styles = StyleSheet.create({
   textBlock: {
     marginVertical: verticalScale(10)
   },
+  listItem: {
+    flexDirection: 'row',
+    justifyContent: 'flex-start'
+  },
+  bullet: {
+    marginRight: moderateScale(5),
+    fontSize: moderateScale(8),
+    marginTop: verticalScale(4)
+  },
   redBorder: {
     borderColor: colours.error
   }

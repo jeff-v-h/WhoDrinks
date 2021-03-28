@@ -190,6 +190,9 @@ const styles = StyleSheet.create({
   linkText: {
     color: colours.linkBlue
   },
+  textBlock: {
+    marginVertical: verticalScale(10)
+  },
   redBorder: {
     borderColor: colours.error
   }

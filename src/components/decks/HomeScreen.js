@@ -3,7 +3,6 @@ import {
   View,
   SafeAreaView,
   Text,
-  Modal,
   Alert,
   Linking,
   Platform
@@ -11,19 +10,18 @@ import {
 import styles from '../../styles/styles';
 import HeaderText from '../common/HeaderText';
 import AppButton from '../common/AppButton';
-import { DISCLAIMER } from '../../utils/constants';
 import { isDateOverOneWeekAgo } from '../../utils/helpers';
 import deckStyles from '../../styles/deckStyles';
 import { connect } from 'react-redux';
 import { selectDeck } from './decksSlice';
 import {
-  confirmDisclaimer,
   logout,
   getAppVersion,
   dismissUpdate,
   confirmAnnouncement
 } from '../../redux/userSlice';
 import { startNewGame } from '../game/gameSlice';
+import DisclaimerModal from '../legal/DisclaimerModal';
 
 const mapState = (state) => ({
   decks: state.decks,
@@ -33,7 +31,6 @@ const mapState = (state) => ({
 
 const mapDispatch = {
   selectDeck,
-  confirmDisclaimer,
   logout,
   startNewGame,
   getAppVersion,
@@ -144,7 +141,7 @@ class HomeScreen extends React.Component {
   //#endregion
 
   render() {
-    const { user, decks, confirmDisclaimer } = this.props;
+    const { user, decks } = this.props;
     this.checkAlerts();
 
     if (user.appVersion.forceUpdate) {
@@ -175,27 +172,7 @@ class HomeScreen extends React.Component {
             style={styles.button}
           />
         </View>
-        <Modal
-          animationType="slide"
-          transparent={true}
-          visible={!user.confirmedDisclaimer}
-          onRequestClose={() => confirmDisclaimer()}
-        >
-          <View style={styles.bottomPopupModal}>
-            <View style={styles.modalContent}>
-              <Text style={styles.bold}>Disclaimer</Text>
-              <Text>{DISCLAIMER}</Text>
-              <View style={styles.rightButtonsView}>
-                <AppButton
-                  title="OK"
-                  onPress={() => confirmDisclaimer()}
-                  style={styles.modalButton}
-                  textStyle={styles.modalButtonText}
-                />
-              </View>
-            </View>
-          </View>
-        </Modal>
+        <DisclaimerModal />
       </SafeAreaView>
     );
   }

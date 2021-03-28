@@ -1,12 +1,11 @@
 import React from 'react';
-import { View, Text, Modal } from 'react-native';
+import { View, Modal } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import styles from '../../styles/styles';
-import legalStyles from '../../styles/legalStyles';
-import { TERMS_AND_CONDITIONS } from '../../utils/constants';
 import IconButton from '../common/IconButton';
 import AppButton from '../common/AppButton';
 import PropTypes from 'prop-types';
+import TermsAndConditions from './TermsAndConditions';
 
 TermsAndConditionsModal.propTypes = {
   modalVisible: PropTypes.bool.isRequired,
@@ -32,8 +31,7 @@ function TermsAndConditionsModal({ close, modalVisible }) {
             />
           </View>
           <ScrollView>
-            <Text style={legalStyles.subHeading}>TERMS AND CONDITIONS:</Text>
-            <Text style={legalStyles.text}>{TERMS_AND_CONDITIONS}</Text>
+            <TermsAndConditions />
             <View style={styles.rightButtonsView}>
               <AppButton
                 title="OK"

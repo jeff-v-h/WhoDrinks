@@ -6,7 +6,7 @@ import { DISCLAIMER, LEGAL_RECOMMENDATION } from '../../utils/constants';
 import TermsAndConditionsModal from './TermsAndConditionsModal';
 
 function DisclaimerScreen() {
-  const [modalVisible, setModalVisible] = useState(true);
+  const [modalVisible, setModalVisible] = useState(false);
 
   return (
     <View style={legalStyles.disclaimerContainer}>

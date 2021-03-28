@@ -9,22 +9,23 @@ import AppButton from '../common/AppButton';
 import PropTypes from 'prop-types';
 
 TermsAndConditionsModal.propTypes = {
-  onClose: PropTypes.func.isRequired
+  modalVisible: PropTypes.bool.isRequired,
+  close: PropTypes.func.isRequired
 };
 
-function TermsAndConditionsModal({ onClose }) {
+function TermsAndConditionsModal({ close, modalVisible }) {
   return (
     <Modal
       animationType="fade"
       transparent={true}
       visible={modalVisible}
-      onRequestClose={onClose}
+      onRequestClose={close}
     >
       <View style={styles.modal}>
         <View style={styles.modalContent}>
           <View>
             <IconButton
-              onPress={onPress}
+              onPress={close}
               iconName="times"
               size={24}
               opacity={0.5}
@@ -36,7 +37,7 @@ function TermsAndConditionsModal({ onClose }) {
             <View style={styles.rightButtonsView}>
               <AppButton
                 title="OK"
-                onPress={onClose}
+                onPress={close}
                 style={styles.modalButton}
                 textStyle={styles.modalButtonText}
               />

@@ -187,6 +187,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center'
   },
+  linkText: {
+    color: colours.linkBlue
+  },
   redBorder: {
     borderColor: colours.error
   }

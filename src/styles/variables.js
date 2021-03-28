@@ -9,5 +9,6 @@ export const colours = {
   silver: '#C0C0C0',
   black: '#000',
   modalBlack: 'rgba(0, 0, 0, 0.8)',
-  error: '#FF0000'
+  error: '#FF0000',
+  linkBlue: '#0198E1'
 };

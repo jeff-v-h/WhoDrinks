@@ -3,7 +3,8 @@ import { View, Text } from 'react-native';
 import styles from '../../styles/styles';
 import legalStyles from '../../styles/legalStyles';
 import { DISCLAIMER, LEGAL_RECOMMENDATION } from '../../utils/constants';
-import TermsAndConditionsModal from './TermsAndConditionsModal';
+import InformationModal from '../common/InformationModal';
+import TermsAndConditions from './TermsAndConditions';
 
 function DisclaimerScreen() {
   const [modalVisible, setModalVisible] = useState(false);
@@ -24,10 +25,18 @@ function DisclaimerScreen() {
       >
         {`Terms & Conditions`}
       </Text>
-      <TermsAndConditionsModal
+      <InformationModal
         close={() => setModalVisible(false)}
         modalVisible={modalVisible}
-      />
+      >
+        <TermsAndConditions />
+      </InformationModal>
+      {/* <InformationModal
+        close={() => setModalVisible(false)}
+        modalVisible={modalVisible}
+      >
+        <TermsAndConditions />
+      </InformationModal> */}
     </View>
   );
 }

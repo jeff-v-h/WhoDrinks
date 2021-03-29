@@ -3,10 +3,11 @@ import { View, Text, Modal } from 'react-native';
 import styles from '../../styles/styles';
 import deckStyles from '../../styles/deckStyles';
 import AppButton from '../common/AppButton';
-import TermsAndConditionsModal from './TermsAndConditionsModal';
+import InformationModal from '../common/InformationModal';
 import { useSelector, useDispatch } from 'react-redux';
 import { DISCLAIMER } from '../../utils/constants';
 import { confirmDisclaimer } from '../../redux/userSlice';
+import TermsAndConditions from './TermsAndConditions';
 
 function DisclaimerModal() {
   const [modalVisible, setModalVisible] = useState(false);
@@ -46,10 +47,12 @@ function DisclaimerModal() {
           </View>
         </View>
       </View>
-      <TermsAndConditionsModal
+      <InformationModal
         close={() => setModalVisible(false)}
         modalVisible={modalVisible}
-      />
+      >
+        <TermsAndConditions />
+      </InformationModal>
     </Modal>
   );
 }

@@ -2,17 +2,21 @@ import React from 'react';
 import { View, Modal } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import styles from '../../styles/styles';
-import IconButton from '../common/IconButton';
-import AppButton from '../common/AppButton';
+import IconButton from './IconButton';
+import AppButton from './AppButton';
 import PropTypes from 'prop-types';
-import TermsAndConditions from './TermsAndConditions';
+import TermsAndConditions from '../legal/TermsAndConditions';
 
-TermsAndConditionsModal.propTypes = {
+InformationModal.propTypes = {
   modalVisible: PropTypes.bool.isRequired,
-  close: PropTypes.func.isRequired
+  close: PropTypes.func.isRequired,
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node
+  ]).isRequired
 };
 
-function TermsAndConditionsModal({ close, modalVisible }) {
+function InformationModal({ close, modalVisible, children }) {
   return (
     <Modal
       animationType="fade"
@@ -32,6 +36,7 @@ function TermsAndConditionsModal({ close, modalVisible }) {
           </View>
           <ScrollView>
             <TermsAndConditions />
+            {children}
             <View style={styles.rightButtonsView}>
               <AppButton
                 title="OK"
@@ -47,4 +52,4 @@ function TermsAndConditionsModal({ close, modalVisible }) {
   );
 }
 
-export default TermsAndConditionsModal;
+export default InformationModal;

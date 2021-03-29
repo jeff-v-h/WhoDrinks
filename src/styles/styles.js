@@ -196,7 +196,8 @@ const styles = StyleSheet.create({
   },
   listItem: {
     flexDirection: 'row',
-    justifyContent: 'flex-start'
+    justifyContent: 'flex-start',
+    paddingRight: moderateScale(10)
   },
   bullet: {
     marginRight: moderateScale(5),

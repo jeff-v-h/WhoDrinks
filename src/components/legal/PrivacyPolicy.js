@@ -41,17 +41,8 @@ function PrivacyPolicy() {
           </Text>
           <BulletListItem>
             <Text style={legalStyles.text}>
-              <Text style={styles.bold}>Application</Text> means the software
-              program provided by the Company downloaded by You on any
-              electronic device, named Don't Think Just Drink
-            </Text>
-          </BulletListItem>
-          <BulletListItem>
-            <Text style={legalStyles.text}>
-              <Text style={styles.bold}>Application Store</Text> means the
-              digital distribution service operated and developed by Apple Inc.
-              (Apple App Store) or Google Inc. (Google Play Store) in which the
-              Application has been downloaded.
+              <Text style={styles.bold}>Account</Text> means a unique account
+              created for You to access our Service or parts of our Service.
             </Text>
           </BulletListItem>
           <BulletListItem>
@@ -65,28 +56,54 @@ function PrivacyPolicy() {
           </BulletListItem>
           <BulletListItem>
             <Text style={legalStyles.text}>
-              <Text style={styles.bold}>Account</Text> means a unique account
-              created for You to access our Service or parts of our Service.
+              <Text style={styles.bold}>Application</Text> means the software
+              program provided by the Company downloaded by You on any
+              electronic device, named Don't Think Just Drink
             </Text>
           </BulletListItem>
           <BulletListItem>
             <Text style={legalStyles.text}>
-              <Text style={styles.bold}>Country</Text> refers to: Australia.
+              <Text style={styles.bold}>Business</Text>, for the purpose of the
+              CCPA (California Consumer Privacy Act), refers to the Company as
+              the legal entity that collects Consumers' personal information and
+              determines the purposes and means of the processing of Consumers'
+              personal information, or on behalf of which such information is
+              collected and that alone, or jointly with others, determines the
+              purposes and means of the processing of consumers' personal
+              information, that does business in the State of California.
             </Text>
           </BulletListItem>
           <BulletListItem>
             <Text style={legalStyles.text}>
               <Text style={styles.bold}>Company</Text> (referred to as either
               "the Company", "We", "Us" or "Our" in this Agreement) refers to
-              Recaura, 6307/95 Liverpool Street, Sydney NSW 2000.
+              Recaura, 6307/95 Liverpool Street, Sydney NSW 2000. For the
+              purpose of the GDPR, the Company is the Data Controller.
             </Text>
           </BulletListItem>
           <BulletListItem>
             <Text style={legalStyles.text}>
-              <Text style={styles.bold}>Content</Text> refers to content such as
-              text, images, or other information that can be posted, uploaded,
-              linked to or otherwise made available by You, regardless of the
-              form of that content.
+              <Text style={styles.bold}>Consumer</Text> for the purpose of the
+              CCPA (California Consumer Privacy Act), means a natural person who
+              is a California resident. A resident, as defined in the law,
+              includes (1) every individual who is in the USA for other than a
+              temporary or transitory purpose, and (2) every individual who is
+              domiciled in the USA who is outside the USA for a temporary or
+              transitory purpose.
+            </Text>
+          </BulletListItem>
+          <BulletListItem>
+            <Text style={legalStyles.text}>
+              <Text style={styles.bold}>Country</Text> refers to: Australia
+            </Text>
+          </BulletListItem>
+          <BulletListItem>
+            <Text style={legalStyles.text}>
+              <Text style={styles.bold}>Data Controller</Text>, for the purposes
+              of the GDPR (General Data Protection Regulation), refers to the
+              Company as the legal person which alone or jointly with others
+              determines the purposes and means of the processing of Personal
+              Data.
             </Text>
           </BulletListItem>
           <BulletListItem>
@@ -98,9 +115,38 @@ function PrivacyPolicy() {
           </BulletListItem>
           <BulletListItem>
             <Text style={legalStyles.text}>
-              <Text style={styles.bold}>Feedback</Text> means feedback,
-              innovations or suggestions sent by You regarding the attributes,
-              performance or features of our Service.
+              <Text style={styles.bold}>Do Not Track</Text> (DNT) is a concept
+              that has been promoted by US regulatory authorities, in particular
+              the U.S. Federal Trade Commission (FTC), for the Internet industry
+              to develop and implement a mechanism for allowing internet users
+              to control the tracking of their online activities across
+              websites.
+            </Text>
+          </BulletListItem>
+          <BulletListItem>
+            <Text style={legalStyles.text}>
+              <Text style={styles.bold}>Personal Data</Text> is any information
+              that relates to an identified or identifiable individual.{'\n'}
+              For the purposes for GDPR, Personal Data means any information
+              relating to You such as a name, an identification number, location
+              data, online identifier or to one or more factors specific to the
+              physical, physiological, genetic, mental, economic, cultural or
+              social identity.{'\n'}
+              For the purposes of the CCPA, Personal Data means any information
+              that identifies, relates to, describes or is capable of being
+              associated with, or could reasonably be linked, directly or
+              indirectly, with You.
+            </Text>
+          </BulletListItem>
+          <BulletListItem>
+            <Text style={legalStyles.text}>
+              <Text style={styles.bold}>Sale</Text>, for the purpose of the CCPA
+              (California Consumer Privacy Act), means selling, renting,
+              releasing, disclosing, disseminating, making available,
+              transferring, or otherwise communicating orally, in writing, or by
+              electronic or other means, a Consumer's personal information to
+              another business or a third party for monetary or other valuable
+              consideration.
             </Text>
           </BulletListItem>
           <BulletListItem>
@@ -111,18 +157,29 @@ function PrivacyPolicy() {
           </BulletListItem>
           <BulletListItem>
             <Text style={legalStyles.text}>
-              <Text style={styles.bold}>Terms and Conditions</Text> (also
-              referred as "Terms") mean these Terms and Conditions that form the
-              entire agreement between You and the Company regarding the use of
-              the Service.
+              <Text style={styles.bold}>Service Provider</Text> means any
+              natural or legal person who processes the data on behalf of the
+              Company. It refers to third-party companies or individuals
+              employed by the Company to facilitate the Service, to provide the
+              Service on behalf of the Company, to perform services related to
+              the Service or to assist the Company in analyzing how the Service
+              is used. For the purpose of the GDPR, Service Providers are
+              considered Data Processors.
             </Text>
           </BulletListItem>
           <BulletListItem>
             <Text style={legalStyles.text}>
               <Text style={styles.bold}>Third-party Social Media Service</Text>{' '}
-              means any services or content (including data, information,
-              products or services) provided by a third-party that may be
-              displayed, included or made available by the Service.
+              refers to any website or any social network website through which
+              a User can log in or create an account to use the Service.
+            </Text>
+          </BulletListItem>
+          <BulletListItem>
+            <Text style={legalStyles.text}>
+              <Text style={styles.bold}>Usage Data</Text> refers to data
+              collected automatically, either generated by the use of the
+              Service or from the Service infrastructure itself (for example,
+              the duration of a page visit).
             </Text>
           </BulletListItem>
           <BulletListItem>
@@ -130,97 +187,349 @@ function PrivacyPolicy() {
               <Text style={styles.bold}>You</Text> means the individual
               accessing or using the Service, or the company, or other legal
               entity on behalf of which such individual is accessing or using
-              the Service, as applicable.
+              the Service, as applicable.{'\n'}Under GDPR (General Data
+              Protection Regulation), You can be referred to as the Data Subject
+              or as the User as you are the individual using the Service.
             </Text>
           </BulletListItem>
         </View>
-        <Text style={legalStyles.heading}>Acknowledgement</Text>
+        <Text style={legalStyles.heading}>
+          Collecting and Using Your Personal Data
+        </Text>
+        <Text style={legalStyles.subHeading}>Types of Data Collected</Text>
         <View style={legalStyles.section}>
+          <Text style={[legalStyles.text, styles.bold]}>Personal Data</Text>
           <Text style={legalStyles.text}>
-            These are the Terms and Conditions governing the use of this Service
-            and the agreement that operates between You and the Company. These
-            Terms and Conditions set out the rights and obligations of all users
-            regarding the use of the Service.
+            While using Our Service, We may ask You to provide Us with certain
+            personally identifiable information that can be used to contact or
+            identify You. Personally identifiable information may include, but
+            is not limited to:
+          </Text>
+          <BulletListItem>
+            <Text style={legalStyles.text}>Email address</Text>
+          </BulletListItem>
+          <BulletListItem>
+            <Text style={legalStyles.text}>First name and last name</Text>
+          </BulletListItem>
+          <BulletListItem>
+            <Text style={legalStyles.text}>
+              Address, State, Province, ZIP/Postal code, City
+            </Text>
+          </BulletListItem>
+          <BulletListItem>
+            <Text style={legalStyles.text}>Usage Data</Text>
+          </BulletListItem>
+        </View>
+        <View style={legalStyles.section}>
+          <Text style={[legalStyles.text, styles.bold]}>Usage Data</Text>
+          <Text style={legalStyles.text}>
+            Usage Data is collected automatically when using the Service.
           </Text>
           <Text style={legalStyles.text}>
-            Your access to and use of the Service is conditioned on Your
-            acceptance of and compliance with these Terms and Conditions. These
-            Terms and Conditions apply to all visitors, users and others who
-            access or use the Service.
+            Usage Data may include information such as Your Device's Internet
+            Protocol address (e.g. IP address), browser type, browser version,
+            the pages of our Service that You visit, the time and date of Your
+            visit, the time spent on those pages, unique device identifiers and
+            other diagnostic data.
           </Text>
           <Text style={legalStyles.text}>
-            By accessing or using the Service You agree to be bound by these
-            Terms and Conditions. If You disagree with any part of these Terms
-            and Conditions then You may not access the Service.
+            When You access the Service by or through a mobile device, We may
+            collect certain information automatically, including, but not
+            limited to, the type of mobile device You use, Your mobile device
+            unique ID, the IP address of Your mobile device, Your mobile
+            operating system, the type of mobile Internet browser You use,
+            unique device identifiers and other diagnostic data.
           </Text>
           <Text style={legalStyles.text}>
-            You represent that you are over the age of 18. The Company does not
-            permit those under 18 to use the Service.
-          </Text>
-          <Text style={legalStyles.text}>
-            Your access to and use of the Service is also conditioned on Your
-            acceptance of and compliance with the Privacy Policy of the Company.
-            Our Privacy Policy describes Our policies and procedures on the
-            collection, use and disclosure of Your personal information when You
-            use the Application or the Website and tells You about Your privacy
-            rights and how the law protects You. Please read Our Privacy Policy
-            carefully before using Our Service.
+            We may also collect information that Your browser sends whenever You
+            visit our Service or when You access the Service by or through a
+            mobile device.
           </Text>
         </View>
-        <Text style={legalStyles.heading}>User Accounts</Text>
         <View style={legalStyles.section}>
-          <Text style={legalStyles.text}>
-            When You create an account with Us, You must provide Us information
-            that is accurate, complete, and current at all times. Failure to do
-            so constitutes a breach of the Terms, which may result in immediate
-            termination of Your account on Our Service.
+          <Text style={[legalStyles.text, styles.bold]}>
+            Information from Third-Party Social Media Services
           </Text>
           <Text style={legalStyles.text}>
-            You are responsible for safeguarding the password that You use to
-            access the Service and for any activities or actions under Your
-            password, whether Your password is with Our Service or a Third-Party
-            Social Media Service.
+            The Company allows You to create an account and log in to use the
+            Service through the following Third-party Social Media Services:
+          </Text>
+          <BulletListItem>
+            <Text style={legalStyles.text}>Google</Text>
+          </BulletListItem>
+          <BulletListItem>
+            <Text style={legalStyles.text}>Facebook</Text>
+          </BulletListItem>
+          <BulletListItem>
+            <Text style={legalStyles.text}>Twitter</Text>
+          </BulletListItem>
+          <Text style={legalStyles.text}>
+            If You decide to register through or otherwise grant us access to a
+            Third-Party Social Media Service, We may collect Personal data that
+            is already associated with Your Third-Party Social Media Service's
+            account, such as Your name, Your email address, Your activities or
+            Your contact list associated with that account.
           </Text>
           <Text style={legalStyles.text}>
-            You agree not to disclose Your password to any third party. You must
-            notify Us immediately upon becoming aware of any breach of security
-            or unauthorized use of Your account.
-          </Text>
-          <Text style={legalStyles.text}>
-            You may not use as a username the name of another person or entity
-            or that is not lawfully available for use, a name or trademark that
-            is subject to any rights of another person or entity other than You
-            without appropriate authorization, or a name that is otherwise
-            offensive, vulgar or obscene.
+            You may also have the option of sharing additional information with
+            the Company through Your Third-Party Social Media Service's account.
+            If You choose to provide such information and Personal Data, during
+            registration or otherwise, You are giving the Company permission to
+            use, share, and store it in a manner consistent with this Privacy
+            Policy.
           </Text>
         </View>
-        <Text style={legalStyles.heading}>Content</Text>
+        <Text style={legalStyles.subHeading}>Use of Your Personal Data</Text>
         <View style={legalStyles.section}>
-          <Text style={legalStyles.subHeading}>Your Right to Post Content</Text>
           <Text style={legalStyles.text}>
-            Our Service allows You to post Content. You are responsible for the
-            Content that You post to the Service, including its legality,
-            reliability, and appropriateness.
+            The Company may use Personal Data for the following purposes:
+          </Text>
+          <BulletListItem>
+            <Text style={legalStyles.text}>
+              <Text style={styles.bold}>
+                To provide and maintain our Service
+              </Text>
+              , including to monitor the usage of our Service.
+            </Text>
+          </BulletListItem>
+          <BulletListItem>
+            <Text style={legalStyles.text}>
+              <Text style={styles.bold}>To manage Your Account:</Text> to manage
+              Your registration as a user of the Service. The Personal Data You
+              provide can give You access to different functionalities of the
+              Service that are available to You as a registered user.
+            </Text>
+          </BulletListItem>
+          <BulletListItem>
+            <Text style={legalStyles.text}>
+              <Text style={styles.bold}>
+                For the performance of a contract:
+              </Text>{' '}
+              the development, compliance and undertaking of the purchase
+              contract for the products, items or services You have purchased or
+              of any other contract with Us through the Service.
+            </Text>
+          </BulletListItem>
+          <BulletListItem>
+            <Text style={legalStyles.text}>
+              <Text style={styles.bold}>To contact You:</Text> To contact You by
+              email, telephone calls, SMS, or other equivalent forms of
+              electronic communication, such as a mobile application's push
+              notifications regarding updates or informative communications
+              related to the functionalities, products or contracted services,
+              including the security updates, when necessary or reasonable for
+              their implementation.
+            </Text>
+          </BulletListItem>
+          <BulletListItem>
+            <Text style={legalStyles.text}>
+              <Text style={styles.bold}>To provide You</Text> with news, special
+              offers and general information about other goods, services and
+              events which we offer that are similar to those that you have
+              already purchased or enquired about unless You have opted not to
+              receive such information.
+            </Text>
+          </BulletListItem>
+          <BulletListItem>
+            <Text style={legalStyles.text}>
+              <Text style={styles.bold}>To manage Your requests:</Text> To
+              attend and manage Your requests to Us.
+            </Text>
+          </BulletListItem>
+          <BulletListItem>
+            <Text style={legalStyles.text}>
+              <Text style={styles.bold}>For business transfers:</Text> We may
+              use Your information to evaluate or conduct a merger, divestiture,
+              restructuring, reorganization, dissolution, or other sale or
+              transfer of some or all of Our assets, whether as a going concern
+              or as part of bankruptcy, liquidation, or similar proceeding, in
+              which Personal Data held by Us about our Service users is among
+              the assets transferred.
+            </Text>
+          </BulletListItem>
+          <BulletListItem>
+            <Text style={legalStyles.text}>
+              <Text style={styles.bold}>For other purposes:</Text> We may use
+              Your information for other purposes, such as data analysis,
+              identifying usage trends, determining the effectiveness of our
+              promotional campaigns and to evaluate and improve our Service,
+              products, services, marketing and your experience.
+            </Text>
+          </BulletListItem>
+        </View>
+        <View style={legalStyles.section}>
+          <Text style={legalStyles.text}>
+            We may share Your personal information in the following situations:
+          </Text>
+          <BulletListItem>
+            <Text style={legalStyles.text}>
+              <Text style={styles.bold}>With Service Providers:</Text> We may
+              share Your personal information with Service Providers to monitor
+              and analyze the use of our Service, to contact You.
+            </Text>
+          </BulletListItem>
+          <BulletListItem>
+            <Text style={legalStyles.text}>
+              <Text style={styles.bold}>For business transfers:</Text> We may
+              share or transfer Your personal information in connection with, or
+              during negotiations of, any merger, sale of Company assets,
+              financing, or acquisition of all or a portion of Our business to
+              another company.
+            </Text>
+          </BulletListItem>
+          <BulletListItem>
+            <Text style={legalStyles.text}>
+              <Text style={styles.bold}>With Affiliates:</Text> We may share
+              Your information with Our affiliates, in which case we will
+              require those affiliates to honor this Privacy Policy. Affiliates
+              include Our parent company and any other subsidiaries, joint
+              venture partners or other companies that We control or that are
+              under common control with Us.
+            </Text>
+          </BulletListItem>
+          <BulletListItem>
+            <Text style={legalStyles.text}>
+              <Text style={styles.bold}>With business partners:</Text> We may
+              share Your information with Our business partners to offer You
+              certain products, services or promotions.
+            </Text>
+          </BulletListItem>
+          <BulletListItem>
+            <Text style={legalStyles.text}>
+              <Text style={styles.bold}>With other users:</Text> when You share
+              personal information or otherwise interact in the public areas
+              with other users, such information may be viewed by all users and
+              may be publicly distributed outside. If You interact with other
+              users or register through a Third-Party Social Media Service, Your
+              contacts on the Third-Party Social Media Service may see Your
+              name, profile, pictures and description of Your activity.
+              Similarly, other users will be able to view descriptions of Your
+              activity, communicate with You and view Your profile.
+            </Text>
+          </BulletListItem>
+          <BulletListItem>
+            <Text style={legalStyles.text}>
+              <Text style={styles.bold}>With Your consent:</Text> We may
+              disclose Your personal information for any other purpose with Your
+              consent.
+            </Text>
+          </BulletListItem>
+        </View>
+        <View style={legalStyles.section}>
+          <Text style={legalStyles.subHeading}>
+            Retention of Your Personal Data
           </Text>
           <Text style={legalStyles.text}>
-            By posting Content to the Service, You grant Us the right and
-            license to use, modify, publicly perform, publicly display,
-            reproduce, and distribute such Content on and through the Service.
-            You retain any and all of Your rights to any Content You submit,
-            post or display on or through the Service and You are responsible
-            for protecting those rights. You agree that this license includes
-            the right for Us to make Your Content available to other users of
-            the Service, who may also use Your Content subject to these Terms.
+            The Company will retain Your Personal Data only for as long as is
+            necessary for the purposes set out in this Privacy Policy. We will
+            retain and use Your Personal Data to the extent necessary to comply
+            with our legal obligations (for example, if we are required to
+            retain your data to comply with applicable laws), resolve disputes,
+            and enforce our legal agreements and policies.
           </Text>
           <Text style={legalStyles.text}>
-            You represent and warrant that: (i) the Content is Yours (You own
-            it) or You have the right to use it and grant Us the rights and
-            license as provided in these Terms, and (ii) the posting of Your
-            Content on or through the Service does not violate the privacy
-            rights, publicity rights, copyrights, contract rights or any other
-            rights of any person.
+            The Company will also retain Usage Data for internal analysis
+            purposes. Usage Data is generally retained for a shorter period of
+            time, except when this data is used to strengthen the security or to
+            improve the functionality of Our Service, or We are legally
+            obligated to retain this data for longer time periods.
           </Text>
         </View>
+        <View style={legalStyles.section}>
+          <Text style={legalStyles.subHeading}>
+            Transfer of Your Personal Data
+          </Text>
+          <Text style={legalStyles.text}>
+            Your information, including Personal Data, is processed at the
+            Company's operating offices and in any other places where the
+            parties involved in the processing are located. It means that this
+            information may be transferred to — and maintained on — computers
+            located outside of Your state, province, country or other
+            governmental jurisdiction where the data protection laws may differ
+            than those from Your jurisdiction.
+          </Text>
+          <Text style={legalStyles.text}>
+            Your consent to this Privacy Policy followed by Your submission of
+            such information represents Your agreement to that transfer.
+          </Text>
+          <Text style={legalStyles.text}>
+            The Company will take all steps reasonably necessary to ensure that
+            Your data is treated securely and in accordance with this Privacy
+            Policy and no transfer of Your Personal Data will take place to an
+            organization or a country unless there are adequate controls in
+            place including the security of Your data and other personal
+            information.
+          </Text>
+        </View>
+        <Text style={legalStyles.subHeading}>
+          Retention of Your Personal Data
+        </Text>
+        <View style={legalStyles.section}>
+          <Text style={[legalStyles.text, styles.bold]}>
+            Business Transactions
+          </Text>
+          <Text style={legalStyles.text}>
+            If the Company is involved in a merger, acquisition or asset sale,
+            Your Personal Data may be transferred. We will provide notice before
+            Your Personal Data is transferred and becomes subject to a different
+            Privacy Policy.
+          </Text>
+        </View>
+        <View style={legalStyles.section}>
+          <Text style={[legalStyles.text, styles.bold]}>Law enforcement</Text>
+          <Text style={legalStyles.text}>
+            Under certain circumstances, the Company may be required to disclose
+            Your Personal Data if required to do so by law or in response to
+            valid requests by public authorities (e.g. a court or a government
+            agency).
+          </Text>
+        </View>
+        <View style={legalStyles.section}>
+          <Text style={[legalStyles.text, styles.bold]}>
+            Other legal requirements
+          </Text>
+          <Text style={legalStyles.text}>
+            The Company may disclose Your Personal Data in the good faith belief
+            that such action is necessary to:
+          </Text>
+          <BulletListItem>
+            <Text style={legalStyles.text}>Comply with a legal obligation</Text>
+          </BulletListItem>
+          <BulletListItem>
+            <Text style={legalStyles.text}>
+              Protect and defend the rights or property of the Company
+            </Text>
+          </BulletListItem>
+          <BulletListItem>
+            <Text style={legalStyles.text}>
+              Prevent or investigate possible wrongdoing in connection with the
+              Service
+            </Text>
+          </BulletListItem>
+          <BulletListItem>
+            <Text style={legalStyles.text}>
+              Protect the personal safety of Users of the Service or the public
+            </Text>
+          </BulletListItem>
+          <BulletListItem>
+            <Text style={legalStyles.text}>
+              Protect against legal liability
+            </Text>
+          </BulletListItem>
+        </View>
+        <View style={legalStyles.section}>
+          <Text style={legalStyles.subHeading}>
+            Security of Your Personal Data
+          </Text>
+          <Text style={legalStyles.text}>
+            The security of Your Personal Data is important to Us, but remember
+            that no method of transmission over the Internet, or method of
+            electronic storage is 100% secure. While We strive to use
+            commercially acceptable means to protect Your Personal Data, We
+            cannot guarantee its absolute security.
+          </Text>
+        </View>
+        {/* resume here */}
         <View style={legalStyles.section}>
           <Text style={legalStyles.subHeading}>Content Restrictions</Text>
           <Text style={legalStyles.text}>

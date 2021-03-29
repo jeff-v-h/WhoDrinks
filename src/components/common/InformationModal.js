@@ -35,7 +35,6 @@ function InformationModal({ close, modalVisible, children }) {
             />
           </View>
           <ScrollView>
-            <TermsAndConditions />
             {children}
             <View style={styles.rightButtonsView}>
               <AppButton

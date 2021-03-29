@@ -5,9 +5,11 @@ import legalStyles from '../../styles/legalStyles';
 import { DISCLAIMER, LEGAL_RECOMMENDATION } from '../../utils/constants';
 import InformationModal from '../common/InformationModal';
 import TermsAndConditions from './TermsAndConditions';
+import PrivacyPolicy from './PrivacyPolicy';
 
 function DisclaimerScreen() {
-  const [modalVisible, setModalVisible] = useState(false);
+  const [termsModalVisible, setTermsModalVisible] = useState(false);
+  const [privacyModalVisible, setPrivacyModalVisible] = useState(false);
 
   return (
     <View style={legalStyles.disclaimerContainer}>
@@ -20,23 +22,29 @@ function DisclaimerScreen() {
         <Text style={legalStyles.text}>{DISCLAIMER}</Text>
       </View>
       <Text
-        style={[legalStyles.text, styles.linkText]}
-        onPress={() => setModalVisible(true)}
+        style={[legalStyles.text, styles.linkText, legalStyles.section]}
+        onPress={() => setTermsModalVisible(true)}
       >
         {`Terms & Conditions`}
       </Text>
+      <Text
+        style={[legalStyles.text, styles.linkText, legalStyles.section]}
+        onPress={() => setPrivacyModalVisible(true)}
+      >
+        {`Privacy Policy`}
+      </Text>
       <InformationModal
-        close={() => setModalVisible(false)}
-        modalVisible={modalVisible}
+        close={() => setTermsModalVisible(false)}
+        modalVisible={termsModalVisible}
       >
         <TermsAndConditions />
       </InformationModal>
-      {/* <InformationModal
-        close={() => setModalVisible(false)}
-        modalVisible={modalVisible}
+      <InformationModal
+        close={() => setPrivacyModalVisible(false)}
+        modalVisible={privacyModalVisible}
       >
-        <TermsAndConditions />
-      </InformationModal> */}
+        <PrivacyPolicy />
+      </InformationModal>
     </View>
   );
 }

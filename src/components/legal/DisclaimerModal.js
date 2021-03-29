@@ -8,9 +8,11 @@ import { useSelector, useDispatch } from 'react-redux';
 import { DISCLAIMER } from '../../utils/constants';
 import { confirmDisclaimer } from '../../redux/userSlice';
 import TermsAndConditions from './TermsAndConditions';
+import PrivacyPolicy from './PrivacyPolicy';
 
 function DisclaimerModal() {
-  const [modalVisible, setModalVisible] = useState(false);
+  const [termsModalVisible, setTermsModalVisible] = useState(false);
+  const [privacyModalVisible, setPrivacyModalVisible] = useState(false);
   const confirmedDisclaimer = useSelector(
     (state) => state.user.confirmedDisclaimer
   );
@@ -33,8 +35,13 @@ function DisclaimerModal() {
             By using this application you also agree to the{' '}
             <Text
               style={styles.linkText}
-              onPress={() => setModalVisible(true)}
+              onPress={() => setTermsModalVisible(true)}
             >{`Terms & Conditions`}</Text>
+            {' and '}
+            <Text
+              style={styles.linkText}
+              onPress={() => setPrivacyModalVisible(true)}
+            >{`Privacy Policy`}</Text>
             .
           </Text>
           <View style={styles.rightButtonsView}>
@@ -48,10 +55,16 @@ function DisclaimerModal() {
         </View>
       </View>
       <InformationModal
-        close={() => setModalVisible(false)}
-        modalVisible={modalVisible}
+        close={() => setTermsModalVisible(false)}
+        modalVisible={termsModalVisible}
       >
         <TermsAndConditions />
+      </InformationModal>
+      <InformationModal
+        close={() => setPrivacyModalVisible(false)}
+        modalVisible={privacyModalVisible}
+      >
+        <PrivacyPolicy />
       </InformationModal>
     </Modal>
   );

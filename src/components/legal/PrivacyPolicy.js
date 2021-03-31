@@ -529,396 +529,853 @@ function PrivacyPolicy() {
             cannot guarantee its absolute security.
           </Text>
         </View>
-        {/* resume here */}
-        <View style={legalStyles.section}>
-          <Text style={legalStyles.subHeading}>Content Restrictions</Text>
-          <Text style={legalStyles.text}>
-            The Company is not responsible for the content of the Service's
-            users. You expressly understand and agree that You are solely
-            responsible for the Content and for all activity that occurs under
-            your account, whether done so by You or any third person using Your
-            account.
-          </Text>
-          <Text style={legalStyles.text}>
-            You may not transmit any Content that is unlawful, offensive,
-            upsetting, intended to disgust, threatening, libelous, defamatory,
-            obscene or otherwise objectionable. Examples of such objectionable
-            Content include, but are not limited to, the following:
-          </Text>
-          <BulletListItem>
-            <Text style={legalStyles.text}>
-              Unlawful or promoting unlawful activity.
-            </Text>
-          </BulletListItem>
-          <BulletListItem>
-            <Text style={legalStyles.text}>
-              Defamatory, discriminatory, or mean-spirited content, including
-              references or commentary about religion, race, sexual orientation,
-              gender, national/ethnic origin, or other targeted groups.
-            </Text>
-          </BulletListItem>
-          <BulletListItem>
-            <Text style={legalStyles.text}>
-              Spam, machine – or randomly – generated, constituting unauthorized
-              or unsolicited advertising, chain letters, any other form of
-              unauthorized solicitation, or any form of lottery or gambling.
-            </Text>
-          </BulletListItem>
-          <BulletListItem>
-            <Text style={legalStyles.text}>
-              Containing or installing any viruses, worms, malware, trojan
-              horses, or other content that is designed or intended to disrupt,
-              damage, or limit the functioning of any software, hardware or
-              telecommunications equipment or to damage or obtain unauthorized
-              access to any data or other information of a third person.
-            </Text>
-          </BulletListItem>
-          <BulletListItem>
-            <Text style={legalStyles.text}>
-              Infringing on any proprietary rights of any party, including
-              patent, trademark, trade secret, copyright, right of publicity or
-              other rights.
-            </Text>
-          </BulletListItem>
-          <BulletListItem>
-            <Text style={legalStyles.text}>
-              Impersonating any person or entity including the Company and its
-              employees or representatives.
-            </Text>
-          </BulletListItem>
-          <BulletListItem>
-            <Text style={legalStyles.text}>
-              Violating the privacy of any third person.
-            </Text>
-          </BulletListItem>
-          <BulletListItem>
-            <Text style={legalStyles.text}>
-              False information and features.
-            </Text>
-          </BulletListItem>
-          <Text style={legalStyles.text}>
-            The Company reserves the right, but not the obligation, to, in its
-            sole discretion, determine whether or not any Content is appropriate
-            and complies with this Terms, refuse or remove this Content. The
-            Company further reserves the right to make formatting and edits and
-            change the manner any Content. The Company can also limit or revoke
-            the use of the Service if You post such objectionable Content. As
-            the Company cannot control all content posted by users and/or third
-            parties on the Service, you agree to use the Service at your own
-            risk. You understand that by using the Service You may be exposed to
-            content that You may find offensive, indecent, incorrect or
-            objectionable, and You agree that under no circumstances will the
-            Company be liable in any way for any content, including any errors
-            or omissions in any content, or any loss or damage of any kind
-            incurred as a result of your use of any content.
-          </Text>
-        </View>
-        <View style={legalStyles.section}>
-          <Text style={legalStyles.subHeading}>Content Backups</Text>
-          <Text style={legalStyles.text}>
-            Although regular backups of Content are performed, the Company do
-            not guarantee there will be no loss or corruption of data.
-          </Text>
-          <Text style={legalStyles.text}>
-            Corrupt or invalid backup points may be caused by, without
-            limitation, Content that is corrupted prior to being backed up or
-            that changes during the time a backup is performed.
-          </Text>
-          <Text style={legalStyles.text}>
-            The Company will provide support and attempt to troubleshoot any
-            known or discovered issues that may affect the backups of Content.
-            But You acknowledge that the Company has no liability related to the
-            integrity of Content or the failure to successfully restore Content
-            to a usable state.
-          </Text>
-          <Text style={legalStyles.text}>
-            You agree to maintain a complete and accurate copy of any Content in
-            a location independent of the Service.
-          </Text>
-        </View>
-        <Text style={legalStyles.heading}>Copyright Policy</Text>
+        <Text style={legalStyles.heading}>GDPR Privacy</Text>
         <View style={legalStyles.section}>
           <Text style={legalStyles.subHeading}>
-            Intellectual Property Infringement
+            Legal Basis for Processing Personal Data under GDPR
           </Text>
           <Text style={legalStyles.text}>
-            We respect the intellectual property rights of others. It is Our
-            policy to respond to any claim that Content posted on the Service
-            infringes a copyright or other intellectual property infringement of
-            any person.
+            We may process Personal Data under the following conditions:
+          </Text>
+          <BulletListItem>
+            <Text style={legalStyles.text}>
+              <Text style={styles.bold}>Consent:</Text> You have given Your
+              consent for processing Personal Data for one or more specific
+              purposes.
+            </Text>
+          </BulletListItem>
+          <BulletListItem>
+            <Text style={legalStyles.text}>
+              <Text style={styles.bold}>Performance of a contract:</Text>{' '}
+              Provision of Personal Data is necessary for the performance of an
+              agreement with You and/or for any pre-contractual obligations
+              thereof.
+            </Text>
+          </BulletListItem>
+          <BulletListItem>
+            <Text style={legalStyles.text}>
+              <Text style={styles.bold}>Legal obligations:</Text> Processing
+              Personal Data is necessary for compliance with a legal obligation
+              to which the Company is subject.
+            </Text>
+          </BulletListItem>
+          <BulletListItem>
+            <Text style={legalStyles.text}>
+              <Text style={styles.bold}>Vital interests:</Text> Processing
+              Personal Data is necessary in order to protect Your vital
+              interests or of another natural person.
+            </Text>
+          </BulletListItem>
+          <BulletListItem>
+            <Text style={legalStyles.text}>
+              <Text style={styles.bold}>Public interests:</Text> Processing
+              Personal Data is related to a task that is carried out in the
+              public interest or in the exercise of official authority vested in
+              the Company.
+            </Text>
+          </BulletListItem>
+          <BulletListItem>
+            <Text style={legalStyles.text}>
+              <Text style={styles.bold}>Legitimate interests:</Text> Processing
+              Personal Data is necessary for the purposes of the legitimate
+              interests pursued by the Company.
+            </Text>
+          </BulletListItem>
+          <Text style={legalStyles.text}>
+            In any case, the Company will gladly help to clarify the specific
+            legal basis that applies to the processing, and in particular
+            whether the provision of Personal Data is a statutory or contractual
+            requirement, or a requirement necessary to enter into a contract.
+          </Text>
+        </View>
+        <View style={legalStyles.section}>
+          <Text style={legalStyles.subHeading}>Your Rights under the GDPR</Text>
+          <Text style={legalStyles.text}>
+            The Company undertakes to respect the confidentiality of Your
+            Personal Data and to guarantee You can exercise Your rights.
           </Text>
           <Text style={legalStyles.text}>
-            If You are a copyright owner, or authorized on behalf of one, and
-            You believe that the copyrighted work has been copied in a way that
-            constitutes copyright infringement that is taking place through the
-            Service, You must submit Your notice in writing to the attention of
-            our copyright agent via email at {CONTACT_EMAIL} and include in Your
-            notice a detailed description of the alleged infringement.
+            You have the right under this Privacy Policy, and by law if You are
+            within the EU, to:
+          </Text>
+          <BulletListItem>
+            <Text style={legalStyles.text}>
+              <Text style={styles.bold}>
+                Request access to Your Personal Data.
+              </Text>{' '}
+              The right to access, update or delete the information We have on
+              You. Whenever made possible, you can access, update or request
+              deletion of Your Personal Data directly within Your account
+              settings section. If you are unable to perform these actions
+              yourself, please contact Us to assist You. This also enables You
+              to receive a copy of the Personal Data We hold about You.
+            </Text>
+          </BulletListItem>
+          <BulletListItem>
+            <Text style={legalStyles.text}>
+              <Text style={styles.bold}>
+                Request correction of the Personal Data that We hold about You.
+              </Text>{' '}
+              You have the right to to have any incomplete or inaccurate
+              information We hold about You corrected.
+            </Text>
+          </BulletListItem>
+          <BulletListItem>
+            <Text style={legalStyles.text}>
+              <Text style={styles.bold}>
+                Object to processing of Your Personal Data.
+              </Text>{' '}
+              This right exists where We are relying on a legitimate interest as
+              the legal basis for Our processing and there is something about
+              Your particular situation, which makes You want to object to our
+              processing of Your Personal Data on this ground. You also have the
+              right to object where We are processing Your Personal Data for
+              direct marketing purposes.
+            </Text>
+          </BulletListItem>
+          <BulletListItem>
+            <Text style={legalStyles.text}>
+              <Text style={styles.bold}>
+                Request erasure of Your Personal Data.
+              </Text>{' '}
+              You have the right to ask Us to delete or remove Personal Data
+              when there is no good reason for Us to continue processing it.
+            </Text>
+          </BulletListItem>
+          <BulletListItem>
+            <Text style={legalStyles.text}>
+              <Text style={styles.bold}>
+                Request the transfer of Your Personal Data.
+              </Text>{' '}
+              We will provide to You, or to a third-party You have chosen, Your
+              Personal Data in a structured, commonly used, machine-readable
+              format. Please note that this right only applies to automated
+              information which You initially provided consent for Us to use or
+              where We used the information to perform a contract with You.
+            </Text>
+          </BulletListItem>
+          <BulletListItem>
+            <Text style={legalStyles.text}>
+              <Text style={styles.bold}>Withdraw Your consent.</Text> You have
+              the right to withdraw Your consent on using your Personal Data. If
+              You withdraw Your consent, We may not be able to provide You with
+              access to certain specific functionalities of the Service.
+            </Text>
+          </BulletListItem>
+        </View>
+        <View style={legalStyles.section}>
+          <Text style={legalStyles.subHeading}>
+            Exercising of Your GDPR Data Protection Rights
           </Text>
           <Text style={legalStyles.text}>
-            You may be held accountable for damages (including costs and
-            attorneys' fees) for misrepresenting that any Content is infringing
-            Your copyright.
+            You may exercise Your rights of access, rectification, cancellation
+            and opposition by contacting Us. Please note that we may ask You to
+            verify Your identity before responding to such requests. If You make
+            a request, We will try our best to respond to You as soon as
+            possible.
+          </Text>
+          <Text style={legalStyles.text}>
+            You have the right to complain to a Data Protection Authority about
+            Our collection and use of Your Personal Data. For more information,
+            if You are in the European Economic Area (EEA), please contact Your
+            local data protection authority in the EEA.
+          </Text>
+        </View>
+        <Text style={legalStyles.heading}>CCPA Privacy</Text>
+        <View style={legalStyles.section}>
+          <Text style={legalStyles.text}>
+            This privacy notice section for California residents supplements the
+            information contained in Our Privacy Policy and it applies solely to
+            all visitors, users, and others who reside in the State of
+            California.
           </Text>
         </View>
         <View style={legalStyles.section}>
           <Text style={legalStyles.subHeading}>
-            DMCA Notice and DMCA Procedure for Copyright Infringement Claims
+            Categories of Personal Information Collected
           </Text>
           <Text style={legalStyles.text}>
-            You may submit a notification pursuant to the Digital Millennium
-            Copyright Act (DMCA) by providing our Copyright Agent with the
-            following information in writing (see 17 U.S.C 512(c)(3) for further
-            detail):
+            We collect information that identifies, relates to, describes,
+            references, is capable of being associated with, or could reasonably
+            be linked, directly or indirectly, with a particular Consumer or
+            Device. The following is a list of categories of personal
+            information which we may collect or may have been collected from
+            California residents within the last twelve (12) months.
+          </Text>
+          <Text style={legalStyles.text}>
+            Please note that the categories and examples provided in the list
+            below are those defined in the CCPA. This does not mean that all
+            examples of that category of personal information were in fact
+            collected by Us, but reflects our good faith belief to the best of
+            our knowledge that some of that information from the applicable
+            category may be and may have been collected. For example, certain
+            categories of personal information would only be collected if You
+            provided such personal information directly to Us.
+          </Text>
+        </View>
+        <View style={legalStyles.section}>
+          <BulletListItem>
+            <Text style={[legalStyles.text, styles.bold]}>
+              Category A: Identifiers.
+            </Text>
+          </BulletListItem>
+          <Text style={legalStyles.text}>
+            Examples: A real name, alias, postal address, unique personal
+            identifier, online identifier, Internet Protocol address, email
+            address, account name, driver's license number, passport number, or
+            other similar identifiers.
+          </Text>
+          <Text style={legalStyles.text}>Collected: Yes.</Text>
+          <BulletListItem>
+            <Text style={[legalStyles.text, styles.bold]}>
+              Category B: Personal information categories listed in the
+              California Customer Records statute (Cal. Civ. Code § 1798.80(e)).
+            </Text>
+          </BulletListItem>
+          <Text style={legalStyles.text}>
+            Examples: A name, signature, Social Security number, physical
+            characteristics or description, address, telephone number, passport
+            number, driver's license or state identification card number,
+            insurance policy number, education, employment, employment history,
+            bank account number, credit card number, debit card number, or any
+            other financial information, medical information, or health
+            insurance information. Some personal information included in this
+            category may overlap with other categories.
+          </Text>
+          <Text style={legalStyles.text}>Collected: Yes.</Text>
+          <BulletListItem>
+            <Text style={[legalStyles.text, styles.bold]}>
+              Category C: Protected classification characteristics under
+              California or federal law.
+            </Text>
+          </BulletListItem>
+          <Text style={legalStyles.text}>
+            Examples: Age (40 years or older), race, color, ancestry, national
+            origin, citizenship, religion or creed, marital status, medical
+            condition, physical or mental disability, sex (including gender,
+            gender identity, gender expression, pregnancy or childbirth and
+            related medical conditions), sexual orientation, veteran or military
+            status, genetic information (including familial genetic
+            information).
+          </Text>
+          <Text style={legalStyles.text}>Collected: No.</Text>
+          <BulletListItem>
+            <Text style={[legalStyles.text, styles.bold]}>
+              Category D: Commercial information.
+            </Text>
+          </BulletListItem>
+          <Text style={legalStyles.text}>
+            Examples: Records and history of products or services purchased or
+            considered.
+          </Text>
+          <Text style={legalStyles.text}>Collected: No.</Text>
+          <BulletListItem>
+            <Text style={[legalStyles.text, styles.bold]}>
+              Category E: Biometric information.
+            </Text>
+          </BulletListItem>
+          <Text style={legalStyles.text}>
+            Examples: Genetic, physiological, behavioral, and biological
+            characteristics, or activity patterns used to extract a template or
+            other identifier or identifying information, such as, fingerprints,
+            faceprints, and voiceprints, iris or retina scans, keystroke, gait,
+            or other physical patterns, and sleep, health, or exercise data.
+          </Text>
+          <Text style={legalStyles.text}>Collected: No.</Text>
+          <BulletListItem>
+            <Text style={[legalStyles.text, styles.bold]}>
+              Category F: Internet or other similar network activity.
+            </Text>
+          </BulletListItem>
+          <Text style={legalStyles.text}>
+            Examples: Interaction with our Service or advertisement.
+          </Text>
+          <Text style={legalStyles.text}>Collected: Yes.</Text>
+          <BulletListItem>
+            <Text style={[legalStyles.text, styles.bold]}>
+              Category G: Geolocation data.
+            </Text>
+          </BulletListItem>
+          <Text style={legalStyles.text}>
+            Examples: Approximate physical location.
+          </Text>
+          <Text style={legalStyles.text}>Collected: No.</Text>
+          <BulletListItem>
+            <Text style={[legalStyles.text, styles.bold]}>
+              Category H: Sensory data.
+            </Text>
+          </BulletListItem>
+          <Text style={legalStyles.text}>
+            Examples: Audio, electronic, visual, thermal, olfactory, or similar
+            information.
+          </Text>
+          <Text style={legalStyles.text}>Collected: No.</Text>
+          <BulletListItem>
+            <Text style={[legalStyles.text, styles.bold]}>
+              Category I: Professional or employment-related information.
+            </Text>
+          </BulletListItem>
+          <Text style={legalStyles.text}>
+            Examples: Current or past job history or performance evaluations.
+          </Text>
+          <Text style={legalStyles.text}>Collected: No.</Text>
+          <BulletListItem>
+            <Text style={[legalStyles.text, styles.bold]}>
+              Category J: Non-public education information (per the Family
+              Educational Rights and Privacy Act (20 U.S.C. Section 1232g, 34
+              C.F.R. Part 99)).
+            </Text>
+          </BulletListItem>
+          <Text style={legalStyles.text}>
+            Examples: Education records directly related to a student maintained
+            by an educational institution or party acting on its behalf, such as
+            grades, transcripts, class lists, student schedules, student
+            identification codes, student financial information, or student
+            disciplinary records.
+          </Text>
+          <Text style={legalStyles.text}>Collected: No.</Text>
+          <BulletListItem>
+            <Text style={[legalStyles.text, styles.bold]}>
+              Category K: Inferences drawn from other personal information.
+            </Text>
+          </BulletListItem>
+          <Text style={legalStyles.text}>
+            Examples: Profile reflecting a person's preferences,
+            characteristics, psychological trends, predispositions, behavior,
+            attitudes, intelligence, abilities, and aptitudes.
+          </Text>
+          <Text style={legalStyles.text}>Collected: No.</Text>
+        </View>
+        <View style={legalStyles.section}>
+          <Text style={legalStyles.text}>
+            Under CCPA, personal information does not include:
           </Text>
           <BulletListItem>
             <Text style={legalStyles.text}>
-              An electronic or physical signature of the person authorized to
-              act on behalf of the owner of the copyright's interest.
+              Publicly available information from government records
             </Text>
           </BulletListItem>
           <BulletListItem>
             <Text style={legalStyles.text}>
-              A description of the copyrighted work that You claim has been
-              infringed, including the URL (i.e., web page address) of the
-              location where the copyrighted work exists or a copy of the
-              copyrighted work.
+              Deidentified or aggregated consumer information
             </Text>
           </BulletListItem>
           <BulletListItem>
             <Text style={legalStyles.text}>
-              Identification of the URL or other specific location on the
-              Service where the material that You claim is infringing is
-              located.
+              Information excluded from the CCPA's scope, such as:
+            </Text>
+          </BulletListItem>
+          <BulletListItem viewStyles={legalStyles.indent} whiteBullet>
+            <Text style={legalStyles.text}>
+              Health or medical information covered by the Health Insurance
+              Portability and Accountability Act of 1996 (HIPAA) and the
+              California Confidentiality of Medical Information Act (CMIA) or
+              clinical trial data
+            </Text>
+          </BulletListItem>
+          <BulletListItem viewStyles={legalStyles.indent} whiteBullet>
+            <Text style={legalStyles.text}>
+              Personal Information covered by certain sector-specific privacy
+              laws, including the Fair Credit Reporting Act (FRCA), the
+              Gramm-Leach-Bliley Act (GLBA) or California Financial Information
+              Privacy Act (FIPA), and the Driver's Privacy Protection Act of
+              1994
+            </Text>
+          </BulletListItem>
+        </View>
+        <View style={legalStyles.section}>
+          <Text style={legalStyles.subHeading}>
+            Sources of Personal Information
+          </Text>
+          <Text style={legalStyles.text}>
+            We obtain the categories of personal information listed above from
+            the following categories of sources:
+          </Text>
+          <BulletListItem>
+            <Text style={legalStyles.text}>
+              <Text style={styles.bold}>Directly from You.</Text> For example,
+              from the forms You complete on our Service, preferences You
+              express or provide through our Service.
             </Text>
           </BulletListItem>
           <BulletListItem>
             <Text style={legalStyles.text}>
-              Your address, telephone number, and email address.
+              <Text style={styles.bold}>Indirectly from You.</Text> For example,
+              from observing Your activity on our Service.
             </Text>
           </BulletListItem>
           <BulletListItem>
             <Text style={legalStyles.text}>
-              A statement by You that You have a good faith belief that the
-              disputed use is not authorized by the copyright owner, its agent,
-              or the law.
+              <Text style={styles.bold}>Automatically from You.</Text> For
+              example, through cookies We or our Service Providers set on Your
+              Device as You navigate through our Service.
             </Text>
           </BulletListItem>
           <BulletListItem>
             <Text style={legalStyles.text}>
-              A statement by You, made under penalty of perjury, that the above
-              information in Your notice is accurate and that You are the
-              copyright owner or authorized to act on the copyright owner's
-              behalf.
+              <Text style={styles.bold}>From Service Providers.</Text> For
+              example, or other third-party vendors that We use to provide the
+              Service to You.
+            </Text>
+          </BulletListItem>
+        </View>
+        <View style={legalStyles.section}>
+          <Text style={legalStyles.subHeading}>
+            Use of Personal Information for Business Purposes or Commercial
+            Purposes
+          </Text>
+          <Text style={legalStyles.text}>
+            We may use or disclose personal information We collect for "business
+            purposes" or "commercial purposes" (as defined under the CCPA),
+            which may include the following examples:
+          </Text>
+          <BulletListItem>
+            <Text style={legalStyles.text}>
+              To operate our Service and provide You with our Service.
+            </Text>
+          </BulletListItem>
+          <BulletListItem>
+            <Text style={legalStyles.text}>
+              To provide You with support and to respond to Your inquiries,
+              including to investigate and address Your concerns and monitor and
+              improve our Service.
+            </Text>
+          </BulletListItem>
+          <BulletListItem>
+            <Text style={legalStyles.text}>
+              To fulfill or meet the reason You provided the information. For
+              example, if You share Your contact information to ask a question
+              about our Service, We will use that personal information to
+              respond to Your inquiry.
+            </Text>
+          </BulletListItem>
+          <BulletListItem>
+            <Text style={legalStyles.text}>
+              To respond to law enforcement requests and as required by
+              applicable law, court order, or governmental regulations.
+            </Text>
+          </BulletListItem>
+          <BulletListItem>
+            <Text style={legalStyles.text}>
+              As described to You when collecting Your personal information or
+              as otherwise set forth in the CCPA.
+            </Text>
+          </BulletListItem>
+          <BulletListItem>
+            <Text style={legalStyles.text}>
+              For internal administrative and auditing purposes.
+            </Text>
+          </BulletListItem>
+          <BulletListItem>
+            <Text style={legalStyles.text}>
+              To detect security incidents and protect against malicious,
+              deceptive, fraudulent or illegal activity, including, when
+              necessary, to prosecute those responsible for such activities.
             </Text>
           </BulletListItem>
           <Text style={legalStyles.text}>
-            You can contact our copyright agent via email at {CONTACT_EMAIL}.
-            Upon receipt of a notification, the Company will take whatever
-            action, in its sole discretion, it deems appropriate, including
-            removal of the challenged content from the Service.
-          </Text>
-        </View>
-        <Text style={legalStyles.heading}>Copyright Policy</Text>
-        <View style={legalStyles.section}>
-          <Text style={legalStyles.text}>
-            The Service and its original content (excluding Content provided by
-            You or other users), features and functionality are and will remain
-            the exclusive property of the Company and its licensors.
+            Please note that the examples provided above are illustrative and
+            not intended to be exhaustive. For more details on how we use this
+            information, please refer to the "Use of Your Personal Data"
+            section.
           </Text>
           <Text style={legalStyles.text}>
-            The Service is protected by copyright, trademark, and other laws of
-            both the Country and foreign countries.
-          </Text>
-          <Text style={legalStyles.text}>
-            Our trademarks and trade dress may not be used in connection with
-            any product or service without the prior written consent of the
-            Company.
-          </Text>
-        </View>
-        <Text style={legalStyles.heading}>Your Feedback to Us</Text>
-        <View style={legalStyles.section}>
-          <Text style={legalStyles.text}>
-            You assign all rights, title and interest in any Feedback You
-            provide the Company. If for any reason such assignment is
-            ineffective, You agree to grant the Company a non-exclusive,
-            perpetual, irrevocable, royalty free, worldwide right and license to
-            use, reproduce, disclose, sub-license, distribute, modify and
-            exploit such Feedback without restriction.
-          </Text>
-        </View>
-        <Text style={legalStyles.heading}>Links to Other Websites</Text>
-        <View style={legalStyles.section}>
-          <Text style={legalStyles.text}>
-            Our Service may contain links to third-party web sites or services
-            that are not owned or controlled by the Company.
-          </Text>
-          <Text style={legalStyles.text}>
-            The Company has no control over, and assumes no responsibility for,
-            the content, privacy policies, or practices of any third party web
-            sites or services. You further acknowledge and agree that the
-            Company shall not be responsible or liable, directly or indirectly,
-            for any damage or loss caused or alleged to be caused by or in
-            connection with the use of or reliance on any such content, goods or
-            services available on or through any such web sites or services.
-          </Text>
-          <Text style={legalStyles.text}>
-            We strongly advise You to read the terms and conditions and privacy
-            policies of any third-party web sites or services that You visit.
-          </Text>
-        </View>
-        <Text style={legalStyles.heading}>Termination</Text>
-        <View style={legalStyles.section}>
-          <Text style={legalStyles.text}>
-            We may terminate or suspend Your Account immediately, without prior
-            notice or liability, for any reason whatsoever, including without
-            limitation if You breach these Terms and Conditions.
-          </Text>
-          <Text style={legalStyles.text}>
-            Upon termination, Your right to use the Service will cease
-            immediately. If You wish to terminate Your Account, You may simply
-            discontinue using the Service.
-          </Text>
-        </View>
-        <Text style={legalStyles.heading}>Limitation of Liability</Text>
-        <View style={legalStyles.section}>
-          <Text style={legalStyles.text}>
-            Notwithstanding any damages that You might incur, the entire
-            liability of the Company and any of its suppliers under any
-            provision of this Terms and Your exclusive remedy for all of the
-            foregoing shall be limited to the amount actually paid by You
-            through the Service or 100 USD if You haven't purchased anything
-            through the Service.
-          </Text>
-          <Text style={legalStyles.text}>
-            To the maximum extent permitted by applicable law, in no event shall
-            the Company or its suppliers be liable for any special, incidental,
-            indirect, or consequential damages whatsoever (including, but not
-            limited to, damages for loss of profits, loss of data or other
-            information, for business interruption, for personal injury, loss of
-            privacy arising out of or in any way related to the use of or
-            inability to use the Service, third-party software and/or
-            third-party hardware used with the Service, or otherwise in
-            connection with any provision of this Terms), even if the Company or
-            any supplier has been advised of the possibility of such damages and
-            even if the remedy fails of its essential purpose.
-          </Text>
-          <Text style={legalStyles.text}>
-            Some states do not allow the exclusion of implied warranties or
-            limitation of liability for incidental or consequential damages,
-            which means that some of the above limitations may not apply. In
-            these states, each party's liability will be limited to the greatest
-            extent permitted by law.
-          </Text>
-        </View>
-        <Text style={legalStyles.heading}>
-          "AS IS" and "AS AVAILABLE" Disclaimer
-        </Text>
-        <View style={legalStyles.section}>
-          <Text style={legalStyles.text}>
-            The Service is provided to You "AS IS" and "AS AVAILABLE" and with
-            all faults and defects without warranty of any kind. To the maximum
-            extent permitted under applicable law, the Company, on its own
-            behalf and on behalf of its Affiliates and its and their respective
-            licensors and service providers, expressly disclaims all warranties,
-            whether express, implied, statutory or otherwise, with respect to
-            the Service, including all implied warranties of merchantability,
-            fitness for a particular purpose, title and non-infringement, and
-            warranties that may arise out of course of dealing, course of
-            performance, usage or trade practice. Without limitation to the
-            foregoing, the Company provides no warranty or undertaking, and
-            makes no representation of any kind that the Service will meet Your
-            requirements, achieve any intended results, be compatible or work
-            with any other software, applications, systems or services, operate
-            without interruption, meet any performance or reliability standards
-            or be error free or that any errors or defects can or will be
-            corrected.
-          </Text>
-          <Text style={legalStyles.text}>
-            Without limiting the foregoing, neither the Company nor any of the
-            company's provider makes any representation or warranty of any kind,
-            express or implied: (i) as to the operation or availability of the
-            Service, or the information, content, and materials or products
-            included thereon; (ii) that the Service will be uninterrupted or
-            error-free; (iii) as to the accuracy, reliability, or currency of
-            any information or content provided through the Service; or (iv)
-            that the Service, its servers, the content, or e-mails sent from or
-            on behalf of the Company are free of viruses, scripts, trojan
-            horses, worms, malware, timebombs or other harmful components.
-          </Text>
-          <Text style={legalStyles.text}>
-            Some jurisdictions do not allow the exclusion of certain types of
-            warranties or limitations on applicable statutory rights of a
-            consumer, so some or all of the above exclusions and limitations may
-            not apply to You. But in such a case the exclusions and limitations
-            set forth in this section shall be applied to the greatest extent
-            enforceable under applicable law.
-          </Text>
-        </View>
-        <Text style={legalStyles.heading}>Governing Law</Text>
-        <View style={legalStyles.section}>
-          <Text style={legalStyles.text}>
-            The laws of the Country, excluding its conflicts of law rules, shall
-            govern this Terms and Your use of the Service. Your use of the
-            Application may also be subject to other local, state, national, or
-            international laws.
-          </Text>
-        </View>
-        <Text style={legalStyles.heading}>Disputes Resolution</Text>
-        <View style={legalStyles.section}>
-          <Text style={legalStyles.text}>
-            If You have any concern or dispute about the Service, You agree to
-            first try to resolve the dispute informally by contacting the
-            Company.
-          </Text>
-        </View>
-        <Text style={legalStyles.heading}>For European Union (EU) Users</Text>
-        <View style={legalStyles.section}>
-          <Text style={legalStyles.text}>
-            If You are a European Union consumer, you will benefit from any
-            mandatory provisions of the law of the country in which you are
-            resident in.
-          </Text>
-        </View>
-        <Text style={legalStyles.heading}>United States Legal Compliance</Text>
-        <View style={legalStyles.section}>
-          <Text style={legalStyles.text}>
-            You represent and warrant that (i) You are not located in a country
-            that is subject to the United States government embargo, or that has
-            been designated by the United States government as a "terrorist
-            supporting" country, and (ii) You are not listed on any United
-            States government list of prohibited or restricted parties.
-          </Text>
-        </View>
-        <Text style={legalStyles.heading}>Severability and Waiver</Text>
-        <View style={legalStyles.section}>
-          <Text style={legalStyles.subHeading}>Severability</Text>
-          <Text style={legalStyles.text}>
-            If any provision of these Terms is held to be unenforceable or
-            invalid, such provision will be changed and interpreted to
-            accomplish the objectives of such provision to the greatest extent
-            possible under applicable law and the remaining provisions will
-            continue in full force and effect.
+            If We decide to collect additional categories of personal
+            information or use the personal information We collected for
+            materially different, unrelated, or incompatible purposes We will
+            update this Privacy Policy.
           </Text>
         </View>
         <View style={legalStyles.section}>
-          <Text style={legalStyles.subHeading}>Waiver</Text>
+          <Text style={legalStyles.subHeading}>
+            Disclosure of Personal Information for Business Purposes or
+            Commercial Purposes
+          </Text>
           <Text style={legalStyles.text}>
-            Except as provided herein, the failure to exercise a right or to
-            require performance of an obligation under this Terms shall not
-            effect a party's ability to exercise such right or require such
-            performance at any time thereafter nor shall be the waiver of a
-            breach constitute a waiver of any subsequent breach.
+            We may use or disclose and may have used or disclosed in the last
+            twelve (12) months the following categories of personal information
+            for business or commercial purposes:
+          </Text>
+          <BulletListItem>
+            <Text style={legalStyles.text}>Category A: Identifiers</Text>
+          </BulletListItem>
+          <BulletListItem>
+            <Text style={legalStyles.text}>
+              Category B: Personal information categories listed in the
+              California Customer Records statute (Cal. Civ. Code § 1798.80(e))
+            </Text>
+          </BulletListItem>
+          <BulletListItem>
+            <Text style={legalStyles.text}>
+              Category F: Internet or other similar network activity
+            </Text>
+          </BulletListItem>
+          <Text style={legalStyles.text}>
+            Please note that the categories listed above are those defined in
+            the CCPA. This does not mean that all examples of that category of
+            personal information were in fact disclosed, but reflects our good
+            faith belief to the best of our knowledge that some of that
+            information from the applicable category may be and may have been
+            disclosed.
+          </Text>
+          <Text style={legalStyles.text}>
+            When We disclose personal information for a business purpose or a
+            commercial purpose, We enter a contract that describes the purpose
+            and requires the recipient to both keep that personal information
+            confidential and not use it for any purpose except performing the
+            contract.
           </Text>
         </View>
-        <Text style={legalStyles.heading}>Translation Interpretation</Text>
+        <View style={legalStyles.section}>
+          <Text style={legalStyles.subHeading}>
+            Sale of Personal Information
+          </Text>
+          <Text style={legalStyles.text}>
+            As defined in the CCPA, "sell" and "sale" mean selling, renting,
+            releasing, disclosing, disseminating, making available,
+            transferring, or otherwise communicating orally, in writing, or by
+            electronic or other means, a consumer's personal information by the
+            business to a third party for valuable consideration. This means
+            that We may have received some kind of benefit in return for sharing
+            personal information, but not necessarily a monetary benefit.
+          </Text>
+          <Text style={legalStyles.text}>
+            Please note that the categories listed below are those defined in
+            the CCPA. This does not mean that all examples of that category of
+            personal information were in fact sold, but reflects our good faith
+            belief to the best of our knowledge that some of that information
+            from the applicable category may be and may have been shared for
+            value in return.
+          </Text>
+          <Text style={legalStyles.text}>
+            We may sell and may have sold in the last twelve (12) months the
+            following categories of personal information:
+          </Text>
+          <BulletListItem>
+            <Text style={legalStyles.text}>Category A: Identifiers</Text>
+          </BulletListItem>
+          <BulletListItem>
+            <Text style={legalStyles.text}>
+              Category B: Personal information categories listed in the
+              California Customer Records statute (Cal. Civ. Code § 1798.80(e))
+            </Text>
+          </BulletListItem>
+          <BulletListItem>
+            <Text style={legalStyles.text}>
+              Category F: Internet or other similar network activity
+            </Text>
+          </BulletListItem>
+        </View>
+        <View style={legalStyles.section}>
+          <Text style={legalStyles.subHeading}>
+            Share of Personal Information
+          </Text>
+          <Text style={legalStyles.text}>
+            We may share Your personal information identified in the above
+            categories with the following categories of third parties:
+          </Text>
+          <BulletListItem>
+            <Text style={legalStyles.text}>Service Providers</Text>
+          </BulletListItem>
+          <BulletListItem>
+            <Text style={legalStyles.text}>Our affiliates</Text>
+          </BulletListItem>
+          <BulletListItem>
+            <Text style={legalStyles.text}>Our business partners</Text>
+          </BulletListItem>
+          <BulletListItem>
+            <Text style={legalStyles.text}>
+              Third party vendors to whom You or Your agents authorize Us to
+              disclose Your personal information in connection with products or
+              services We provide to You
+            </Text>
+          </BulletListItem>
+        </View>
+        <View style={legalStyles.section}>
+          <Text style={legalStyles.subHeading}>
+            Sale of Personal Information of Minors Under 16 Years of Age
+          </Text>
+          <Text style={legalStyles.text}>
+            We do not knowingly collect personal information from minors under
+            the age of 16 through our Service, although certain third party
+            websites that we link to may do so. These third-party websites have
+            their own terms of use and privacy policies and we encourage parents
+            and legal guardians to monitor their children's Internet usage and
+            instruct their children to never provide information on other
+            websites without their permission.
+          </Text>
+          <Text style={legalStyles.text}>
+            We do not sell the personal information of Consumers We actually
+            know are less than 16 years of age, unless We receive affirmative
+            authorization (the "right to opt-in") from either the Consumer who
+            is between 13 and 16 years of age, or the parent or guardian of a
+            Consumer less than 13 years of age. Consumers who opt-in to the sale
+            of personal information may opt-out of future sales at any time. To
+            exercise the right to opt-out, You (or Your authorized
+            representative) may submit a request to Us by contacting Us.
+          </Text>
+          <Text style={legalStyles.text}>
+            If You have reason to believe that a child under the age of 13 (or
+            16) has provided Us with personal information, please contact Us
+            with sufficient detail to enable Us to delete that information.
+          </Text>
+        </View>
+        <View style={legalStyles.section}>
+          <Text style={legalStyles.subHeading}>Your Rights under the CCPA</Text>
+          <Text style={legalStyles.text}>
+            The CCPA provides California residents with specific rights
+            regarding their personal information. If You are a resident of
+            California, You have the following rights:
+          </Text>
+          <BulletListItem>
+            <Text style={legalStyles.text}>
+              <Text style={legalStyles.bold}>The right to notice.</Text> You
+              have the right to be notified which categories of Personal Data
+              are being collected and the purposes for which the Personal Data
+              is being used.
+            </Text>
+          </BulletListItem>
+          <BulletListItem>
+            <Text style={legalStyles.text}>
+              <Text style={legalStyles.bold}>The right to request.</Text> Under
+              CCPA, You have the right to request that We disclose information
+              to You about Our collection, use, sale, disclosure for business
+              purposes and share of personal information. Once We receive and
+              confirm Your request, We will disclose to You:
+            </Text>
+          </BulletListItem>
+          <BulletListItem viewStyles={legalStyles.indent} whiteBullet>
+            <Text style={legalStyles.text}>
+              The categories of personal information We collected about You
+            </Text>
+          </BulletListItem>
+          <BulletListItem viewStyles={legalStyles.indent} whiteBullet>
+            <Text style={legalStyles.text}>
+              The categories of sources for the personal information We
+              collected about You
+            </Text>
+          </BulletListItem>
+          <BulletListItem viewStyles={legalStyles.indent} whiteBullet>
+            <Text style={legalStyles.text}>
+              Our business or commercial purpose for collecting or selling that
+              personal information
+            </Text>
+          </BulletListItem>
+          <BulletListItem viewStyles={legalStyles.indent} whiteBullet>
+            <Text style={legalStyles.text}>
+              The categories of third parties with whom We share that personal
+              information
+            </Text>
+          </BulletListItem>
+          <BulletListItem viewStyles={legalStyles.indent} whiteBullet>
+            <Text style={legalStyles.text}>
+              The specific pieces of personal information We collected about You
+            </Text>
+          </BulletListItem>
+          <BulletListItem viewStyles={legalStyles.indent} whiteBullet>
+            <Text style={legalStyles.text}>
+              If we sold Your personal information or disclosed Your personal
+              information for a business purpose, We will disclose to You:
+            </Text>
+          </BulletListItem>
+          <BulletListItem viewStyles={legalStyles.indentDouble}>
+            <Text style={legalStyles.text}>
+              The categories of personal information categories sold
+            </Text>
+          </BulletListItem>
+          <BulletListItem viewStyles={legalStyles.indentDouble}>
+            <Text style={legalStyles.text}>
+              The categories of personal information categories disclosed
+            </Text>
+          </BulletListItem>
+          <BulletListItem>
+            <Text style={legalStyles.text}>
+              <Text style={legalStyles.bold}>
+                The right to say no to the sale of Personal Data (opt-out).
+              </Text>{' '}
+              You have the right to direct Us to not sell Your personal
+              information. To submit an opt-out request please contact Us.
+            </Text>
+          </BulletListItem>
+          <BulletListItem>
+            <Text style={legalStyles.text}>
+              <Text style={legalStyles.bold}>
+                The right to delete Personal Data.
+              </Text>{' '}
+              You have the right to request the deletion of Your Personal Data,
+              subject to certain exceptions. Once We receive and confirm Your
+              request, We will delete (and direct Our Service Providers to
+              delete) Your personal information from our records, unless an
+              exception applies. We may deny Your deletion request if retaining
+              the information is necessary for Us or Our Service Providers to:
+            </Text>
+          </BulletListItem>
+          <BulletListItem viewStyles={legalStyles.indent} whiteBullet>
+            <Text style={legalStyles.text}>
+              Complete the transaction for which We collected the personal
+              information, provide a good or service that You requested, take
+              actions reasonably anticipated within the context of our ongoing
+              business relationship with You, or otherwise perform our contract
+              with You.
+            </Text>
+          </BulletListItem>
+          <BulletListItem viewStyles={legalStyles.indent} whiteBullet>
+            <Text style={legalStyles.text}>
+              Detect security incidents, protect against malicious, deceptive,
+              fraudulent, or illegal activity, or prosecute those responsible
+              for such activities.
+            </Text>
+          </BulletListItem>
+          <BulletListItem viewStyles={legalStyles.indent} whiteBullet>
+            <Text style={legalStyles.text}>
+              Debug products to identify and repair errors that impair existing
+              intended functionality.
+            </Text>
+          </BulletListItem>
+          <BulletListItem viewStyles={legalStyles.indent} whiteBullet>
+            <Text style={legalStyles.text}>
+              Exercise free speech, ensure the right of another consumer to
+              exercise their free speech rights, or exercise another right
+              provided for by law.
+            </Text>
+          </BulletListItem>
+          <BulletListItem viewStyles={legalStyles.indent} whiteBullet>
+            <Text style={legalStyles.text}>
+              Comply with the California Electronic Communications Privacy Act
+              (Cal. Penal Code § 1546 et. seq.).
+            </Text>
+          </BulletListItem>
+          <BulletListItem viewStyles={legalStyles.indent} whiteBullet>
+            <Text style={legalStyles.text}>
+              Engage in public or peer-reviewed scientific, historical, or
+              statistical research in the public interest that adheres to all
+              other applicable ethics and privacy laws, when the information's
+              deletion may likely render impossible or seriously impair the
+              research's achievement, if You previously provided informed
+              consent.
+            </Text>
+          </BulletListItem>
+          <BulletListItem viewStyles={legalStyles.indent} whiteBullet>
+            <Text style={legalStyles.text}>
+              Enable solely internal uses that are reasonably aligned with
+              consumer expectations based on Your relationship with Us.
+            </Text>
+          </BulletListItem>
+          <BulletListItem viewStyles={legalStyles.indent} whiteBullet>
+            <Text style={legalStyles.text}>
+              Comply with a legal obligation.
+            </Text>
+          </BulletListItem>
+          <BulletListItem viewStyles={legalStyles.indent} whiteBullet>
+            <Text style={legalStyles.text}>
+              Make other internal and lawful uses of that information that are
+              compatible with the context in which You provided it.
+            </Text>
+          </BulletListItem>
+          <BulletListItem>
+            <Text style={legalStyles.text}>
+              <Text style={legalStyles.bold}>
+                The right not to be discriminated against.
+              </Text>{' '}
+              You have the right not to be discriminated against for exercising
+              any of Your consumer's rights, including by:
+            </Text>
+          </BulletListItem>
+          <BulletListItem viewStyles={legalStyles.indent} whiteBullet>
+            <Text style={legalStyles.text}>
+              Denying goods or services to You
+            </Text>
+          </BulletListItem>
+          <BulletListItem viewStyles={legalStyles.indent} whiteBullet>
+            <Text style={legalStyles.text}>
+              Charging different prices or rates for goods or services,
+              including the use of discounts or other benefits or imposing
+              penalties
+            </Text>
+          </BulletListItem>
+          <BulletListItem viewStyles={legalStyles.indent} whiteBullet>
+            <Text style={legalStyles.text}>
+              Providing a different level or quality of goods or services to You
+            </Text>
+          </BulletListItem>
+          <BulletListItem viewStyles={legalStyles.indent} whiteBullet>
+            <Text style={legalStyles.text}>
+              Suggesting that You will receive a different price or rate for
+              goods or services or a different level or quality of goods or
+              services
+            </Text>
+          </BulletListItem>
+        </View>
         <View style={legalStyles.section}>
           <Text style={legalStyles.text}>
-            These Terms and Conditions may have been translated if We have made
-            them available to You on our Service. You agree that the original
-            English text shall prevail in the case of a dispute.
+            In order to exercise any of Your rights under the CCPA, and if You
+            are a California resident, You can contact Us:
+          </Text>
+          <BulletListItem>
+            <Text style={legalStyles.text}>By email: hello@recaura.com</Text>
+          </BulletListItem>
+          <Text style={legalStyles.text}>
+            Only You, or a person registered with the California Secretary of
+            State that You authorize to act on Your behalf, may make a
+            verifiable request related to Your personal information.
+          </Text>
+          <Text style={legalStyles.text}>Your request to Us must:</Text>
+          <BulletListItem>
+            <Text style={legalStyles.text}>
+              Provide sufficient information that allows Us to reasonably verify
+              You are the person about whom We collected personal information or
+              an authorized representative
+            </Text>
+          </BulletListItem>
+          <BulletListItem>
+            <Text style={legalStyles.text}>
+              Describe Your request with sufficient detail that allows Us to
+              properly understand, evaluate, and respond to it
+            </Text>
+          </BulletListItem>
+          <Text style={legalStyles.text}>
+            We cannot respond to Your request or provide You with the required
+            information if we cannot:
+          </Text>
+          <BulletListItem>
+            <Text style={legalStyles.text}>
+              Verify Your identity or authority to make the request
+            </Text>
+          </BulletListItem>
+          <BulletListItem>
+            <Text style={legalStyles.text}>
+              And confirm that the personal information relates to You
+            </Text>
+          </BulletListItem>
+          <Text style={legalStyles.text}>
+            We will disclose and deliver the required information free of charge
+            within 45 days of receiving Your verifiable request. The time period
+            to provide the required information may be extended once by an
+            additional 45 days when reasonable necessary and with prior notice.
+          </Text>
+          <Text style={legalStyles.text}>
+            Any disclosures We provide will only cover the 12-month period
+            preceding the verifiable request's receipt.
+          </Text>
+          <Text style={legalStyles.text}>
+            For data portability requests, We will select a format to provide
+            Your personal information that is readily useable and should allow
+            You to transmit the information from one entity to another entity
+            without hindrance.
           </Text>
         </View>
+        <View style={legalStyles.section}>
+          <Text style={legalStyles.subHeading}>
+            Do Not Sell My Personal Information
+          </Text>
+          <Text style={legalStyles.text}>
+            You have the right to opt-out of the sale of Your personal
+            information. Once We receive and confirm a verifiable consumer
+            request from You, we will stop selling Your personal information. To
+            exercise Your right to opt-out, please contact Us.
+          </Text>
+        </View>
+
         <Text style={legalStyles.heading}>
           Changes to These Terms and Conditions
         </Text>

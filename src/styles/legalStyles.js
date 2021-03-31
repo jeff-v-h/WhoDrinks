@@ -24,6 +24,12 @@ const legalStyles = StyleSheet.create({
   text: {
     fontSize: moderateScale(14),
     marginBottom: verticalScale(6)
+  },
+  indent: {
+    marginLeft: moderateScale(10)
+  },
+  indentDouble: {
+    marginLeft: moderateScale(20)
   }
 });
 

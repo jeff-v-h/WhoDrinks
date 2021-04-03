@@ -4,7 +4,7 @@ import styles from '../../styles/styles';
 import communityStyles from '../../styles/communityStyles';
 import ListLinkRow from '../common/ListLinkRow';
 import { getCommunityDecks, previewDeck } from './communitySlice';
-import { postUserFeedback } from './userSlice';
+import { postUserFeedback } from '../../redux/userSlice';
 import { connect } from 'react-redux';
 import { RequestStatusEnum } from '../../utils/enums';
 import SpinnerOverlay from '../common/SpinnerOverlay';
@@ -55,7 +55,7 @@ class CommunityDeckListScreen extends React.Component {
   };
 
   render() {
-    const { community, user } = this.props;
+    const { community } = this.props;
     const isLoading = community.status === RequestStatusEnum.loading;
 
     if (community.error) {

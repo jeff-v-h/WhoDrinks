@@ -1,98 +1,151 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import {
+  createSlice,
+  createAsyncThunk,
+  createAction,
+  createReducer
+} from '@reduxjs/toolkit';
 import client from '../services/client';
 import { API_HOST, API_TOKEN } from '../utils/env';
 import { RequestStatusEnum } from '../utils/enums';
 import { version } from '../../package.json';
 import { getUniqueId } from 'react-native-device-info';
-import { offlineActionTypes } from 'react-native-offline';
+import { offlineActionCreators } from 'react-native-offline';
 
-export const postUserFeedback = createAsyncThunk(
-  'user/postUserFeedback',
-  async (feedback) => {
-    feedback.deviceId = getUniqueId();
-    await client.post(`${API_HOST}/api/userfeedback`, feedback);
-    return feedback;
-  }
+//#region Actions
+export const logout = createAction('user/logout');
+export const dismissUpdate = createAction('user/dismissUpdate');
+export const confirmAnnouncement = createAction('user/confirmAnnouncement');
+export const confirmTermsAndConditions = createAction(
+  'user/confirmTermsAndConditions'
+);
+export const resetStatus = createAction('user/resetStatus');
+//#endregion
+
+//#region Thunk actions
+const postUserFeedbackType = 'user/postUserFeedback';
+const postUserFeedbackPending = createAction(`${postUserFeedbackType}/pending`);
+const postUserFeedbackFulfilled = createAction(
+  `${postUserFeedbackType}/fulfilled`
+);
+const postUserFeedbackRejected = createAction(
+  `${postUserFeedbackType}/rejected`
 );
 
-export const getAppVersion = createAsyncThunk(
-  'user/getAppVersion',
-  async () => {
-    const resp = await client.get(`${API_HOST}/api/appversions/${version}`, {
-      headers: {
-        Authorization: `Basic ${API_TOKEN}`
-      }
-    });
-    return resp.data;
-  }
-);
+const getAppVersionType = 'user/getAppVersion';
+const getAppVersionPending = createAction(`${getAppVersionType}/pending`);
+const getAppVersionFulfilled = createAction(`${getAppVersionType}/fulfilled`);
+const getAppVersionRejected = createAction(`${getAppVersionType}/rejected`);
+//#endregion
 
-const userSlice = createSlice({
-  name: 'user',
-  initialState: {
-    appVersion: {
-      version: version,
-      latestVersion: version,
-      // forceUpdate: false,
-      // recommendUpdate: false,
-      // announcement: '',
-      // androidUpdateUrl: 'market://details?id=',
-      // iOSUpdateUrl:
-      //   'itms://itunes.apple.com/us/app/apple-store/myiosappid?mt=8',
-      associatedPrivacyPolicyVersion: 'fe-' + version,
-      associatedTCsVersion: 'fe-' + version
-      // forceNewTCsAgreement: false,
-      // forceNewPrivacyPolicyAgreement: false
-      // termsAndConditions: '',
-      // privacyPolicy: ''
-      // dateObtained: new Date().toISOString()
-      // dateObtained: d.setDate(d.getDate() - 8)
-    },
-    dismissedUpdate: false,
-    confirmedAnnouncement: false,
-    confirmedTermsAndConditions: false,
-    feedback: [],
-    status: RequestStatusEnum.idle,
-    error: null
-  },
-  reducers: {
-    logout: (state) => {
-      // User login currently not implemented. Used to simply reset the redux store
-      // which is completed in rootReducer
-    },
-    dismissUpdate: (state) => {
-      state.dismissedUpdate = true;
-    },
-    confirmAnnouncement: (state) => {
-      state.confirmedAnnouncement = true;
-    },
-    confirmTermsAndConditions: (state) => {
-      state.confirmedTermsAndConditions = true;
-    },
-    resetStatus: (state) => {
-      state.status = RequestStatusEnum.idle;
+//#region Thunks
+export const postUserFeedback = (feedback) => {
+  async function thunk(dispatch) {
+    dispatch(postUserFeedbackPending());
+    try {
+      feedback.deviceId = getUniqueId();
+      await client.post(`${API_HOST}/api/userfeedback`, feedback);
+      dispatch(postUserFeedbackFulfilled(feedback));
+    } catch (err) {
+      dispatch(
+        postUserFeedbackRejected({
+          feedback,
+          error: err?.message
+        })
+      );
     }
+  }
+
+  thunk.interceptInOffline = true;
+  thunk.meta = {
+    retry: true,
+    name: 'postUserFeedback',
+    args: feedback
+  };
+  return thunk;
+};
+
+export const getAppVersion = () => {
+  async function thunk(dispatch) {
+    dispatch(getAppVersionPending());
+    try {
+      const resp = await client.get(`${API_HOST}/api/appversions/${version}`, {
+        headers: {
+          Authorization: `Basic ${API_TOKEN}`
+        }
+      });
+      dispatch(getAppVersionFulfilled(resp.data));
+    } catch (error) {
+      dispatch(getAppVersionRejected());
+    }
+  }
+  return thunk;
+};
+//#endregion
+
+const initialState = {
+  appVersion: {
+    version: version,
+    latestVersion: version,
+    // forceUpdate: false,
+    // recommendUpdate: false,
+    // announcement: '',
+    // androidUpdateUrl: 'market://details?id=',
+    // iOSUpdateUrl:
+    //   'itms://itunes.apple.com/us/app/apple-store/myiosappid?mt=8',
+    associatedPrivacyPolicyVersion: 'fe-' + version,
+    associatedTCsVersion: 'fe-' + version
+    // forceNewTCsAgreement: false,
+    // forceNewPrivacyPolicyAgreement: false
+    // termsAndConditions: '',
+    // privacyPolicy: ''
+    // dateObtained: new Date().toISOString()
+    // dateObtained: d.setDate(d.getDate() - 8)
   },
-  extraReducers: {
-    [postUserFeedback.pending]: (state) => {
+  dismissedUpdate: false,
+  confirmedAnnouncement: false,
+  confirmedTermsAndConditions: false,
+  feedback: [],
+  status: RequestStatusEnum.idle,
+  error: null
+};
+
+const userReducer = createReducer(initialState, (builder) => {
+  builder
+    // User login currently not implemented. Used to reset the redux store via rootReducer
+    .addCase(logout, () => {})
+    .addCase(dismissUpdate, (state) => {
+      state.dismissedUpdate = true;
+    })
+    .addCase(confirmAnnouncement, (state) => {
+      state.confirmedAnnouncement = true;
+    })
+    .addCase(confirmTermsAndConditions, (state) => {
+      state.confirmedTermsAndConditions = true;
+    })
+    .addCase(resetStatus, (state) => {
+      state.status = RequestStatusEnum.idle;
+    })
+    .addCase(postUserFeedbackPending, (state) => {
       state.status = RequestStatusEnum.loading;
-    },
-    [postUserFeedback.fulfilled]: (state, action) => {
+    })
+    .addCase(postUserFeedbackFulfilled, (state, action) => {
+      console.log('fulfilled');
       state.status = RequestStatusEnum.succeeded;
       state.feedback.push({
         ...action.payload,
         status: RequestStatusEnum.succeeded
       });
-    },
-    [postUserFeedback.rejected]: (state, action) => {
+    })
+    .addCase(postUserFeedbackRejected, (state, action) => {
+      console.log('rejected', action.payload);
       state.status = RequestStatusEnum.failed;
-      state.error = action.error.message;
+      state.error = action.payload.error;
       state.feedback.push({
-        ...action.meta.arg,
+        ...action.payload.feedback,
         status: RequestStatusEnum.failed
       });
-    },
-    [getAppVersion.fulfilled]: (state, action) => {
+    })
+    .addCase(getAppVersionFulfilled, (state, action) => {
       if (state.appVersion.latestVersion !== action.payload.latestVersion) {
         state.appVersion = {
           ...action.payload
@@ -106,48 +159,7 @@ const userSlice = createSlice({
       }
 
       state.appVersion.dateObtained = new Date().toISOString();
-    }
-  }
+    });
 });
 
-export const {
-  logout,
-  resetStatus,
-  dismissUpdate,
-  confirmAnnouncement,
-  confirmTermsAndConditions
-} = userSlice.actions;
-export default userSlice.reducer;
-
-/**
- * Thunks
- * To integrate react-native-offline, put thunk functions inside another function
- * and set `thunk.interceptInOffline = true` before returning the thunk.
- * Make sure to also name the thunk function rather than return an anonymous one
- */
-/* example
-export const fetchIssuesCount = (org, repo) => {
-  async function thunk(dispatch) => {
-    try {
-      const repoDetails = await getRepoDetails(org, repo)
-      dispatch(getRepoDetailsSuccess(repoDetails))
-    } catch (err) {
-      dispatch(getRepoDetailsFailed(err.toString()))
-    }
-  }
-
-  thunk.interceptInOffline = true;
-  return thunk;
-} 
-*/
-/* the above would ususally look like this:
-const fetchIssuesCount = (org, repo) => async dispatch => {
-  dispatch(getRepoDetailsStarted())
-  try {
-    const repoDetails = await getRepoDetails(org, repo)
-    dispatch(getRepoDetailsSuccess(repoDetails))
-  } catch (err) {
-    dispatch(getRepoDetailsFailed(err.toString()))
-  }
-}
-*/
+export default userReducer;

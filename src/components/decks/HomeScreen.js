@@ -109,7 +109,11 @@ class HomeScreen extends React.Component {
             this.redirectToAppStore();
           }
         }
-      ]
+      ],
+      {
+        text: 'OK',
+        onDismiss: () => this.props.dismissUpdate()
+      }
     );
   };
 

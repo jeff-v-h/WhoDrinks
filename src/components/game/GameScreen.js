@@ -27,7 +27,9 @@ class GameScreen extends React.Component {
       navigation.setParams({ name });
       Alert.alert(
         'No pre-existing game.',
-        `A new game with deck "${name}" has been started for you.`
+        `A new game with deck "${name}" has been started for you.`,
+        null,
+        { cancelable: true }
       );
       return;
     }

@@ -91,8 +91,10 @@ class DeckScreen extends React.Component {
 
   uploadDeck = () => {
     Alert.alert(
-      'Online community coming soon!',
-      'Feel free to hit the top right menu and go to the "Contact Us" section to let us know your thoughts.'
+      'Online community not yet available!',
+      'Feel free to hit the top right menu and go to the "Contact Us" section to let us know if you would like to share decks you\'ve made with friends or an online community!',
+      null,
+      { cancelable: true }
     );
     // const { postCreateDeck, decks, user, cards } = this.props;
     // const deckToPost = {
@@ -148,7 +150,9 @@ class DeckScreen extends React.Component {
   confirmDelete = () => {
     const { decks, deleteDeck, navigation } = this.props;
     if (decks.selectedId === decks.editingDeckId) {
-      Alert.alert('', 'Cannot delete a selected deck');
+      Alert.alert('', 'Cannot delete a selected deck', null, {
+        cancelable: true
+      });
       return;
     }
 
@@ -171,7 +175,14 @@ class DeckScreen extends React.Component {
             navigation.navigate('DeckList');
           }
         }
-      ]
+      ],
+      {
+        cancelable: true,
+        onDismiss: () => {
+          this.setModalVisible(false);
+          this.hideMenu();
+        }
+      }
     );
   };
 

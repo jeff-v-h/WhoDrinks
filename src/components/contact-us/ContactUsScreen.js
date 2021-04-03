@@ -111,7 +111,8 @@ class ContactUsScreen extends React.Component {
           text: 'OK',
           onPress: () => this.props.resetStatus()
         }
-      ]
+      ],
+      { cancelable: true, onDismiss: () => this.props.resetStatus() }
     );
   };
 

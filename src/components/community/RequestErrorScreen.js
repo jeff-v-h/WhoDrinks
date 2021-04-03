@@ -10,14 +10,19 @@ import PropTypes from 'prop-types';
 RequestErrorScreen.propTypes = {
   error: PropTypes.string,
   onPress: PropTypes.func,
-  isLoading: PropTypes.bool
+  isLoading: PropTypes.bool,
+  text: PropTypes.string
 };
 
-function RequestErrorScreen({ error, onPress, isLoading }) {
+RequestErrorScreen.defaultProps = {
+  text: 'Unable to get data'
+};
+
+function RequestErrorScreen({ error, onPress, isLoading, text }) {
   return (
     <View style={styles.container}>
       <View style={styles.section}>
-        <AppText>Unable to get data</AppText>
+        <AppText>{text}</AppText>
         {error.includes('Network Error') && (
           <View style={communityStyles.networkErrorView}>
             <AppText>There was a network error</AppText>

@@ -1,19 +1,23 @@
 import * as React from 'react';
-import { View, SafeAreaView, FlatList, Text } from 'react-native';
+import { View, SafeAreaView, FlatList, Text, Alert } from 'react-native';
 import styles from '../../styles/styles';
 import communityStyles from '../../styles/communityStyles';
 import ListLinkRow from '../common/ListLinkRow';
 import { getCommunityDecks, previewDeck } from './communitySlice';
+import { postUserFeedback } from './userSlice';
 import { connect } from 'react-redux';
 import { RequestStatusEnum } from '../../utils/enums';
 import SpinnerOverlay from '../common/SpinnerOverlay';
 import RequestErrorScreen from './RequestErrorScreen';
+import IconButton from '../common/IconButton';
+import { WOULD_LIKE_COMMUNITY_DECK_SHARE } from '../../utils/constants';
 
 const mapState = (state) => ({
-  community: state.community
+  community: state.community,
+  user: state.user
 });
 
-const mapDispatch = { getCommunityDecks, previewDeck };
+const mapDispatch = { getCommunityDecks, previewDeck, postUserFeedback };
 
 class CommunityDeckListScreen extends React.Component {
   componentDidMount() {
@@ -28,8 +32,30 @@ class CommunityDeckListScreen extends React.Component {
     navigation.navigate('CommunityDeck');
   };
 
+  uploadDeck = () => {
+    Alert.alert(
+      'Deck sharing not yet available!',
+      'Would you like to be able to share and use decks that other people have made?',
+      [
+        {
+          text: 'Cancel',
+          style: 'cancel'
+          // onPress: () => this.props.dismissUpdate()
+        },
+        {
+          text: 'Yes',
+          onPress: () =>
+            this.props.postUserFeedback({
+              feedback: WOULD_LIKE_COMMUNITY_DECK_SHARE
+            })
+        }
+      ],
+      { cancelable: true }
+    );
+  };
+
   render() {
-    const { community } = this.props;
+    const { community, user } = this.props;
     const isLoading = community.status === RequestStatusEnum.loading;
 
     if (community.error) {
@@ -61,6 +87,12 @@ class CommunityDeckListScreen extends React.Component {
             keyExtractor={(id) => id}
           />
         </View>
+        <IconButton
+          onPress={this.uploadDeck}
+          iconName="upload"
+          buttonStyle={styles.IconButton}
+          iconStyle={styles.floatingActionIcon}
+        />
         <SpinnerOverlay show={isLoading} />
       </SafeAreaView>
     );

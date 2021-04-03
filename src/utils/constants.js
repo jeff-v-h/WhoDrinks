@@ -5,3 +5,6 @@ export const LEGAL_RECOMMENDATION = `"Don't Think Just Drink" is designed as an 
 export const DISCLAIMER = `Recaura, it's heirs, assigns, representatives, employees and agents bear no responsibility and are not liable for special or consequential damages or incidents resulting from the use, misuse, inability to use or interpretation of the contents of this product regardless of whether Recaura has been advised of the possibility of such damages or incidents.`;
 
 export const CONTACT_EMAIL = 'hello@recaura.com';
+
+export const WOULD_LIKE_COMMUNITY_DECK_SHARE =
+  'would like deck share with community';

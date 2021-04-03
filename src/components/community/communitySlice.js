@@ -8,7 +8,7 @@ const headers = {
 };
 
 export const getCommunityDecks = createAsyncThunk(
-  'decks/getCommunityDecks',
+  'community/getCommunityDecks',
   async () => {
     const resp = await client.get(`${API_HOST}/api/decks`, { headers });
     return resp.data;
@@ -16,7 +16,7 @@ export const getCommunityDecks = createAsyncThunk(
 );
 
 export const getCommunityDeck = createAsyncThunk(
-  'decks/getCommunityDeck',
+  'community/getCommunityDeck',
   async (id) => {
     const resp = await client.get(`${API_HOST}/api/decks/${id}`, { headers });
     return resp.data;

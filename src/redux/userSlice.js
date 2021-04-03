@@ -3,11 +3,13 @@ import client from '../services/client';
 import { API_HOST, API_TOKEN } from '../utils/env';
 import { RequestStatusEnum } from '../utils/enums';
 import { version } from '../../package.json';
+import { getUniqueId } from 'react-native-device-info';
 import { offlineActionTypes } from 'react-native-offline';
 
 export const postUserFeedback = createAsyncThunk(
   'user/postUserFeedback',
   async (feedback) => {
+    feedback.deviceId = getUniqueId();
     await client.post(`${API_HOST}/api/userfeedback`, feedback);
     return feedback;
   }

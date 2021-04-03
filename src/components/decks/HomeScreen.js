@@ -21,7 +21,7 @@ import {
   confirmAnnouncement
 } from '../../redux/userSlice';
 import { startNewGame } from '../game/gameSlice';
-import DisclaimerModal from '../legal/DisclaimerModal';
+import TermsAndDisclaimerModal from '../legal/TermsAndDisclaimerModal';
 
 const mapState = (state) => ({
   decks: state.decks,
@@ -172,7 +172,7 @@ class HomeScreen extends React.Component {
             style={styles.button}
           />
         </View>
-        <DisclaimerModal />
+        <TermsAndDisclaimerModal />
       </SafeAreaView>
     );
   }

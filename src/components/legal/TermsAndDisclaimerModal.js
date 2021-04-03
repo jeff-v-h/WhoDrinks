@@ -6,15 +6,15 @@ import AppButton from '../common/AppButton';
 import InformationModal from '../common/InformationModal';
 import { useSelector, useDispatch } from 'react-redux';
 import { DISCLAIMER } from '../../utils/constants';
-import { confirmDisclaimer } from '../../redux/userSlice';
+import { confirmTermsAndConditions } from '../../redux/userSlice';
 import TermsAndConditions from './TermsAndConditions';
 import PrivacyPolicy from './PrivacyPolicy';
 
-function DisclaimerModal() {
+function TermsAndDisclaimerModal() {
   const [termsModalVisible, setTermsModalVisible] = useState(false);
   const [privacyModalVisible, setPrivacyModalVisible] = useState(false);
-  const confirmedDisclaimer = useSelector(
-    (state) => state.user.confirmedDisclaimer
+  const confirmedTermsAndConditions = useSelector(
+    (state) => state.user.confirmedTermsAndConditions
   );
   const dispatch = useDispatch();
 
@@ -22,8 +22,7 @@ function DisclaimerModal() {
     <Modal
       animationType="slide"
       transparent={true}
-      visible={!confirmedDisclaimer}
-      onRequestClose={() => confirmDisclaimer()}
+      visible={!confirmedTermsAndConditions}
     >
       <View style={styles.bottomPopupModal}>
         <View style={styles.modalContent}>
@@ -47,7 +46,7 @@ function DisclaimerModal() {
           <View style={styles.rightButtonsView}>
             <AppButton
               title="OK"
-              onPress={() => dispatch(confirmDisclaimer())}
+              onPress={() => dispatch(confirmTermsAndConditions())}
               style={styles.modalButton}
               textStyle={styles.modalButtonText}
             />
@@ -70,4 +69,4 @@ function DisclaimerModal() {
   );
 }
 
-export default DisclaimerModal;
+export default TermsAndDisclaimerModal;

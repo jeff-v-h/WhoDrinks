@@ -8,14 +8,28 @@ const legalStyles = StyleSheet.create({
     paddingVertical: moderateScale(20),
     paddingHorizontal: moderateScale(14)
   },
+  section: {
+    marginBottom: verticalScale(20)
+  },
+  heading: {
+    fontSize: moderateScale(18),
+    marginBottom: verticalScale(10),
+    fontWeight: '700'
+  },
   subHeading: {
     fontSize: moderateScale(16),
-    fontWeight: '700',
-    alignSelf: 'flex-start'
+    marginBottom: verticalScale(6),
+    fontWeight: '700'
   },
   text: {
-    marginBottom: verticalScale(30),
-    fontSize: moderateScale(16)
+    fontSize: moderateScale(14),
+    marginBottom: verticalScale(6)
+  },
+  indent: {
+    marginLeft: moderateScale(10)
+  },
+  indentDouble: {
+    marginLeft: moderateScale(20)
   }
 });
 

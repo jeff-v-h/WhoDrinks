@@ -74,6 +74,9 @@ const deckStyles = StyleSheet.create({
   },
   orText: {
     marginVertical: verticalScale(15)
+  },
+  disclaimerTitle: {
+    marginBottom: verticalScale(6)
   }
 });
 

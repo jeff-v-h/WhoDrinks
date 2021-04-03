@@ -123,7 +123,8 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     backgroundColor: colours.modalBlack,
-    padding: moderateScale(15)
+    paddingHorizontal: moderateScale(15),
+    paddingVertical: verticalScale(25)
   },
   bottomPopupModal: {
     flex: 1,
@@ -186,6 +187,22 @@ const styles = StyleSheet.create({
     bottom: 0,
     alignItems: 'center',
     justifyContent: 'center'
+  },
+  linkText: {
+    color: colours.linkBlue
+  },
+  textBlock: {
+    marginVertical: verticalScale(10)
+  },
+  listItem: {
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    paddingRight: moderateScale(10)
+  },
+  bullet: {
+    marginRight: moderateScale(5),
+    fontSize: moderateScale(8),
+    marginTop: verticalScale(4)
   },
   redBorder: {
     borderColor: colours.error

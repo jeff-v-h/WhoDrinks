@@ -30,15 +30,15 @@ const userSlice = createSlice({
   initialState: {
     appVersion: {
       version: version,
-      latestVersion: version
+      latestVersion: version,
       // forceUpdate: false,
       // recommendUpdate: false,
       // announcement: '',
       // androidUpdateUrl: 'market://details?id=',
       // iOSUpdateUrl:
       //   'itms://itunes.apple.com/us/app/apple-store/myiosappid?mt=8',
-      // associatedPrivacyPolicyVersion: 'fe-' + version,
-      // associatedTCsVersion: 'fe-' + version,
+      associatedPrivacyPolicyVersion: 'fe-' + version,
+      associatedTCsVersion: 'fe-' + version
       // forceNewTCsAgreement: false,
       // forceNewPrivacyPolicyAgreement: false
       // termsAndConditions: '',
@@ -48,7 +48,7 @@ const userSlice = createSlice({
     },
     dismissedUpdate: false,
     confirmedAnnouncement: false,
-    confirmedDisclaimer: false,
+    confirmedTermsAndConditions: false,
     feedback: [],
     status: RequestStatusEnum.idle,
     error: null
@@ -64,8 +64,8 @@ const userSlice = createSlice({
     confirmAnnouncement: (state) => {
       state.confirmedAnnouncement = true;
     },
-    confirmDisclaimer: (state) => {
-      state.confirmedDisclaimer = true;
+    confirmTermsAndConditions: (state) => {
+      state.confirmedTermsAndConditions = true;
     },
     resetStatus: (state) => {
       state.status = RequestStatusEnum.idle;
@@ -97,6 +97,10 @@ const userSlice = createSlice({
         };
         state.dismissedUpdate = false;
         state.confirmedAnnouncement = false;
+
+        if (action.payload.forceNewTCsAgreement) {
+          state.confirmedTermsAndConditions = false;
+        }
       }
 
       state.appVersion.dateObtained = new Date().toISOString();
@@ -105,11 +109,11 @@ const userSlice = createSlice({
 });
 
 export const {
-  confirmDisclaimer,
   logout,
   resetStatus,
   dismissUpdate,
-  confirmAnnouncement
+  confirmAnnouncement,
+  confirmTermsAndConditions
 } = userSlice.actions;
 export default userSlice.reducer;
 

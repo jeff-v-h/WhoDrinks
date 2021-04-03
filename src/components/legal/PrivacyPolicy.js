@@ -1375,32 +1375,116 @@ function PrivacyPolicy() {
             exercise Your right to opt-out, please contact Us.
           </Text>
         </View>
-
         <Text style={legalStyles.heading}>
-          Changes to These Terms and Conditions
+          "Do Not Track" Policy as Required by California Online Privacy
+          Protection Act (CalOPPA)
         </Text>
         <View style={legalStyles.section}>
           <Text style={legalStyles.text}>
-            We reserve the right, at Our sole discretion, to modify or replace
-            these Terms at any time. If a revision is material We will make
-            reasonable efforts to provide at least 30 days' notice prior to any
-            new terms taking effect. Furthermore, or in the alternative, we will
-            ask again for your agreement to the newly revised Terms. What
-            constitutes a material change will be determined at Our sole
-            discretion.
+            Our Service does not respond to Do Not Track signals.
           </Text>
           <Text style={legalStyles.text}>
-            By continuing to access or use Our Service after those revisions
-            become effective, You agree to be bound by the revised terms. If You
-            do not agree to the new terms, in whole or in part, please stop
-            using the application and the Service.
+            However, some third party websites do keep track of Your browsing
+            activities. If You are visiting such websites, You can set Your
+            preferences in Your web browser to inform websites that You do not
+            want to be tracked. You can enable or disable DNT by visiting the
+            preferences or settings page of Your web browser.
+          </Text>
+        </View>
+        <Text style={legalStyles.heading}>Children's Privacy</Text>
+        <View style={legalStyles.section}>
+          <Text style={legalStyles.text}>
+            Our Service does not address anyone under the age of 13. We do not
+            knowingly collect personally identifiable information from anyone
+            under the age of 13. If You are a parent or guardian and You are
+            aware that Your child has provided Us with Personal Data, please
+            contact Us. If We become aware that We have collected Personal Data
+            from anyone under the age of 13 without verification of parental
+            consent, We take steps to remove that information from Our servers.
+          </Text>
+          <Text style={legalStyles.text}>
+            If We need to rely on consent as a legal basis for processing Your
+            information and Your country requires consent from a parent, We may
+            require Your parent's consent before We collect and use that
+            information.
+          </Text>
+        </View>
+        <Text style={legalStyles.heading}>
+          Your California Privacy Rights (California's Shine the Light law)
+        </Text>
+        <View style={legalStyles.section}>
+          <Text style={legalStyles.text}>
+            Under California Civil Code Section 1798 (California's Shine the
+            Light law), California residents with an established business
+            relationship with us can request information once a year about
+            sharing their Personal Data with third parties for the third
+            parties' direct marketing purposes.
+          </Text>
+          <Text style={legalStyles.text}>
+            If you'd like to request more information under the California Shine
+            the Light law, and if You are a California resident, You can contact
+            Us using the contact information provided below.
+          </Text>
+        </View>
+        <Text style={legalStyles.heading}>
+          California Privacy Rights for Minor Users (California Business and
+          Professions Code Section 22581)
+        </Text>
+        <View style={legalStyles.section}>
+          <Text style={legalStyles.text}>
+            California Business and Professions Code section 22581 allow
+            California residents under the age of 18 who are registered users of
+            online sites, services or applications to request and obtain removal
+            of content or information they have publicly posted.
+          </Text>
+          <Text style={legalStyles.text}>
+            To request removal of such data, and if You are a California
+            resident, You can contact Us using the contact information provided
+            below, and include the email address associated with Your account.
+          </Text>
+          <Text style={legalStyles.text}>
+            Be aware that Your request does not guarantee complete or
+            comprehensive removal of content or information posted online and
+            that the law may not permit or require removal in certain
+            circumstances.
+          </Text>
+        </View>
+        <Text style={legalStyles.heading}>Links to Other Websites</Text>
+        <View style={legalStyles.section}>
+          <Text style={legalStyles.text}>
+            Our Service may contain links to other websites that are not
+            operated by Us. If You click on a third party link, You will be
+            directed to that third party's site. We strongly advise You to
+            review the Privacy Policy of every site You visit.
+          </Text>
+          <Text style={legalStyles.text}>
+            We have no control over and assume no responsibility for the
+            content, privacy policies or practices of any third party sites or
+            services.
+          </Text>
+        </View>
+        <Text style={legalStyles.heading}>Changes to this Privacy Policy</Text>
+        <View style={legalStyles.section}>
+          <Text style={legalStyles.text}>
+            We may update Our Privacy Policy from time to time. We will notify
+            You of any changes by posting the new Privacy Policy on this page.
+          </Text>
+          <Text style={legalStyles.text}>
+            We will let You know via email and/or a prominent notice on Our
+            Service, prior to the change becoming effective and update the "Last
+            updated" date at the top of this Privacy Policy.
+          </Text>
+          <Text style={legalStyles.text}>
+            You are advised to review this Privacy Policy periodically for any
+            changes. Changes to this Privacy Policy are effective when they are
+            posted on this page.
           </Text>
         </View>
         <Text style={legalStyles.heading}>Contact Us</Text>
         <View style={legalStyles.section}>
           <Text style={legalStyles.text}>
-            If you have any questions about these Terms and Conditions, You can
-            contact us:
+            If you have any questions about this Privacy Policy, You can contact
+            us:
           </Text>
           <BulletListItem>
             <Text style={legalStyles.text}>By email: {CONTACT_EMAIL}</Text>

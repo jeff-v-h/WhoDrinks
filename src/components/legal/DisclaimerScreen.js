@@ -9,7 +9,7 @@ import PrivacyPolicy from './PrivacyPolicy';
 
 function DisclaimerScreen() {
   const [termsModalVisible, setTermsModalVisible] = useState(false);
-  const [privacyModalVisible, setPrivacyModalVisible] = useState(true);
+  const [privacyModalVisible, setPrivacyModalVisible] = useState(false);
 
   return (
     <View style={legalStyles.disclaimerContainer}>

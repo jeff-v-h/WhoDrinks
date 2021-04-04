@@ -24,7 +24,7 @@ const contactStyles = StyleSheet.create({
   },
   contactUsInput: {
     paddingHorizontal: moderateScale(10),
-    paddingVertical: verticalScale(8),
+    paddingVertical: verticalScale(5),
     marginHorizontal: moderateScale(10),
     marginBottom: verticalScale(6),
     fontSize: moderateScale(16),

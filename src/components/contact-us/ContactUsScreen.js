@@ -229,7 +229,7 @@ class ContactUsScreen extends React.Component {
                   placeholder="Feedback"
                   multiline={true}
                   editable={!isLoading}
-                  numberOfLines={5}
+                  numberOfLines={3}
                 />
               </View>
               <View

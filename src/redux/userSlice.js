@@ -38,41 +38,41 @@ const getAppVersionRejected = createAction(`${getAppVersionType}/rejected`);
 
 //#region Thunks
 export const postUserFeedback = (feedback) => {
-  // async function thunk(dispatch) {
-  //   console.log('try send thunk');
-  //   dispatch(postUserFeedbackPending());
-  //   try {
-  //     feedback.deviceId = getUniqueId();
-  //     await client.post(`${API_HOST}/api/userfeedback`, feedback);
-  //     dispatch(postUserFeedbackFulfilled(feedback));
-  //   } catch (err) {
-  //     dispatch(
-  //       postUserFeedbackRejected({
-  //         feedback,
-  //         error: err?.message
-  //       })
-  //     );
-  //     // dispatch(offlineActionCreators.fetchOfflineMode(thunk));
-  //   }
-  // }
-  function thunk(dispatch) {
+  async function thunk(dispatch) {
     console.log('try send thunk');
     dispatch(postUserFeedbackPending());
-
-    feedback.deviceId = getUniqueId();
-    client
-      .post(`${API_HOST}/api/userfeedback`, feedback)
-      .then(() => dispatch(postUserFeedbackFulfilled(feedback)))
-      .catch((err) => {
-        // dispatch(
-        //   postUserFeedbackRejected({
-        //     feedback,
-        //     error: err?.message
-        //   })
-        // );
-        dispatch(offlineActionCreators.fetchOfflineMode(thunk));
-      });
+    try {
+      feedback.deviceId = getUniqueId();
+      await client.post(`${API_HOST}/api/userfeedback`, feedback);
+      dispatch(postUserFeedbackFulfilled(feedback));
+    } catch (err) {
+      // dispatch(
+      //   postUserFeedbackRejected({
+      //     feedback,
+      //     error: err?.message
+      //   })
+      // );
+      dispatch(offlineActionCreators.fetchOfflineMode(thunk));
+    }
   }
+  // function thunk(dispatch) {
+  //   console.log('try send thunk');
+  //   dispatch(postUserFeedbackPending());
+
+  //   feedback.deviceId = getUniqueId();
+  //   client
+  //     .post(`${API_HOST}/api/userfeedback`, feedback)
+  //     .then(() => dispatch(postUserFeedbackFulfilled(feedback)))
+  //     .catch((err) => {
+  //       // dispatch(
+  //       //   postUserFeedbackRejected({
+  //       //     feedback,
+  //       //     error: err?.message
+  //       //   })
+  //       // );
+  //       dispatch(offlineActionCreators.fetchOfflineMode(thunk));
+  //     });
+  // }
 
   thunk.interceptInOffline = true;
   thunk.meta = {

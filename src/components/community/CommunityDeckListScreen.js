@@ -54,7 +54,6 @@ class CommunityDeckListScreen extends React.Component {
         {
           text: 'Cancel',
           style: 'cancel'
-          // onPress: () => this.props.dismissUpdate()
         },
         {
           text: 'Yes',

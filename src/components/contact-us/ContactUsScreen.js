@@ -153,7 +153,7 @@ class ContactUsScreen extends React.Component {
 
   render() {
     const { status } = this.props.user;
-    console.log('network', this.props.network);
+
     if (status === RequestStatusEnum.succeeded) {
       return <FeedbackSuccessScreen onPress={this.resetFeedbackScreen} />;
     }

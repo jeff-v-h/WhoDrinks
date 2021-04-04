@@ -30,49 +30,30 @@ const postUserFeedbackRejected = createAction(
   `${postUserFeedbackType}/rejected`
 );
 
-const getAppVersionType = 'user/getAppVersion';
-const getAppVersionPending = createAction(`${getAppVersionType}/pending`);
-const getAppVersionFulfilled = createAction(`${getAppVersionType}/fulfilled`);
-const getAppVersionRejected = createAction(`${getAppVersionType}/rejected`);
+const getAppVersionFulfilled = createAction(`user/getAppVersion/fulfilled`);
 //#endregion
 
 //#region Thunks
 export const postUserFeedback = (feedback) => {
-  async function thunk(dispatch) {
-    console.log('try send thunk');
+  async function thunk(dispatch, getState) {
     dispatch(postUserFeedbackPending());
     try {
       feedback.deviceId = getUniqueId();
       await client.post(`${API_HOST}/api/userfeedback`, feedback);
       dispatch(postUserFeedbackFulfilled(feedback));
     } catch (err) {
-      // dispatch(
-      //   postUserFeedbackRejected({
-      //     feedback,
-      //     error: err?.message
-      //   })
-      // );
-      dispatch(offlineActionCreators.fetchOfflineMode(thunk));
+      if (getState().user.feedbackAttempts <= 3) {
+        dispatch(offlineActionCreators.fetchOfflineMode(thunk));
+      } else {
+        dispatch(
+          postUserFeedbackRejected({
+            feedback,
+            error: err?.message
+          })
+        );
+      }
     }
   }
-  // function thunk(dispatch) {
-  //   console.log('try send thunk');
-  //   dispatch(postUserFeedbackPending());
-
-  //   feedback.deviceId = getUniqueId();
-  //   client
-  //     .post(`${API_HOST}/api/userfeedback`, feedback)
-  //     .then(() => dispatch(postUserFeedbackFulfilled(feedback)))
-  //     .catch((err) => {
-  //       // dispatch(
-  //       //   postUserFeedbackRejected({
-  //       //     feedback,
-  //       //     error: err?.message
-  //       //   })
-  //       // );
-  //       dispatch(offlineActionCreators.fetchOfflineMode(thunk));
-  //     });
-  // }
 
   thunk.interceptInOffline = true;
   thunk.meta = {
@@ -85,7 +66,6 @@ export const postUserFeedback = (feedback) => {
 
 export const getAppVersion = () => {
   async function thunk(dispatch) {
-    dispatch(getAppVersionPending());
     try {
       const resp = await client.get(`${API_HOST}/api/appversions/${version}`, {
         headers: {
@@ -93,9 +73,7 @@ export const getAppVersion = () => {
         }
       });
       dispatch(getAppVersionFulfilled(resp.data));
-    } catch (error) {
-      dispatch(getAppVersionRejected());
-    }
+    } catch (e) {}
   }
   return thunk;
 };
@@ -124,6 +102,7 @@ const initialState = {
   confirmedAnnouncement: false,
   confirmedTermsAndConditions: false,
   feedback: [],
+  feedbackAttempts: 0,
   feedbackEnqueued: false,
   status: RequestStatusEnum.idle,
   error: null
@@ -150,6 +129,7 @@ const userReducer = createReducer(initialState, (builder) => {
     })
     .addCase(postUserFeedbackPending, (state) => {
       state.status = RequestStatusEnum.loading;
+      state.feedbackAttempts++;
     })
     .addCase(postUserFeedbackFulfilled, (state, action) => {
       state.status = RequestStatusEnum.succeeded;
@@ -157,6 +137,7 @@ const userReducer = createReducer(initialState, (builder) => {
         ...action.payload,
         status: RequestStatusEnum.succeeded
       });
+      state.feedbackAttempts = 0;
     })
     .addCase(postUserFeedbackRejected, (state, action) => {
       state.status = RequestStatusEnum.failed;
@@ -182,7 +163,6 @@ const userReducer = createReducer(initialState, (builder) => {
       state.appVersion.dateObtained = new Date().toISOString();
     })
     .addCase(offlineActionTypes.FETCH_OFFLINE_MODE, (state, action) => {
-      console.log(typeof action.payload.prevThunk);
       state.status = RequestStatusEnum.idle;
       if (action.payload.prevThunk) {
         state.feedbackEnqueued = true;

@@ -14,7 +14,8 @@ import { WOULD_LIKE_COMMUNITY_DECK_SHARE } from '../../utils/constants';
 
 const mapState = (state) => ({
   community: state.community,
-  user: state.user
+  feedbackEnqueued: state.user.feedbackEnqueued,
+  isConnected: state.network.isConnected
 });
 
 const mapDispatch = {
@@ -26,7 +27,15 @@ const mapDispatch = {
 
 class CommunityDeckListScreen extends React.Component {
   componentDidMount() {
-    this.fetchCommunityDecks();
+    if (this.props.isConnected) {
+      this.fetchCommunityDecks();
+    }
+  }
+
+  componentDidUpdate() {
+    if (this.props.feedbackEnqueued) {
+      this.showEnqueuedMessage();
+    }
   }
 
   fetchCommunityDecks = () => this.props.getCommunityDecks();
@@ -59,14 +68,33 @@ class CommunityDeckListScreen extends React.Component {
     );
   };
 
+  showEnqueuedMessage = () => {
+    Alert.alert(
+      'Unable to send right now',
+      'Your feedback will be sent once you are able to connect to our servers.',
+      [
+        {
+          text: 'OK',
+          onPress: () => this.props.resetFeedbackEnqueued()
+        }
+      ],
+      { cancelable: true, onDismiss: () => this.props.resetFeedbackEnqueued() }
+    );
+  };
+
   render() {
-    const { community } = this.props;
+    const { community, isConnected } = this.props;
     const isLoading = community.status === RequestStatusEnum.loading;
 
-    if (community.error) {
+    if (community.error || !isConnected) {
       return (
         <RequestErrorScreen
-          error={community.error}
+          error={!isConnected ? '' : community.error}
+          text={
+            !isConnected
+              ? 'You are not connected to the internet'
+              : 'Unable to get data'
+          }
           onPress={this.fetchCommunityDecks}
           isLoading={isLoading}
         />

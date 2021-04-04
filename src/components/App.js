@@ -13,7 +13,9 @@ let persistor = persistStore(store);
 const App = () => {
   return (
     <Provider store={store}>
+      {/* Set pingServerUrl to a non-working url to imitate network.isConnected = false */}
       <ReduxNetworkProvider>
+        {/* <ReduxNetworkProvider pingServerUrl="https://www.recauraz.com/"> */}
         <PersistGate loading={null} persistor={persistor}>
           <NavigationContainer>
             <StatusBar barStyle="auto" />

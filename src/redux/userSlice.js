@@ -1,15 +1,13 @@
-import {
-  createSlice,
-  createAsyncThunk,
-  createAction,
-  createReducer
-} from '@reduxjs/toolkit';
+import { createAction, createReducer } from '@reduxjs/toolkit';
 import client from '../services/client';
 import { API_HOST, API_TOKEN } from '../utils/env';
 import { RequestStatusEnum } from '../utils/enums';
 import { version } from '../../package.json';
 import { getUniqueId } from 'react-native-device-info';
-import { offlineActionCreators } from 'react-native-offline';
+import {
+  offlineActionCreators,
+  offlineActionTypes
+} from 'react-native-offline';
 
 //#region Actions
 export const logout = createAction('user/logout');
@@ -19,6 +17,7 @@ export const confirmTermsAndConditions = createAction(
   'user/confirmTermsAndConditions'
 );
 export const resetStatus = createAction('user/resetStatus');
+export const resetFeedbackEnqueued = createAction('user/resetFeedbackEnqueued');
 //#endregion
 
 //#region Thunk actions
@@ -39,20 +38,40 @@ const getAppVersionRejected = createAction(`${getAppVersionType}/rejected`);
 
 //#region Thunks
 export const postUserFeedback = (feedback) => {
-  async function thunk(dispatch) {
+  // async function thunk(dispatch) {
+  //   console.log('try send thunk');
+  //   dispatch(postUserFeedbackPending());
+  //   try {
+  //     feedback.deviceId = getUniqueId();
+  //     await client.post(`${API_HOST}/api/userfeedback`, feedback);
+  //     dispatch(postUserFeedbackFulfilled(feedback));
+  //   } catch (err) {
+  //     dispatch(
+  //       postUserFeedbackRejected({
+  //         feedback,
+  //         error: err?.message
+  //       })
+  //     );
+  //     // dispatch(offlineActionCreators.fetchOfflineMode(thunk));
+  //   }
+  // }
+  function thunk(dispatch) {
+    console.log('try send thunk');
     dispatch(postUserFeedbackPending());
-    try {
-      feedback.deviceId = getUniqueId();
-      await client.post(`${API_HOST}/api/userfeedback`, feedback);
-      dispatch(postUserFeedbackFulfilled(feedback));
-    } catch (err) {
-      dispatch(
-        postUserFeedbackRejected({
-          feedback,
-          error: err?.message
-        })
-      );
-    }
+
+    feedback.deviceId = getUniqueId();
+    client
+      .post(`${API_HOST}/api/userfeedback`, feedback)
+      .then(() => dispatch(postUserFeedbackFulfilled(feedback)))
+      .catch((err) => {
+        // dispatch(
+        //   postUserFeedbackRejected({
+        //     feedback,
+        //     error: err?.message
+        //   })
+        // );
+        dispatch(offlineActionCreators.fetchOfflineMode(thunk));
+      });
   }
 
   thunk.interceptInOffline = true;
@@ -105,6 +124,7 @@ const initialState = {
   confirmedAnnouncement: false,
   confirmedTermsAndConditions: false,
   feedback: [],
+  feedbackEnqueued: false,
   status: RequestStatusEnum.idle,
   error: null
 };
@@ -125,11 +145,13 @@ const userReducer = createReducer(initialState, (builder) => {
     .addCase(resetStatus, (state) => {
       state.status = RequestStatusEnum.idle;
     })
+    .addCase(resetFeedbackEnqueued, (state) => {
+      state.feedbackEnqueued = false;
+    })
     .addCase(postUserFeedbackPending, (state) => {
       state.status = RequestStatusEnum.loading;
     })
     .addCase(postUserFeedbackFulfilled, (state, action) => {
-      console.log('fulfilled');
       state.status = RequestStatusEnum.succeeded;
       state.feedback.push({
         ...action.payload,
@@ -137,7 +159,6 @@ const userReducer = createReducer(initialState, (builder) => {
       });
     })
     .addCase(postUserFeedbackRejected, (state, action) => {
-      console.log('rejected', action.payload);
       state.status = RequestStatusEnum.failed;
       state.error = action.payload.error;
       state.feedback.push({
@@ -159,6 +180,13 @@ const userReducer = createReducer(initialState, (builder) => {
       }
 
       state.appVersion.dateObtained = new Date().toISOString();
+    })
+    .addCase(offlineActionTypes.FETCH_OFFLINE_MODE, (state, action) => {
+      console.log(typeof action.payload.prevThunk);
+      state.status = RequestStatusEnum.idle;
+      if (action.payload.prevThunk) {
+        state.feedbackEnqueued = true;
+      }
     });
 });
 

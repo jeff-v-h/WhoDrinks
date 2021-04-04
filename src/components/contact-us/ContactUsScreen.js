@@ -11,17 +11,22 @@ import AppText from '../common/AppText';
 import AppButton from '../common/AppButton';
 import styles from '../../styles/styles';
 import contactStyles from '../../styles/contactStyles';
-import { postUserFeedback, resetStatus } from '../../redux/userSlice';
+import {
+  postUserFeedback,
+  resetStatus,
+  resetFeedbackEnqueued
+} from '../../redux/userSlice';
 import { connect } from 'react-redux';
 import FeedbackSuccessScreen from './FeedbackSuccessScreen';
 import SpinnerOverlay from '../common/SpinnerOverlay';
 import { RequestStatusEnum } from '../../utils/enums';
 
 const mapState = (state) => ({
-  user: state.user
+  user: state.user,
+  network: state.network
 });
 
-const mapDispatch = { postUserFeedback, resetStatus };
+const mapDispatch = { postUserFeedback, resetStatus, resetFeedbackEnqueued };
 
 const initialState = {
   firstName: '',
@@ -60,6 +65,17 @@ class ContactUsScreen extends React.Component {
       'keyboardDidHide',
       this.keyboardDidHide
     );
+  }
+
+  componentDidUpdate() {
+    const { status, feedbackEnqueued } = this.props.user;
+    if (status === RequestStatusEnum.failed) {
+      this.showErrorMessage();
+    }
+
+    if (feedbackEnqueued) {
+      this.showEnqueuedMessage();
+    }
   }
 
   componentWillUnmount() {
@@ -104,8 +120,8 @@ class ContactUsScreen extends React.Component {
 
   showErrorMessage = () => {
     Alert.alert(
-      '',
-      'Unable to send right now, please try again later. \n\nWe will keep your feedback here for you until you send successfully or change it yourself.',
+      'Unable to send right now',
+      'Please try again later. \n\nWe will keep your feedback here for you until you send successfully or change it yourself.',
       [
         {
           text: 'OK',
@@ -116,12 +132,32 @@ class ContactUsScreen extends React.Component {
     );
   };
 
+  showEnqueuedMessage = () => {
+    Alert.alert(
+      'Unable to send right now',
+      'Your feedback will be sent once you are back online.',
+      [
+        {
+          text: 'OK',
+          onPress: () => this.props.resetFeedbackEnqueued()
+        }
+      ],
+      { cancelable: true, onDismiss: () => this.props.resetFeedbackEnqueued() }
+    );
+  };
+
   resetFeedbackScreen = () => {
     this.setState({ ...initialState });
     this.props.resetStatus();
   };
 
   render() {
+    const { status } = this.props.user;
+    console.log('network', this.props.network);
+    if (status === RequestStatusEnum.succeeded) {
+      return <FeedbackSuccessScreen onPress={this.resetFeedbackScreen} />;
+    }
+
     const {
       firstName,
       lastName,
@@ -130,18 +166,9 @@ class ContactUsScreen extends React.Component {
       keyboardShowing,
       emailValid
     } = this.state;
-    const { status } = this.props.user;
-
-    if (status === RequestStatusEnum.succeeded) {
-      return <FeedbackSuccessScreen onPress={this.resetFeedbackScreen} />;
-    }
-
-    if (status === RequestStatusEnum.failed) {
-      this.showErrorMessage();
-    }
-
     const isLoading = status === RequestStatusEnum.loading;
     const emailInputStyles = [contactStyles.contactUsInput];
+
     if (email.length > 0 && !emailValid) {
       emailInputStyles.push(styles.redBorder);
     }

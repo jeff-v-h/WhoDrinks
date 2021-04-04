@@ -1,14 +1,6 @@
 import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
 import rootReducer from './rootReducer';
-import {
-  persistReducer,
-  FLUSH,
-  REHYDRATE,
-  PAUSE,
-  PERSIST,
-  PURGE,
-  REGISTER
-} from 'redux-persist';
+import { persistReducer } from 'redux-persist';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { createNetworkMiddleware } from 'react-native-offline';
 
@@ -26,9 +18,8 @@ const store = configureStore({
   middleware: [
     networkMiddleware,
     ...getDefaultMiddleware({
-      serializableCheck: {
-        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER]
-      }
+      // Set to false if too many actions contain thunk function as a value since react-native-offline needs to store functions in state
+      serializableCheck: false
     })
   ],
   devTools: process.env.NODE_ENV !== 'production'

@@ -4,7 +4,7 @@ import styles from '../../styles/styles';
 import communityStyles from '../../styles/communityStyles';
 import ListLinkRow from '../common/ListLinkRow';
 import { getCommunityDecks, previewDeck } from './communitySlice';
-import { postUserFeedback } from '../../redux/userSlice';
+import { postUserFeedback, resetFeedbackEnqueued } from '../../redux/userSlice';
 import { connect } from 'react-redux';
 import { RequestStatusEnum } from '../../utils/enums';
 import SpinnerOverlay from '../common/SpinnerOverlay';
@@ -17,7 +17,12 @@ const mapState = (state) => ({
   user: state.user
 });
 
-const mapDispatch = { getCommunityDecks, previewDeck, postUserFeedback };
+const mapDispatch = {
+  getCommunityDecks,
+  previewDeck,
+  postUserFeedback,
+  resetFeedbackEnqueued
+};
 
 class CommunityDeckListScreen extends React.Component {
   componentDidMount() {

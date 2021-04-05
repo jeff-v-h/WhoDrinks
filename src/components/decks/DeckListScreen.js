@@ -2,10 +2,10 @@ import * as React from 'react';
 import { View, SafeAreaView, FlatList, Text } from 'react-native';
 import styles from '../../styles/styles';
 import deckStyles from '../../styles/deckStyles';
-import ListLinkRow from '../common/ListLinkRow';
 import IconButton from '../common/IconButton';
 import { selectDeck, selectDeckToEdit } from './decksSlice';
 import { connect } from 'react-redux';
+import DeckListRow from './DeckListRow';
 
 const mapState = (state) => ({
   decks: state.decks
@@ -21,7 +21,7 @@ class DeckListScreen extends React.Component {
     }
   };
 
-  navigateToDeck = (id) => () => {
+  navigateToDeck = (id) => {
     const { navigation, selectDeckToEdit } = this.props;
     selectDeckToEdit(id ?? '');
     navigation.navigate('Deck');
@@ -40,41 +40,18 @@ class DeckListScreen extends React.Component {
             }
             ListHeaderComponentStyle={deckStyles.deckListHeader}
             renderItem={({ item }) => (
-              <View style={deckStyles.deckListRow}>
-                <ListLinkRow
-                  onPress={() => this.selectDeck(item)}
-                  text={decks.byId[item].name}
-                  rowStyle={deckStyles.deckListLinkRow}
-                  viewStyle={styles.listRow}
-                >
-                  <View style={deckStyles.selectedCol}>
-                    {item === decks.selectedId && (
-                      <IconButton
-                        iconName="check"
-                        buttonStyle={deckStyles.selectedIcon}
-                      />
-                    )}
-                  </View>
-                  <Text style={styles.itemText} numberOfLines={1}>
-                    {decks.byId[item].name}
-                  </Text>
-                </ListLinkRow>
-                <View style={deckStyles.verticleLine}></View>
-                <View style={deckStyles.deckListButtonsCol}>
-                  <IconButton
-                    iconName="edit"
-                    onPress={this.navigateToDeck(item)}
-                    size={24}
-                    buttonStyle={deckStyles.editDeck}
-                  />
-                </View>
-              </View>
+              <DeckListRow
+                deckName={decks.byId[item].name}
+                isSelected={item === decks.selectedId}
+                rowOnPress={() => this.selectDeck(item)}
+                editOnPress={() => this.navigateToDeck(item)}
+              />
             )}
             keyExtractor={(item) => decks.byId[item].name}
           />
         </View>
         <IconButton
-          onPress={this.navigateToDeck()}
+          onPress={() => this.navigateToDeck()}
           buttonStyle={styles.floatingIconButton}
           iconStyle={styles.floatingActionIcon}
         />

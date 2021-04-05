@@ -1,14 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
 import standardDeck from '../../utils/decks/standard-deck';
-import asianDeck from '../../utils/decks/asian-deck';
 import { saveDeck, postCreateDeck } from './decksSlice';
 
 const cardsSlice = createSlice({
   name: 'cards',
   initialState: {
     byDeckId: {
-      [standardDeck.id]: standardDeck.cards,
-      [asianDeck.id]: asianDeck.cards
+      [standardDeck.id]: standardDeck.cards
     },
     editingCardIndex: 0
   },

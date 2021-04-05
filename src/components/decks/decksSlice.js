@@ -1,6 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import standardDeck from '../../utils/decks/standard-deck';
-import asianDeck from '../../utils/decks/asian-deck';
 import client from '../../services/client';
 import { API_HOST, API_TOKEN } from '../../utils/env';
 import { RequestStatusEnum } from '../../utils/enums';
@@ -31,14 +30,9 @@ const decksSlice = createSlice({
         name: standardDeck.name,
         tags: standardDeck.tags
         // Once a deck has been shared to public, it will have a userId
-      },
-      [asianDeck.id]: {
-        id: asianDeck.id,
-        name: asianDeck.name,
-        tags: asianDeck.tags
       }
     },
-    allIds: [standardDeck.id, asianDeck.id],
+    allIds: [standardDeck.id],
     selectedId: standardDeck.id,
     editingDeckId: standardDeck.id,
     status: RequestStatusEnum.idle,

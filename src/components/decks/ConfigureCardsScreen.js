@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { ScrollView, View, TextInput, Animated, Easing } from 'react-native';
+import { ScrollView, View, TextInput, Animated } from 'react-native';
 import AppButton from '../common/AppButton';
 import styles from '../../styles/styles';
 import deckStyles from '../../styles/deckStyles';
@@ -8,6 +8,7 @@ import { PanGestureHandler, State } from 'react-native-gesture-handler';
 import IconButton from '../common/IconButton';
 import { saveCard, deleteCard, selectCardToEdit } from './cardsSlice';
 import { connect } from 'react-redux';
+import { animateSuccess } from '../../utils/helpers';
 
 const mapState = (state) => ({
   decks: state.decks,
@@ -72,7 +73,7 @@ class ConfigureCardsScreen extends React.Component {
       deckId: decks.editingDeckId,
       cardIndex: cards.editingCardIndex
     });
-    this.animateSuccess();
+    animateSuccess(this.state.tickProgress);
   };
 
   deleteCard = () => {
@@ -83,22 +84,6 @@ class ConfigureCardsScreen extends React.Component {
     });
     navigation.navigate('Deck');
   };
-
-  animateSuccess = () =>
-    Animated.timing(this.state.tickProgress, {
-      toValue: 1.5,
-      duration: 1500,
-      easing: Easing.linear,
-      useNativeDriver: true
-    }).start(this.resetSuccessAnimation);
-
-  resetSuccessAnimation = () =>
-    Animated.timing(this.state.tickProgress, {
-      toValue: 0,
-      duration: 500,
-      easing: Easing.linear,
-      useNativeDriver: true
-    }).start();
 
   _onHandlerStateChange = (event) => {
     // Only call functions once the user has finished swiping right or left a certain amount

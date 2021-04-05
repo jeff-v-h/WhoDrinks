@@ -6,7 +6,8 @@ import {
   Text,
   Alert,
   Modal,
-  TextInput
+  TextInput,
+  Animated
 } from 'react-native';
 import styles from '../../styles/styles';
 import communityStyles from '../../styles/communityStyles';
@@ -21,6 +22,8 @@ import AppText from '../common/AppText';
 import DeckListHeader from './DeckListHeader';
 import ObjectId from 'bson-objectid';
 import RequestErrorScreen from './RequestErrorScreen';
+import LottieView from 'lottie-react-native';
+import { animateSuccess } from '../../utils/helpers';
 
 const mapState = (state) => ({
   community: state.community,
@@ -32,7 +35,8 @@ const mapDispatch = { getCommunityDeck, saveDeck };
 const initialState = {
   nameModalVisible: false,
   attemptedDeckName: '',
-  deckName: ''
+  deckName: '',
+  tickProgress: new Animated.Value(0)
 };
 
 class CommunityDeckScreen extends React.Component {
@@ -84,7 +88,9 @@ class CommunityDeckScreen extends React.Component {
     };
 
     saveDeck(newDeck);
-    this.setState({ ...initialState });
+    this.setState({ ...initialState }, () =>
+      animateSuccess(this.state.tickProgress)
+    );
   }
 
   suggestNewDeckName = (names, currentName) => {
@@ -129,6 +135,10 @@ class CommunityDeckScreen extends React.Component {
     return (
       <SafeAreaView style={styles.container}>
         <View style={styles.list}>
+          <LottieView
+            source={require('../../../assets/5449-success-tick.json')}
+            progress={this.state.tickProgress}
+          />
           <FlatList
             data={community.deck.cards}
             ListHeaderComponent={

@@ -6,22 +6,25 @@ import { createStylesArray } from '../../utils/helpers';
 
 ListLinkRow.propTypes = {
   onPress: PropTypes.func,
+  rowStyle: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
   viewStyle: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
   children: PropTypes.node
 };
 
 ListLinkRow.defaultProps = {
   onPress: () => {},
+  rowStyle: [],
   viewStyle: [],
   children: null
 };
 
-function ListLinkRow({ onPress, viewStyle, children }) {
+function ListLinkRow({ onPress, rowStyle, viewStyle, children }) {
+  const touchableStyle = createStylesArray(styles.touchable, rowStyle);
   const style = createStylesArray(styles.touchableView, viewStyle);
 
   return (
     <TouchableHighlight
-      style={styles.touchable}
+      style={touchableStyle}
       onPress={onPress}
       activeOpacity={0.6}
       underlayColor="none"

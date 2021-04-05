@@ -7,12 +7,21 @@ const selectedColWidth = moderateScale(56);
 const deckStyles = StyleSheet.create({
   deckListHeader: {
     borderBottomWidth: 1,
-    paddingBottom: verticalScale(5),
-    marginBottom: verticalScale(5)
+    paddingBottom: verticalScale(5)
   },
-  currentlySelectedHeading: {
+  selectedHeading: {
     width: selectedColWidth,
     textAlign: 'center'
+  },
+  deckListRow: {
+    flexDirection: 'row',
+    borderBottomWidth: 1,
+    borderBottomColor: colours.grey,
+    height: verticalScale(65)
+  },
+  deckListLinkRow: {
+    width: '80%',
+    borderBottomWidth: 0
   },
   selectedCol: {
     width: selectedColWidth,
@@ -20,6 +29,16 @@ const deckStyles = StyleSheet.create({
   },
   selectedIcon: {
     alignSelf: 'center'
+  },
+  verticleLine: {
+    height: '50%',
+    alignSelf: 'center',
+    marginVertical: verticalScale(20),
+    width: 1.5,
+    backgroundColor: colours.lightgrey
+  },
+  deckListButtonsCol: {
+    flex: 1
   },
   editDeck: {
     height: '100%',

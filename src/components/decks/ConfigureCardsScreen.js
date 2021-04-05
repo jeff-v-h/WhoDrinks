@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { ScrollView, View, TextInput, Animated } from 'react-native';
+import { ScrollView, View, TextInput, Animated, Keyboard } from 'react-native';
 import AppButton from '../common/AppButton';
 import styles from '../../styles/styles';
 import deckStyles from '../../styles/deckStyles';
@@ -60,11 +60,15 @@ class ConfigureCardsScreen extends React.Component {
       return;
     }
 
+    Keyboard.dismiss();
     selectCardToEdit(nextIndex);
     this.loadCard(nextIndex);
   };
 
-  resetCardText = () => this.loadCard();
+  resetCardText = () => {
+    this.loadCard();
+    Keyboard.dismiss();
+  };
 
   saveCard = () => {
     const { saveCard, decks, cards } = this.props;
@@ -73,6 +77,7 @@ class ConfigureCardsScreen extends React.Component {
       deckId: decks.editingDeckId,
       cardIndex: cards.editingCardIndex
     });
+    Keyboard.dismiss();
     animateSuccess(this.state.tickProgress);
   };
 
@@ -112,7 +117,10 @@ class ConfigureCardsScreen extends React.Component {
 
     return (
       <PanGestureHandler onHandlerStateChange={this._onHandlerStateChange}>
-        <ScrollView style={styles.scrollContainer}>
+        <ScrollView
+          style={styles.scrollContainer}
+          keyboardShouldPersistTaps="handled"
+        >
           <LottieView
             source={require('../../../assets/5449-success-tick.json')}
             progress={this.state.tickProgress}

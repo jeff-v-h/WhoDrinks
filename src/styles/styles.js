@@ -96,7 +96,7 @@ const styles = StyleSheet.create({
     fontSize: moderateScale(18),
     flex: 1
   },
-  IconButton: {
+  floatingIconButton: {
     position: 'absolute',
     width: 60,
     height: 60,

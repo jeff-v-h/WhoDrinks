@@ -76,9 +76,14 @@ const deckStyles = StyleSheet.create({
     fontWeight: 'bold'
   },
   menuWrapper: {
-    padding: moderateScale(5),
-    marginRight: moderateScale(5),
-    marginLeft: moderateScale(5)
+    marginHorizontal: moderateScale(5),
+    width: moderateScale(30)
+  },
+  deckEditButton: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: moderateScale(35),
+    height: verticalScale(30)
   },
   selectDeckView: {
     width: '100%'

@@ -210,6 +210,7 @@ class DeckScreen extends React.Component {
               button={
                 <IconButton
                   onPress={this.showMenu}
+                  buttonStyle={deckStyles.deckEditButton}
                   iconName="ellipsis-v"
                   size={24}
                   opacity={0.5}
@@ -268,7 +269,7 @@ class DeckScreen extends React.Component {
         </View>
         <IconButton
           onPress={() => this.navigateToCard()}
-          buttonStyle={styles.IconButton}
+          buttonStyle={styles.floatingIconButton}
           iconStyle={styles.floatingActionIcon}
         />
       </SafeAreaView>

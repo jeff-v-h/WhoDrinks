@@ -122,7 +122,7 @@ class CommunityDeckListScreen extends React.Component {
         <IconButton
           onPress={this.uploadDeck}
           iconName="upload"
-          buttonStyle={styles.IconButton}
+          buttonStyle={styles.floatingIconButton}
           iconStyle={styles.floatingActionIcon}
         />
         <SpinnerOverlay show={isLoading} />

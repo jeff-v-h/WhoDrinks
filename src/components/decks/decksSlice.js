@@ -4,14 +4,15 @@ import client from '../../services/client';
 import { API_HOST, API_TOKEN } from '../../utils/env';
 import { RequestStatusEnum } from '../../utils/enums';
 
-const headers = {
-  Authorization: `Basic ${API_TOKEN}`
+const config = {
+  headers: { Authorization: `Basic ${API_TOKEN}` },
+  timeout: 5000
 };
 
 export const postCreateDeck = createAsyncThunk(
   'decks/postCreateDeck',
   async (deck) => {
-    const resp = await client.post(`${API_HOST}/api/decks`, deck, { headers });
+    const resp = await client.post(`${API_HOST}/api/decks`, deck, config);
 
     return {
       ...deck,

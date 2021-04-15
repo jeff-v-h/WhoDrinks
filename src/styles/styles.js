@@ -56,7 +56,7 @@ const styles = StyleSheet.create({
     paddingLeft: moderateScale(5)
   },
   button: {
-    backgroundColor: colours.coral,
+    backgroundColor: colours.primary,
     padding: moderateScale(6),
     borderRadius: 2,
     minWidth: scale(80)
@@ -104,8 +104,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     right: 30,
     bottom: 30,
-    backgroundColor: colours.coral,
-    borderColor: colours.coral,
+    backgroundColor: colours.primary,
+    borderColor: colours.primary,
     borderRadius: 200 / 2
   },
   floatingActionIcon: {

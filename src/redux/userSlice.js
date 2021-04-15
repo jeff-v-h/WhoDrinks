@@ -39,7 +39,9 @@ export const postUserFeedback = (feedback) => {
     dispatch(postUserFeedbackPending());
     try {
       feedback.deviceId = getUniqueId();
-      await client.post(`${API_HOST}/api/userfeedback`, feedback);
+      await client.post(`${API_HOST}/api/userfeedback`, feedback, {
+        timeout: 5000
+      });
       dispatch(postUserFeedbackFulfilled(feedback));
     } catch (err) {
       if (getState().user.feedbackAttempts <= 3) {
@@ -64,14 +66,18 @@ export const postUserFeedback = (feedback) => {
   return thunk;
 };
 
+const config = {
+  headers: { Authorization: `Basic ${API_TOKEN}` },
+  timeout: 5000
+};
+
 export const getAppVersion = () => {
   async function thunk(dispatch) {
     try {
-      const resp = await client.get(`${API_HOST}/api/appversions/${version}`, {
-        headers: {
-          Authorization: `Basic ${API_TOKEN}`
-        }
-      });
+      const resp = await client.get(
+        `${API_HOST}/api/appversions/${version}`,
+        config
+      );
       dispatch(getAppVersionFulfilled(resp.data));
     } catch (e) {}
   }

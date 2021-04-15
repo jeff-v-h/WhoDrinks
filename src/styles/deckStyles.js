@@ -94,7 +94,7 @@ const deckStyles = StyleSheet.create({
     marginTop: verticalScale(5)
   },
   selectDeckText: {
-    color: colours.coral
+    color: colours.primary
   },
   orText: {
     marginVertical: verticalScale(15)

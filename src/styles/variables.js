@@ -1,8 +1,8 @@
 const coral = '#FF7F50';
+const orangePeel = '#FF9F00';
 
 export const colours = {
-  primary: coral,
-  coral,
+  primary: orangePeel,
   white: '#fff',
   grey: '#a6a6a6',
   lightgrey: '#D3D3D3',

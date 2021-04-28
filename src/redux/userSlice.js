@@ -92,9 +92,9 @@ const initialState = {
     // forceUpdate: false,
     // recommendUpdate: false,
     // announcement: '',
-    // androidUpdateUrl: 'market://details?id=',
+    // androidUpdateUrl: 'market://details?id=myappid',
     // iOSUpdateUrl:
-    //   'itms://itunes.apple.com/us/app/apple-store/myiosappid?mt=8',
+    //   'itms://itunes.apple.com/us/app/apple-store/myappid?mt=8',
     associatedPrivacyPolicyVersion: 'fe-' + version,
     associatedTCsVersion: 'fe-' + version
     // forceNewTCsAgreement: false,

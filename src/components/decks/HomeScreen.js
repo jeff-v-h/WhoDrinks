@@ -42,10 +42,23 @@ class HomeScreen extends React.Component {
   componentDidMount() {
     // this.props.logout();
     const { dateObtained } = this.props.user.appVersion;
-    if (!dateObtained || isDateOverOneWeekAgo(dateObtained)) {
+    if (
+      !dateObtained ||
+      isDateOverOneWeekAgo(dateObtained) ||
+      this.isNoAppId()
+    ) {
       this.props.getAppVersion();
     }
   }
+
+  isNoAppId = () => {
+    const { appVersion } = this.props.user;
+    const url =
+      Platform.OS === 'ios'
+        ? appVersion.iOSUpdateUrl
+        : appVersion.androidUpdateUrl;
+    return !url || url.includes('myappid');
+  };
 
   goToDeckSelection = () => this.props.navigation.navigate('DeckList');
 
@@ -62,20 +75,21 @@ class HomeScreen extends React.Component {
 
   //#region alerts
   redirectToAppStore = async () => {
+    const { user, navigation } = this.props;
     const url =
       Platform.OS === 'ios'
-        ? this.props.user.appVersion.iOSUpdateUrl
-        : this.props.user.appVersion.androidUpdateUrl;
+        ? user.appVersion.iOSUpdateUrl
+        : user.appVersion.androidUpdateUrl;
 
     try {
       const canOpen = await Linking.canOpenURL(url);
       if (!canOpen) {
-        this.props.navigation.navigate('RedirectError');
+        navigation.navigate('RedirectError');
         return;
       }
       Linking.openURL(url);
     } catch {
-      this.props.navigation.navigate('RedirectError');
+      navigation.navigate('RedirectError');
     }
   };
 

@@ -22,6 +22,7 @@ Simple drinking game as a mobile application. Each card dictates who drinks or w
 ## Notes for Development
 
 - If any environment variables are changed in any .env file, you will need to stop any react-native processes and start again while also resetting cache using `npm run start-rc`.
+- To connect from emulator to a local running API (such as API running on IIS via Visual Studio), target http://10.0.2.2 instead of localhost.
 
 ### Debugging
 
@@ -34,9 +35,8 @@ Then select 'Debug' which should open up browser to http://localhost:8081/debugg
 
 ## Production
 
-Not currently deployed.
-
 1. Create a .env file and populate environment variables. Use .env.development as example.
+2. You can test the app on your phone by connecting via usb, making sure emulator is not running and then run `npx react-native run-android --variant=release`
 
 ## Authors
 

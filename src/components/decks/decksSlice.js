@@ -6,7 +6,7 @@ import { RequestStatusEnum } from '../../utils/enums';
 
 const config = {
   headers: { Authorization: `Basic ${API_TOKEN}` },
-  timeout: 10000
+  timeout: 7000
 };
 
 export const postCreateDeck = createAsyncThunk(

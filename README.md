@@ -35,8 +35,8 @@ Then select 'Debug' which should open up browser to http://localhost:8081/debugg
 
 ## Production
 
-1. Create a .env file and populate environment variables. Use .env.development as example.
-2. You can test the app on your phone by connecting via usb, making sure emulator is not running and then run `npx react-native run-android --variant=release`
+1. Create a .env file and populate environment variables. Use .env.development as example. If going to test first on your own phone in step 2, use http instead of https for external requests, but make sure to switch back to https for deployment.
+2. You can test the app on your phone by connecting via usb, making sure emulator is not running and then run `npx react-native run-android --variant=release`.
 
 ## Authors
 

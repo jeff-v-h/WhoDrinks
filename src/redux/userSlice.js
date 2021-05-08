@@ -40,7 +40,7 @@ export const postUserFeedback = (feedback) => {
     try {
       feedback.deviceId = getUniqueId();
       await client.post(`${API_HOST}/api/userfeedback`, feedback, {
-        timeout: 10000
+        timeout: 7000
       });
       dispatch(postUserFeedbackFulfilled(feedback));
     } catch (err) {
@@ -68,7 +68,7 @@ export const postUserFeedback = (feedback) => {
 
 const config = {
   headers: { Authorization: `Basic ${API_TOKEN}` },
-  timeout: 10000
+  timeout: 7000
 };
 
 export const getAppVersion = () => {

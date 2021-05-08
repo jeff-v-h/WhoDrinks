@@ -28,16 +28,18 @@ function DevTestSection({ show, isLoading }) {
   const [pwText, setPwText] = useState('');
   const dispatch = useDispatch();
   const isConnected = useSelector((state) => state.network.isConnected);
+  const apiHostHttp = API_HOST.replace('https', 'http');
+  let isClientRequestLoading = false;
 
-  const checkBoredApi = async () => {
+  const testRequest = async (host) => {
     try {
-      const resp = await client.get(
-        `https://www.boredapi.com/api/activity`,
-        config
-      );
-      Alert.alert('Bored API Activity', resp.data.activity);
+      isClientRequestLoading = true;
+      const resp = await client.get(host, config);
+      Alert.alert(`data received`, resp.data[0]?.id ?? 'empty');
     } catch (err) {
-      Alert.alert('API request errored', err);
+      Alert.alert(`API request error`, err.message);
+    } finally {
+      isClientRequestLoading = false;
     }
   };
 
@@ -49,31 +51,19 @@ function DevTestSection({ show, isLoading }) {
       <View style={styles.buttonsRow}>
         <AppButton
           title="Bored API"
-          onPress={checkBoredApi}
+          onPress={() => testRequest('https://www.boredapi.com/api/activity')}
+          disabled={isLoading}
+        />
+      </View>
+      <View style={styles.buttonsRow}>
+        <AppButton
+          title="http"
+          onPress={() => testRequest(apiHostHttp)}
           disabled={isLoading}
         />
         <AppButton
-          title="http://prod"
-          onPress={() =>
-            dispatch(
-              getCommunityDecksDiffHost({
-                host: '',
-                pw: pwText
-              })
-            )
-          }
-          disabled={isLoading}
-        />
-        <AppButton
-          title="https://prod"
-          onPress={() =>
-            dispatch(
-              getCommunityDecksDiffHost({
-                host: '',
-                pw: pwText
-              })
-            )
-          }
+          title="https"
+          onPress={() => testRequest(API_HOST)}
           disabled={isLoading}
         />
       </View>
@@ -92,8 +82,8 @@ function DevTestSection({ show, isLoading }) {
         }
         disabled={isLoading}
       />
+      <SpinnerOverlay show={isLoading || isClientRequestLoading} />
     </View>
-    /* <SpinnerOverlay show={isLoading} /> */
   );
 }
 

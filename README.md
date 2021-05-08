@@ -40,4 +40,4 @@ Then select 'Debug' which should open up browser to http://localhost:8081/debugg
 
 ## Authors
 
-Jeffrey Huang - jeffvh@outlook.com
+Jeffrey Huang - jeffrey.huang@recaura.com

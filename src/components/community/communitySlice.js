@@ -5,7 +5,7 @@ import { RequestStatusEnum } from '../../utils/enums';
 
 const config = {
   headers: { Authorization: `Basic ${API_TOKEN}` },
-  timeout: 10000
+  timeout: 7000
 };
 
 export const getCommunityDecks = createAsyncThunk(
@@ -28,7 +28,7 @@ const communitySlice = createSlice({
   name: 'community',
   initialState: {
     status: RequestStatusEnum.idle,
-    error: null,
+    error: '',
     byId: {},
     allIds: [],
     selectedId: null,

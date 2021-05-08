@@ -8,5 +8,6 @@ export const RequestStatusEnum = Object.freeze({
   idle: 0,
   loading: 1,
   succeeded: 2,
-  failed: 3
+  failed: 3,
+  test: 99
 });

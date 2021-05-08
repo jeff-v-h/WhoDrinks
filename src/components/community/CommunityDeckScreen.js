@@ -27,7 +27,8 @@ import { animateSuccess } from '../../utils/helpers';
 
 const mapState = (state) => ({
   community: state.community,
-  decks: state.decks
+  decks: state.decks,
+  isConnected: state.network.isConnected
 });
 
 const mapDispatch = { getCommunityDeck, saveDeck };
@@ -119,13 +120,18 @@ class CommunityDeckScreen extends React.Component {
   }
 
   render() {
-    const { community } = this.props;
+    const { community, isConnected } = this.props;
     const isLoading = community.status === RequestStatusEnum.loading;
 
-    if (community.error) {
+    if (community.error || (community.deck.cards.length < 1 && !isConnected)) {
       return (
         <RequestErrorScreen
-          error={community.error}
+          error={!isConnected ? '' : community.error}
+          text={
+            !isConnected
+              ? 'You are not connected to the internet'
+              : 'Unable to get data'
+          }
           onPress={this.fetchDeck}
           isLoading={isLoading}
         />

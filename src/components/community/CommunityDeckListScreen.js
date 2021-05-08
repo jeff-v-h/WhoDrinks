@@ -27,7 +27,7 @@ const mapDispatch = {
 
 class CommunityDeckListScreen extends React.Component {
   componentDidMount() {
-    if (this.props.isConnected) {
+    if (this.props.isConnected || this.props.community.allIds.length < 1) {
       this.fetchCommunityDecks();
     }
   }
@@ -85,7 +85,7 @@ class CommunityDeckListScreen extends React.Component {
     const { community, isConnected } = this.props;
     const isLoading = community.status === RequestStatusEnum.loading;
 
-    if (community.error || !isConnected) {
+    if (community.error || (community.allIds.length < 1 && !isConnected)) {
       return (
         <RequestErrorScreen
           error={!isConnected ? '' : community.error}

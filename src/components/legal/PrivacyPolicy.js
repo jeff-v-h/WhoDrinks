@@ -58,7 +58,7 @@ function PrivacyPolicy() {
             <Text style={legalStyles.text}>
               <Text style={styles.bold}>Application</Text> means the software
               program provided by the Company downloaded by You on any
-              electronic device, named Don't Think Just Drink
+              electronic device, named Who Drinks
             </Text>
           </BulletListItem>
           <BulletListItem>

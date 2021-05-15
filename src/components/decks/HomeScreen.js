@@ -169,8 +169,7 @@ class HomeScreen extends React.Component {
     return (
       <SafeAreaView style={styles.container}>
         <View style={styles.section}>
-          <HeaderText text="Don't Think" />
-          <HeaderText text="Just Drink" />
+          <HeaderText text="Who Drinks" />
         </View>
         <View style={deckStyles.selectDeckView}>
           <Text style={styles.text}>Deck:</Text>

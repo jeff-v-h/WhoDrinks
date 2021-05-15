@@ -18,7 +18,7 @@ function RedirectError() {
           <AppText style={styles.bold}>Unable to redirect</AppText>
           <AppText>
             {
-              "Please open the app store to update to the new version of Don't Think Just Drink!"
+              'Please open the app store to update to the new version of Who Drinks!'
             }
           </AppText>
           {!forceUpdate && (

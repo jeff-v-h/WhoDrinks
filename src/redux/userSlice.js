@@ -92,9 +92,9 @@ const initialState = {
     // forceUpdate: false,
     // recommendUpdate: false,
     // announcement: '',
-    androidUpdateUrl: 'market://details?id=com.dontthinkjustdrink',
+    androidUpdateUrl: 'market://details?id=com.whodrinks',
     iOSUpdateUrl:
-      'itms://itunes.apple.com/us/app/apple-store/com.dontthinkjustdrink?mt=8',
+      'itms://itunes.apple.com/us/app/apple-store/com.whodrinks?mt=8',
     associatedPrivacyPolicyVersion: 'fe-' + version,
     associatedTCsVersion: 'fe-' + version
     // forceNewTCsAgreement: false,

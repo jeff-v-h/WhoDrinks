@@ -130,7 +130,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.dontthinkjustdrink"
+        applicationId "com.whodrinks"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1

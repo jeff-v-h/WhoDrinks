@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "2D02E47A1E0B4A5D006451C7"
-               BuildableName = "DontThinkJustDrink-tvOS.app"
-               BlueprintName = "DontThinkJustDrink-tvOS"
-               ReferencedContainer = "container:DontThinkJustDrink.xcodeproj">
+               BuildableName = "WhoDrinks-tvOS.app"
+               BlueprintName = "WhoDrinks-tvOS"
+               ReferencedContainer = "container:WhoDrinks.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "2D02E48F1E0B4A5D006451C7"
-               BuildableName = "DontThinkJustDrink-tvOSTests.xctest"
-               BlueprintName = "DontThinkJustDrink-tvOSTests"
-               ReferencedContainer = "container:DontThinkJustDrink.xcodeproj">
+               BuildableName = "WhoDrinks-tvOSTests.xctest"
+               BlueprintName = "WhoDrinks-tvOSTests"
+               ReferencedContainer = "container:WhoDrinks.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -55,9 +55,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "2D02E47A1E0B4A5D006451C7"
-            BuildableName = "DontThinkJustDrink-tvOS.app"
-            BlueprintName = "DontThinkJustDrink-tvOS"
-            ReferencedContainer = "container:DontThinkJustDrink.xcodeproj">
+            BuildableName = "WhoDrinks-tvOS.app"
+            BlueprintName = "WhoDrinks-tvOS"
+            ReferencedContainer = "container:WhoDrinks.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -72,9 +72,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "2D02E47A1E0B4A5D006451C7"
-            BuildableName = "DontThinkJustDrink-tvOS.app"
-            BlueprintName = "DontThinkJustDrink-tvOS"
-            ReferencedContainer = "container:DontThinkJustDrink.xcodeproj">
+            BuildableName = "WhoDrinks-tvOS.app"
+            BlueprintName = "WhoDrinks-tvOS"
+            ReferencedContainer = "container:WhoDrinks.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import HomeScreen from '../components/decks/HomeScreen';
@@ -14,6 +14,7 @@ import RedirectError from '../components/decks/RedirectError';
 import CommunityDeckListScreen from '../components/community/CommunityDeckListScreen';
 import CommunityDeckScreen from '../components/community/CommunityDeckScreen';
 // import GameHeaderTitle from '../components/game/GameHeaderTitle';
+import CustomDrawerContent from './CustomDrawerContent';
 
 const Drawer = createDrawerNavigator();
 const DecksConfigStack = createStackNavigator();
@@ -140,7 +141,11 @@ const LegalNavigationStack = () => (
 
 function AppNavigator() {
   return (
-    <Drawer.Navigator drawerPosition="right" drawerType="slide">
+    <Drawer.Navigator
+      drawerPosition="right"
+      drawerType="slide"
+      drawerContent={CustomDrawerContent}
+    >
       <Drawer.Screen name="Decks" component={DecksConfigNavigationStack} />
       <Drawer.Screen name="Game" component={GamesNavigationStack} />
       <Drawer.Screen name="Community" component={CommunityNavigationStack} />

@@ -2,6 +2,8 @@ import { StyleSheet } from 'react-native';
 import { moderateScale, scale, verticalScale } from '../utils/scaling';
 import { colours } from './variables';
 
+// Compared to global styles these are re-used multiple times in various components throughout the app
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,

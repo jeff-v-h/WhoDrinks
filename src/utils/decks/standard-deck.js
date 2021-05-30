@@ -46,7 +46,6 @@ export const cardContentList = [
   'Every player over 180cm takes a drink. Take another for each 10cm you are taller than this.',
   'The person who had caffeine most recently must have a drink.',
   'Quick: last person to slap their own ass drinks.',
-  'Quick: last person to touch one of their own nipples must drink.',
   'Players who currently have lip balm with them, open up those moisturised lips and take a sip.',
   "If you've ever flown first class, choose a pleb to have a drink.",
   'On the count of three, players point at the person most likely to order a salad. Whoever has the most fingers pointed at them drinks.',
@@ -181,7 +180,8 @@ export const cardContentList = [
   "If you've finished a book in the past 3 months, drink",
   'Drink if you represented your high school competitively in a sport.',
   "Each person who isn't wearing any underwear gives 3 sips to someone. Cheers to freedom!",
-  'Drink if you have at least one pet.'
+  'Drink if you have at least one pet.',
+  'Quick: last person to touch one of their own nipples must drink.'
 ];
 
 const standardDeck = {

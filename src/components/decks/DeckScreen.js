@@ -14,7 +14,7 @@ import deckStyles from '../../styles/deckStyles';
 import ListLinkRow from '../common/ListLinkRow';
 import IconButton from '../common/IconButton';
 import { GameTypesEnum } from '../../utils/enums';
-import Menu, { MenuItem } from 'react-native-material-menu';
+import DeckEditMenu from './DeckEditMenu';
 import AppButton from '../common/AppButton';
 import ObjectId from 'bson-objectid';
 import {
@@ -205,41 +205,13 @@ class DeckScreen extends React.Component {
             </Text>
           </View>
           <View style={deckStyles.menuWrapper}>
-            <Menu
-              ref={this.setMenuRef}
-              button={
-                <IconButton
-                  onPress={this.showMenu}
-                  buttonStyle={deckStyles.deckEditButton}
-                  iconStyle={deckStyles.deckEditIcon}
-                  iconName="ellipsis-v"
-                  size={24}
-                  opacity={0.5}
-                />
-              }
-            >
-              <MenuItem
-                onPress={this.openEditModal}
-                style={deckStyles.deckEditMenuItem}
-                textStyle={deckStyles.deckEditMenuItemText}
-              >
-                Edit Name
-              </MenuItem>
-              <MenuItem
-                onPress={this.uploadDeck}
-                style={deckStyles.deckEditMenuItem}
-                textStyle={deckStyles.deckEditMenuItemText}
-              >
-                Upload
-              </MenuItem>
-              <MenuItem
-                onPress={this.confirmDelete}
-                style={deckStyles.deckEditMenuItem}
-                textStyle={deckStyles.deckEditMenuItemText}
-              >
-                Delete
-              </MenuItem>
-            </Menu>
+            <DeckEditMenu
+              menuRef={this.setMenuRef}
+              onPressMenu={this.showMenu}
+              onPressEdit={this.openEditModal}
+              onPressUpload={this.uploadDeck}
+              onPressDelete={this.confirmDelete}
+            />
           </View>
         </View>
         <Modal

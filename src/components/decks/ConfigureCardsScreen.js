@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { ScrollView, View, TextInput, Animated, Keyboard } from 'react-native';
 import AppButton from '../common/AppButton';
 import styles from '../../styles/styles';

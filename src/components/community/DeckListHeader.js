@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import AppText from '../common/AppText';
 import IconButton from '../common/IconButton';
 import { View } from 'react-native';

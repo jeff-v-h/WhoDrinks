@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import AppText from './AppText';
 import { Text } from 'react-native';
 import styles from '../../styles/styles';

@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { View, SafeAreaView, FlatList, Text, Alert } from 'react-native';
 import styles from '../../styles/styles';
 import communityStyles from '../../styles/communityStyles';

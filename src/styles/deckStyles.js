@@ -11,7 +11,8 @@ const deckStyles = StyleSheet.create({
   },
   selectedHeading: {
     width: selectedColWidth,
-    textAlign: 'center'
+    textAlign: 'center',
+    fontSize: moderateScale(13)
   },
   deckListRow: {
     flexDirection: 'row',
@@ -27,8 +28,11 @@ const deckStyles = StyleSheet.create({
     width: selectedColWidth,
     marginRight: moderateScale(10)
   },
-  selectedIcon: {
+  selectedIconWrapper: {
     alignSelf: 'center'
+  },
+  selectedIcon: {
+    fontSize: moderateScale(16)
   },
   verticleLine: {
     height: '50%',
@@ -40,12 +44,15 @@ const deckStyles = StyleSheet.create({
   deckListButtonsCol: {
     flex: 1
   },
-  editDeck: {
+  editDeckButton: {
     height: '100%',
     alignItems: 'center',
     justifyContent: 'center',
     paddingRight: moderateScale(10),
     paddingLeft: moderateScale(13)
+  },
+  editDeckIcon: {
+    fontSize: moderateScale(20)
   },
   configCardInput: {
     paddingLeft: moderateScale(20),

@@ -26,7 +26,8 @@ function DeckListRow({ isSelected, deckName, editOnPress, rowOnPress }) {
           {isSelected && (
             <IconButton
               iconName="check"
-              buttonStyle={deckStyles.selectedIcon}
+              buttonStyle={deckStyles.selectedIconWrapper}
+              iconStyle={deckStyles.selectedIcon}
             />
           )}
         </View>
@@ -40,7 +41,8 @@ function DeckListRow({ isSelected, deckName, editOnPress, rowOnPress }) {
           iconName="edit"
           onPress={editOnPress}
           size={24}
-          buttonStyle={deckStyles.editDeck}
+          buttonStyle={deckStyles.editDeckButton}
+          iconStyle={deckStyles.editDeckIcon}
         />
       </View>
     </View>

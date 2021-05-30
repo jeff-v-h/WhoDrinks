@@ -4,7 +4,6 @@ import {
   SafeAreaView,
   FlatList,
   TextInput,
-  Alert,
   Text,
   Platform,
   Modal
@@ -16,6 +15,7 @@ import IconButton from '../common/IconButton';
 import { GameTypesEnum } from '../../utils/enums';
 import DeckEditMenu from './DeckEditMenu';
 import AppButton from '../common/AppButton';
+import AppText from '../common/AppText';
 import ObjectId from 'bson-objectid';
 import {
   saveDeck,
@@ -44,6 +44,9 @@ class DeckScreen extends React.Component {
   state = {
     selection: Platform.OS === 'android' ? { start: 0 } : null,
     modalVisible: false,
+    deleteModalVisible: false,
+    cannotDeleteModalVisible: false,
+    communityInfoModalVisible: false,
     deckName: ''
   };
 
@@ -90,12 +93,7 @@ class DeckScreen extends React.Component {
   };
 
   uploadDeck = () => {
-    Alert.alert(
-      'Online community not yet available!',
-      'Feel free to hit the top right menu and go to the "Contact Us" section to let us know if you would like to share decks you\'ve made with friends or an online community!',
-      null,
-      { cancelable: true }
-    );
+    this.setModalVisible('communityInfoModalVisible', true);
     // const { postCreateDeck, decks, user, cards } = this.props;
     // const deckToPost = {
     //   ...decks.byId[decks.editingDeckId],
@@ -126,10 +124,11 @@ class DeckScreen extends React.Component {
     }
   };
 
-  setModalVisible = (visible) => this.setState({ modalVisible: visible });
+  setModalVisible = (property, visible) =>
+    this.setState({ [property]: visible });
 
   openEditModal = () => {
-    this.setModalVisible(true);
+    this.setModalVisible('modalVisible', true);
     this.hideMenu();
   };
 
@@ -143,47 +142,23 @@ class DeckScreen extends React.Component {
       saveDeck({ ...deck, name: this.state.deckName });
     }
 
-    this.setModalVisible(false);
+    this.setModalVisible('modalVisible', false);
   };
   //#endregion
 
   confirmDelete = () => {
-    const { decks, deleteDeck, navigation } = this.props;
-    if (decks.selectedId === decks.editingDeckId) {
-      Alert.alert('', 'Cannot delete a selected deck', null, {
-        cancelable: true
-      });
-      return;
-    }
+    const { decks } = this.props;
+    const property =
+      decks.selectedId === decks.editingDeckId
+        ? 'cannotDeleteModalVisible'
+        : 'deleteModalVisible';
+    this.setModalVisible(property, true);
+  };
 
-    Alert.alert(
-      'Confirm Delete',
-      'Are you sure you want to permanently remove this deck from your device?',
-      [
-        {
-          text: 'Cancel',
-          style: 'cancel',
-          onPress: () => {
-            this.setModalVisible(false);
-            this.hideMenu();
-          }
-        },
-        {
-          text: 'Delete',
-          onPress: () => {
-            deleteDeck(decks.editingDeckId);
-            navigation.navigate('DeckList');
-          }
-        }
-      ],
-      {
-        cancelable: true,
-        onDismiss: () => {
-          this.setModalVisible(false);
-          this.hideMenu();
-        }
-      }
-    );
+  deleteDeck = () => {
+    const { decks, deleteDeck, navigation } = this.props;
+    deleteDeck(decks.editingDeckId);
+    navigation.navigate('DeckList');
   };
 
   navigateToCard = (cardIndex) => {
@@ -193,7 +168,14 @@ class DeckScreen extends React.Component {
   };
 
   render() {
-    const { deckName, selection, modalVisible } = this.state;
+    const {
+      deckName,
+      selection,
+      modalVisible,
+      deleteModalVisible,
+      cannotDeleteModalVisible,
+      communityInfoModalVisible
+    } = this.state;
     const { decks, cards } = this.props;
 
     return (
@@ -218,7 +200,7 @@ class DeckScreen extends React.Component {
           animationType="fade"
           transparent={true}
           visible={modalVisible}
-          onRequestClose={() => this.setModalVisible(false)}
+          onRequestClose={() => this.setModalVisible('modalVisible', false)}
         >
           <View style={styles.inputModalView}>
             <View style={styles.inputModalContent}>
@@ -235,9 +217,92 @@ class DeckScreen extends React.Component {
               <View style={styles.buttonsRow}>
                 <AppButton
                   title="Cancel"
-                  onPress={() => this.setModalVisible(false)}
+                  onPress={() => this.setModalVisible('modalVisible', false)}
                 />
                 <AppButton title="Save" onPress={this.saveDeckName} />
+              </View>
+            </View>
+          </View>
+        </Modal>
+        <Modal
+          animationType="fade"
+          transparent={true}
+          visible={deleteModalVisible}
+          onRequestClose={() =>
+            this.setModalVisible('deleteModalVisible', false)
+          }
+        >
+          <View style={styles.inputModalView}>
+            <View style={styles.inputModalContent}>
+              <AppText style={styles.paragaph}>
+                Are you sure you want to permanently remove this deck from your
+                device?
+              </AppText>
+              <View style={styles.buttonsRow}>
+                <AppButton
+                  title="Cancel"
+                  onPress={() =>
+                    this.setModalVisible('deleteModalVisible', false)
+                  }
+                />
+                <AppButton title="Delete" onPress={this.deleteDeck} />
+              </View>
+            </View>
+          </View>
+        </Modal>
+        <Modal
+          animationType="fade"
+          transparent={true}
+          visible={cannotDeleteModalVisible}
+          onRequestClose={() =>
+            this.setModalVisible('cannotDeleteModalVisible', false)
+          }
+        >
+          <View style={styles.inputModalView}>
+            <View style={styles.inputModalContent}>
+              <AppText style={styles.paragaph}>
+                Cannot delete a selected deck.
+              </AppText>
+              <AppText style={styles.paragaph}>
+                Please set another deck on the "Deck List" screen as the
+                'selected' deck before deleting this one.
+              </AppText>
+              <View style={styles.buttonsRow}>
+                <AppButton
+                  title="Ok"
+                  onPress={() =>
+                    this.setModalVisible('cannotDeleteModalVisible', false)
+                  }
+                />
+              </View>
+            </View>
+          </View>
+        </Modal>
+        <Modal
+          animationType="fade"
+          transparent={true}
+          visible={communityInfoModalVisible}
+          onRequestClose={() =>
+            this.setModalVisible('communityInfoModalVisible', false)
+          }
+        >
+          <View style={styles.inputModalView}>
+            <View style={styles.inputModalContent}>
+              <AppText style={styles.paragaph}>
+                Online community not yet available!
+              </AppText>
+              <AppText style={styles.paragaph}>
+                Feel free to hit the top right menu and go to the "Contact Us"
+                section to let us know if you would like to share decks you've
+                made with friends or an online community!
+              </AppText>
+              <View style={styles.buttonsRow}>
+                <AppButton
+                  title="Ok"
+                  onPress={() =>
+                    this.setModalVisible('communityInfoModalVisible', false)
+                  }
+                />
               </View>
             </View>
           </View>

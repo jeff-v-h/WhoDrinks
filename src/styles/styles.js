@@ -197,6 +197,9 @@ const styles = StyleSheet.create({
   textBlock: {
     marginVertical: verticalScale(10)
   },
+  paragaph: {
+    marginBottom: verticalScale(20)
+  },
   listItem: {
     flexDirection: 'row',
     justifyContent: 'flex-start',

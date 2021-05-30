@@ -1,6 +1,10 @@
 import { StyleSheet } from 'react-native';
-import { verticalScale, moderateScale } from '../utils/scaling';
+import { verticalScale, moderateScale, scale } from '../utils/scaling';
 import { colours } from './variables';
+import {
+  isWindowHeightGreaterThan,
+  isWindowWidthGreaterThan
+} from '../utils/helpers';
 
 const selectedColWidth = moderateScale(56);
 
@@ -91,6 +95,16 @@ const deckStyles = StyleSheet.create({
     justifyContent: 'center',
     width: moderateScale(35),
     height: verticalScale(30)
+  },
+  deckEditIcon: {
+    fontSize: moderateScale(20)
+  },
+  deckEditMenuItem: {
+    paddingHorizontal: scale(isWindowWidthGreaterThan(600) ? 4 : 0),
+    paddingVertical: verticalScale(isWindowHeightGreaterThan(768) ? 22 : 16)
+  },
+  deckEditMenuItemText: {
+    fontSize: moderateScale(16)
   },
   selectDeckView: {
     width: '100%'

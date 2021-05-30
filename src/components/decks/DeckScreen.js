@@ -211,15 +211,34 @@ class DeckScreen extends React.Component {
                 <IconButton
                   onPress={this.showMenu}
                   buttonStyle={deckStyles.deckEditButton}
+                  iconStyle={deckStyles.deckEditIcon}
                   iconName="ellipsis-v"
                   size={24}
                   opacity={0.5}
                 />
               }
             >
-              <MenuItem onPress={this.openEditModal}>Edit Name</MenuItem>
-              <MenuItem onPress={this.uploadDeck}>Upload</MenuItem>
-              <MenuItem onPress={this.confirmDelete}>Delete</MenuItem>
+              <MenuItem
+                onPress={this.openEditModal}
+                style={deckStyles.deckEditMenuItem}
+                textStyle={deckStyles.deckEditMenuItemText}
+              >
+                Edit Name
+              </MenuItem>
+              <MenuItem
+                onPress={this.uploadDeck}
+                style={deckStyles.deckEditMenuItem}
+                textStyle={deckStyles.deckEditMenuItemText}
+              >
+                Upload
+              </MenuItem>
+              <MenuItem
+                onPress={this.confirmDelete}
+                style={deckStyles.deckEditMenuItem}
+                textStyle={deckStyles.deckEditMenuItemText}
+              >
+                Delete
+              </MenuItem>
             </Menu>
           </View>
         </View>

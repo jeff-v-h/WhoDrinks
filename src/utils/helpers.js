@@ -1,4 +1,4 @@
-import { Animated, Easing } from 'react-native';
+import { Animated, Easing, Dimensions } from 'react-native';
 
 // First param is always an object when the second param exists
 export const createStylesArray = (mainStyle, flexibleStyles) => {
@@ -22,6 +22,7 @@ const resetSuccessAnimation = (tickProgress) => {
     useNativeDriver: true
   }).start();
 };
+
 export const animateSuccess = (tickProgress) => {
   Animated.timing(tickProgress, {
     toValue: 1.5,
@@ -30,3 +31,9 @@ export const animateSuccess = (tickProgress) => {
     useNativeDriver: true
   }).start(() => resetSuccessAnimation(tickProgress));
 };
+
+export const isWindowHeightGreaterThan = (height) =>
+  Dimensions.get('window').height > height;
+
+export const isWindowWidthGreaterThan = (width) =>
+  Dimensions.get('window').width > width;

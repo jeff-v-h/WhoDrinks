@@ -100,18 +100,19 @@ const styles = StyleSheet.create({
   },
   floatingIconButton: {
     position: 'absolute',
-    width: 60,
-    height: 60,
+    width: moderateScale(50),
+    height: moderateScale(50),
     alignItems: 'center',
     justifyContent: 'center',
-    right: 30,
-    bottom: 30,
+    right: scale(30),
+    bottom: verticalScale(40),
     backgroundColor: colours.primary,
     borderColor: colours.primary,
     borderRadius: 200 / 2
   },
   floatingActionIcon: {
-    color: colours.white
+    color: colours.white,
+    fontSize: moderateScale(16)
   },
   headerRightIconWrapper: {
     justifyContent: 'center',

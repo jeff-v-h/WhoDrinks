@@ -34,13 +34,13 @@ function DisclaimerScreen() {
         {`Privacy Policy`}
       </Text>
       <InformationModal
-        close={() => setTermsModalVisible(false)}
+        dismiss={() => setTermsModalVisible(false)}
         modalVisible={termsModalVisible}
       >
         <TermsAndConditions />
       </InformationModal>
       <InformationModal
-        close={() => setPrivacyModalVisible(false)}
+        dismiss={() => setPrivacyModalVisible(false)}
         modalVisible={privacyModalVisible}
       >
         <PrivacyPolicy />

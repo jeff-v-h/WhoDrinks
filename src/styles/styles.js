@@ -117,17 +117,10 @@ const styles = StyleSheet.create({
   headerRightIconWrapper: {
     justifyContent: 'center',
     flex: 1,
-    paddingRight: moderateScale(14)
+    paddingRight: scale(14)
   },
   bold: {
     fontWeight: '700'
-  },
-  modal: {
-    flex: 1,
-    justifyContent: 'center',
-    backgroundColor: colours.modalBlack,
-    paddingHorizontal: moderateScale(15),
-    paddingVertical: verticalScale(25)
   },
   modalOverlay: {
     position: 'absolute',
@@ -135,29 +128,28 @@ const styles = StyleSheet.create({
     bottom: 0,
     left: 0,
     right: 0,
-    backgroundColor: 'rgba(0,0,0,0.5)'
-  },
-  bottomPopupModal: {
-    flex: 1,
-    justifyContent: 'flex-end',
     backgroundColor: colours.modalBlack
   },
   modalContentWrapper: {
     flex: 1,
-    justifyContent: 'center',
-    margin: '5%'
-  },
-  modalContent: {
-    padding: moderateScale(15),
-    backgroundColor: colours.white
-  },
-  inputModalView: {
-    flex: 1,
-    backgroundColor: colours.modalBlack,
     justifyContent: 'center'
   },
+  modalContent: {
+    backgroundColor: colours.white,
+    padding: moderateScale(15),
+    marginHorizontal: scale(15),
+    marginVertical: verticalScale(25)
+  },
+  bottomModalContentWrapper: {
+    flex: 1,
+    justifyContent: 'flex-end'
+  },
+  bottomModalContent: {
+    backgroundColor: colours.white,
+    padding: moderateScale(15)
+  },
   inputModalDetails: {
-    paddingHorizontal: moderateScale(10),
+    paddingHorizontal: scale(10),
     marginBottom: verticalScale(5)
   },
   inputModalDetailsText: {
@@ -167,19 +159,15 @@ const styles = StyleSheet.create({
     backgroundColor: colours.white,
     minHeight: verticalScale(130),
     justifyContent: 'space-around',
-    paddingLeft: moderateScale(10),
-    paddingRight: moderateScale(10),
-    paddingTop: verticalScale(20),
-    paddingBottom: verticalScale(20),
-    marginLeft: moderateScale(20),
-    marginRight: moderateScale(20)
+    paddingHorizontal: scale(10),
+    paddingVertical: verticalScale(20),
+    marginLeft: scale(20),
+    marginRight: scale(20)
   },
   modalInput: {
-    paddingLeft: moderateScale(4),
-    paddingRight: moderateScale(4),
+    paddingHorizontal: scale(4),
     paddingBottom: verticalScale(4),
-    marginLeft: moderateScale(10),
-    marginRight: moderateScale(10),
+    marginHorizontal: moderateScale(10),
     marginBottom: verticalScale(20),
     fontSize: moderateScale(20),
     borderBottomWidth: 1
@@ -216,10 +204,10 @@ const styles = StyleSheet.create({
   listItem: {
     flexDirection: 'row',
     justifyContent: 'flex-start',
-    paddingRight: moderateScale(10)
+    paddingRight: scale(10)
   },
   bullet: {
-    marginRight: moderateScale(5),
+    marginRight: scale(5),
     fontSize: moderateScale(8),
     marginTop: verticalScale(4)
   },

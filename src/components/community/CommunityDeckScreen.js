@@ -5,7 +5,6 @@ import {
   FlatList,
   Text,
   Alert,
-  Modal,
   TextInput,
   Animated
 } from 'react-native';
@@ -24,6 +23,7 @@ import ObjectId from 'bson-objectid';
 import RequestErrorScreen from './RequestErrorScreen';
 import LottieView from 'lottie-react-native';
 import { animateSuccess } from '../../utils/helpers';
+import Modal from '../common/Modal';
 
 const mapState = (state) => ({
   community: state.community,
@@ -167,31 +167,24 @@ class CommunityDeckScreen extends React.Component {
             keyExtractor={(item, index) => index.toString()}
           />
         </View>
-        <Modal
-          animationType="fade"
-          transparent={true}
-          visible={this.state.nameModalVisible}
-          onRequestClose={this.closeModal}
-        >
-          <View style={styles.inputModalView}>
-            <View style={styles.inputModalContent}>
-              <View style={styles.inputModalDetails}>
-                <AppText style={styles.inputModalDetailsText}>
-                  You already have a deck named "{this.state.attemptedDeckName}
-                  ". Please provide another name.
-                </AppText>
-              </View>
-              <TextInput
-                style={styles.modalInput}
-                value={this.state.deckName}
-                onChangeText={this.onChangeDeckName}
-                multiline={true}
-                maxLength={60}
-              />
-              <View style={styles.buttonsRow}>
-                <AppButton title="Cancel" onPress={this.closeModal} />
-                <AppButton title="Save" onPress={this.saveDeck} />
-              </View>
+        <Modal visible={this.state.nameModalVisible} dismiss={this.closeModal}>
+          <View style={styles.inputModalContent}>
+            <View style={styles.inputModalDetails}>
+              <AppText style={styles.inputModalDetailsText}>
+                You already have a deck named "{this.state.attemptedDeckName}
+                ". Please provide another name.
+              </AppText>
+            </View>
+            <TextInput
+              style={styles.modalInput}
+              value={this.state.deckName}
+              onChangeText={this.onChangeDeckName}
+              multiline={true}
+              maxLength={60}
+            />
+            <View style={styles.buttonsRow}>
+              <AppButton title="Cancel" onPress={this.closeModal} />
+              <AppButton title="Save" onPress={this.saveDeck} />
             </View>
           </View>
         </Modal>

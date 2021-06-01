@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, Modal } from 'react-native';
+import { View, Text } from 'react-native';
 import styles from '../../styles/styles';
 import deckStyles from '../../styles/deckStyles';
 import AppButton from '../common/AppButton';
@@ -9,6 +9,7 @@ import { DISCLAIMER } from '../../utils/constants';
 import { confirmTermsAndConditions } from '../../redux/userSlice';
 import TermsAndConditions from './TermsAndConditions';
 import PrivacyPolicy from './PrivacyPolicy';
+import Modal from '../common/Modal';
 
 function TermsAndDisclaimerModal() {
   const [termsModalVisible, setTermsModalVisible] = useState(false);
@@ -19,48 +20,42 @@ function TermsAndDisclaimerModal() {
   const dispatch = useDispatch();
 
   return (
-    <Modal
-      animationType="slide"
-      transparent={true}
-      visible={!confirmedTermsAndConditions}
-    >
-      <View style={styles.bottomPopupModal}>
-        <View style={styles.modalContent}>
-          <Text style={[styles.bold, deckStyles.disclaimerTitle]}>
-            Disclaimer
-          </Text>
-          <Text>{DISCLAIMER}</Text>
-          <Text style={styles.textBlock}>
-            By using this application you also agree to the{' '}
-            <Text
-              style={styles.linkText}
-              onPress={() => setTermsModalVisible(true)}
-            >{`Terms & Conditions`}</Text>
-            {' and '}
-            <Text
-              style={styles.linkText}
-              onPress={() => setPrivacyModalVisible(true)}
-            >{`Privacy Policy`}</Text>
-            .
-          </Text>
-          <View style={styles.rightButtonsView}>
-            <AppButton
-              title="OK"
-              onPress={() => dispatch(confirmTermsAndConditions())}
-              style={styles.modalButton}
-              textStyle={styles.modalButtonText}
-            />
-          </View>
+    <Modal visible={!confirmedTermsAndConditions} isBottomContent>
+      <View style={styles.bottomModalContent}>
+        <Text style={[styles.bold, deckStyles.disclaimerTitle]}>
+          Disclaimer
+        </Text>
+        <Text>{DISCLAIMER}</Text>
+        <Text style={styles.textBlock}>
+          By using this application you also agree to the{' '}
+          <Text
+            style={styles.linkText}
+            onPress={() => setTermsModalVisible(true)}
+          >{`Terms & Conditions`}</Text>
+          {' and '}
+          <Text
+            style={styles.linkText}
+            onPress={() => setPrivacyModalVisible(true)}
+          >{`Privacy Policy`}</Text>
+          .
+        </Text>
+        <View style={styles.rightButtonsView}>
+          <AppButton
+            title="OK"
+            onPress={() => dispatch(confirmTermsAndConditions())}
+            style={styles.modalButton}
+            textStyle={styles.modalButtonText}
+          />
         </View>
       </View>
       <InformationModal
-        close={() => setTermsModalVisible(false)}
+        dismiss={() => setTermsModalVisible(false)}
         modalVisible={termsModalVisible}
       >
         <TermsAndConditions />
       </InformationModal>
       <InformationModal
-        close={() => setPrivacyModalVisible(false)}
+        dismiss={() => setPrivacyModalVisible(false)}
         modalVisible={privacyModalVisible}
       >
         <PrivacyPolicy />

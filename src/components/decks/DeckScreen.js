@@ -5,8 +5,7 @@ import {
   FlatList,
   TextInput,
   Text,
-  Platform,
-  Modal
+  Platform
 } from 'react-native';
 import styles from '../../styles/styles';
 import deckStyles from '../../styles/deckStyles';
@@ -25,6 +24,7 @@ import {
 } from './decksSlice';
 import { selectCardToEdit } from './cardsSlice';
 import { connect } from 'react-redux';
+import Modal from '../common/Modal';
 
 const mapState = (state) => ({
   decks: state.decks,
@@ -197,113 +197,95 @@ class DeckScreen extends React.Component {
           </View>
         </View>
         <Modal
-          animationType="fade"
-          transparent={true}
           visible={modalVisible}
-          onRequestClose={() => this.setModalVisible('modalVisible', false)}
+          dismiss={() => this.setModalVisible('modalVisible', false)}
         >
-          <View style={styles.inputModalView}>
-            <View style={styles.inputModalContent}>
-              <TextInput
-                style={styles.modalInput}
-                value={deckName}
-                onChangeText={this.onChangeDeckName}
-                onFocus={this.onFocus}
-                onBlur={this.onBlur}
-                selection={selection}
-                multiline={true}
-                maxLength={60}
+          <View style={styles.inputModalContent}>
+            <TextInput
+              style={styles.modalInput}
+              value={deckName}
+              onChangeText={this.onChangeDeckName}
+              onFocus={this.onFocus}
+              onBlur={this.onBlur}
+              selection={selection}
+              multiline={true}
+              maxLength={60}
+            />
+            <View style={styles.buttonsRow}>
+              <AppButton
+                title="Cancel"
+                onPress={() => this.setModalVisible('modalVisible', false)}
               />
-              <View style={styles.buttonsRow}>
-                <AppButton
-                  title="Cancel"
-                  onPress={() => this.setModalVisible('modalVisible', false)}
-                />
-                <AppButton title="Save" onPress={this.saveDeckName} />
-              </View>
+              <AppButton title="Save" onPress={this.saveDeckName} />
             </View>
           </View>
         </Modal>
         <Modal
-          animationType="fade"
-          transparent={true}
           visible={deleteModalVisible}
-          onRequestClose={() =>
-            this.setModalVisible('deleteModalVisible', false)
-          }
+          dismiss={() => this.setModalVisible('deleteModalVisible', false)}
         >
-          <View style={styles.inputModalView}>
-            <View style={styles.inputModalContent}>
-              <AppText style={styles.paragaph}>
-                Are you sure you want to permanently remove this deck from your
-                device?
-              </AppText>
-              <View style={styles.buttonsRow}>
-                <AppButton
-                  title="Cancel"
-                  onPress={() =>
-                    this.setModalVisible('deleteModalVisible', false)
-                  }
-                />
-                <AppButton title="Delete" onPress={this.deleteDeck} />
-              </View>
+          <View style={styles.inputModalContent}>
+            <AppText style={styles.paragaph}>
+              Are you sure you want to permanently remove this deck from your
+              device?
+            </AppText>
+            <View style={styles.buttonsRow}>
+              <AppButton
+                title="Cancel"
+                onPress={() =>
+                  this.setModalVisible('deleteModalVisible', false)
+                }
+              />
+              <AppButton title="Delete" onPress={this.deleteDeck} />
             </View>
           </View>
         </Modal>
         <Modal
-          animationType="fade"
-          transparent={true}
           visible={cannotDeleteModalVisible}
-          onRequestClose={() =>
+          dismiss={() =>
             this.setModalVisible('cannotDeleteModalVisible', false)
           }
         >
-          <View style={styles.inputModalView}>
-            <View style={styles.inputModalContent}>
-              <AppText style={styles.paragaph}>
-                Cannot delete a selected deck.
-              </AppText>
-              <AppText style={styles.paragaph}>
-                Please set another deck on the "Deck List" screen as the
-                'selected' deck before deleting this one.
-              </AppText>
-              <View style={styles.buttonsRow}>
-                <AppButton
-                  title="Ok"
-                  onPress={() =>
-                    this.setModalVisible('cannotDeleteModalVisible', false)
-                  }
-                />
-              </View>
+          <View style={styles.inputModalContent}>
+            <AppText style={styles.paragaph}>
+              Cannot delete a selected deck.
+            </AppText>
+            <AppText style={styles.paragaph}>
+              Please set another deck on the "Deck List" screen as the
+              'selected' deck before deleting this one.
+            </AppText>
+            <View style={styles.buttonsRow}>
+              <AppButton
+                title="Ok"
+                onPress={() =>
+                  this.setModalVisible('cannotDeleteModalVisible', false)
+                }
+              />
             </View>
           </View>
         </Modal>
         <Modal
-          animationType="fade"
-          transparent={true}
           visible={communityInfoModalVisible}
-          onRequestClose={() =>
+          dismiss={() =>
             this.setModalVisible('communityInfoModalVisible', false)
           }
         >
-          <View style={styles.inputModalView}>
-            <View style={styles.inputModalContent}>
-              <AppText style={styles.paragaph}>
-                Online community not yet available!
-              </AppText>
-              <AppText style={styles.paragaph}>
-                Feel free to hit the top right menu and go to the "Contact Us"
-                section to let us know if you would like to share decks you've
-                made with friends or an online community!
-              </AppText>
-              <View style={styles.buttonsRow}>
-                <AppButton
-                  title="Ok"
-                  onPress={() =>
-                    this.setModalVisible('communityInfoModalVisible', false)
-                  }
-                />
-              </View>
+          <View style={styles.inputModalContent}>
+            <AppText style={styles.paragaph}>
+              Online community not yet available!
+            </AppText>
+            <AppText style={styles.paragaph}>
+              Feel free to hit the top right menu and go to the "Contact Us"
+              section to let us know if you would like to share decks you've
+              made with friends or an online community!
+            </AppText>
+            <View style={styles.buttonsRow}>
+              <AppButton
+                title="Ok"
+                onPress={() =>
+                  this.setModalVisible('communityInfoModalVisible', false)
+                }
+              />
             </View>
           </View>
         </Modal>

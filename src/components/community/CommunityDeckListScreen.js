@@ -11,6 +11,9 @@ import SpinnerOverlay from '../common/SpinnerOverlay';
 import RequestErrorScreen from './RequestErrorScreen';
 import IconButton from '../common/IconButton';
 import { WOULD_LIKE_COMMUNITY_DECK_SHARE } from '../../utils/constants';
+import Modal from '../common/Modal';
+import AppText from '../common/AppText';
+import AppButton from '../common/AppButton';
 
 const mapState = (state) => ({
   community: state.community,
@@ -26,15 +29,14 @@ const mapDispatch = {
 };
 
 class CommunityDeckListScreen extends React.Component {
+  state = {
+    uploadModalVisible: false,
+    enqueuedModalVisible: false
+  };
+
   componentDidMount() {
     if (this.props.isConnected || this.props.community.allIds.length < 1) {
       this.fetchCommunityDecks();
-    }
-  }
-
-  componentDidUpdate() {
-    if (this.props.feedbackEnqueued) {
-      this.showEnqueuedMessage();
     }
   }
 
@@ -46,39 +48,22 @@ class CommunityDeckListScreen extends React.Component {
     navigation.navigate('CommunityDeck');
   };
 
-  uploadDeck = () => {
-    Alert.alert(
-      'Deck sharing not yet available!',
-      'Would you like to be able to share and use decks that other people have made?',
-      [
-        {
-          text: 'Cancel',
-          style: 'cancel'
-        },
-        {
-          text: 'Yes',
-          onPress: () =>
-            this.props.postUserFeedback({
-              feedback: WOULD_LIKE_COMMUNITY_DECK_SHARE
-            })
-        }
-      ],
-      { cancelable: true }
-    );
+  setModalVisible = (property, visible) =>
+    this.setState({ [property]: visible });
+
+  uploadDeck = () => this.setModalVisible('uploadModalVisible', true);
+
+  confirmWantDeckSharing = () => {
+    this.props.postUserFeedback({
+      feedback: WOULD_LIKE_COMMUNITY_DECK_SHARE
+    });
+    this.setModalVisible('uploadModalVisible', false);
+    this.setModalVisible('enqueuedModalVisible', true);
   };
 
-  showEnqueuedMessage = () => {
-    Alert.alert(
-      'Unable to send right now',
-      'Your feedback will be sent once you are able to connect to our servers.',
-      [
-        {
-          text: 'OK',
-          onPress: () => this.props.resetFeedbackEnqueued()
-        }
-      ],
-      { cancelable: true, onDismiss: () => this.props.resetFeedbackEnqueued() }
-    );
+  closeEnqueuedModal = () => {
+    this.setModalVisible('enqueuedModalVisible', false);
+    this.props.resetFeedbackEnqueued();
   };
 
   render() {
@@ -125,6 +110,44 @@ class CommunityDeckListScreen extends React.Component {
           buttonStyle={styles.floatingIconButton}
           iconStyle={styles.floatingActionIcon}
         />
+        <Modal
+          visible={this.state.uploadModalVisible}
+          dismiss={() => this.setModalVisible('uploadModalVisible', false)}
+        >
+          <View style={styles.inputModalContent}>
+            <AppText style={styles.paragaph}>
+              Deck sharing not yet available!
+            </AppText>
+            <AppText style={styles.paragaph}>
+              Would you like to be able to share and use decks that other people
+              have made?
+            </AppText>
+            <View style={styles.buttonsRow}>
+              <AppButton
+                title="Cancel"
+                onPress={() =>
+                  this.setModalVisible('uploadModalVisible', false)
+                }
+              />
+              <AppButton title="Yes" onPress={this.confirmWantDeckSharing} />
+            </View>
+          </View>
+        </Modal>
+        <Modal
+          visible={this.state.enqueuedModalVisible}
+          dismiss={() => this.setModalVisible('enqueuedModalVisible', false)}
+        >
+          <View style={styles.inputModalContent}>
+            <AppText style={styles.paragaph}>Unable to send right now</AppText>
+            <AppText style={styles.paragaph}>
+              Your feedback will be sent once you are able to connect to our
+              servers.
+            </AppText>
+            <View style={styles.buttonsRow}>
+              <AppButton title="Ok" onPress={this.closeEnqueuedModal} />
+            </View>
+          </View>
+        </Modal>
         <SpinnerOverlay show={isLoading} />
       </SafeAreaView>
     );

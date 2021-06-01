@@ -4,13 +4,13 @@ import ListLinkRow from '../common/ListLinkRow';
 import IconButton from '../common/IconButton';
 import styles from '../../styles/styles';
 import deckStyles from '../../styles/deckStyles';
-import PropTypes from 'prop-types';
+import PT from 'prop-types';
 
 DeckListRow.propTypes = {
-  isSelected: PropTypes.bool.isRequired,
-  deckName: PropTypes.string.isRequired,
-  editOnPress: PropTypes.func.isRequired,
-  rowOnPress: PropTypes.func.isRequired
+  isSelected: PT.bool.isRequired,
+  deckName: PT.string.isRequired,
+  editOnPress: PT.func.isRequired,
+  rowOnPress: PT.func.isRequired
 };
 
 function DeckListRow({ isSelected, deckName, editOnPress, rowOnPress }) {

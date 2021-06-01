@@ -1,14 +1,14 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import PT from 'prop-types';
 import { View, TouchableHighlight } from 'react-native';
 import styles from '../../styles/styles';
 import { createStylesArray } from '../../utils/helpers';
 
 ListLinkRow.propTypes = {
-  onPress: PropTypes.func,
-  rowStyle: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
-  viewStyle: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
-  children: PropTypes.node
+  onPress: PT.func,
+  rowStyle: PT.oneOfType([PT.array, PT.object]),
+  viewStyle: PT.oneOfType([PT.array, PT.object]),
+  children: PT.node
 };
 
 ListLinkRow.defaultProps = {

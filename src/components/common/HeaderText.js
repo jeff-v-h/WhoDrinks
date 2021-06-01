@@ -2,11 +2,11 @@ import React from 'react';
 import AppText from './AppText';
 import { Text } from 'react-native';
 import styles from '../../styles/styles';
-import PropTypes from 'prop-types';
+import PT from 'prop-types';
 
 HeaderText.propTypes = {
-  text: PropTypes.string,
-  style: PropTypes.object
+  text: PT.string,
+  style: PT.object
 };
 
 HeaderText.defaultProps = {

@@ -5,14 +5,14 @@ import SpinnerOverlay from '../common/SpinnerOverlay';
 import { View } from 'react-native';
 import styles from '../../styles/styles';
 import communityStyles from '../../styles/communityStyles';
-import PropTypes from 'prop-types';
+import PT from 'prop-types';
 import DevTestSection from '../common/DevTestSection';
 
 RequestErrorScreen.propTypes = {
-  error: PropTypes.string,
-  onPress: PropTypes.func,
-  isLoading: PropTypes.bool,
-  text: PropTypes.string
+  error: PT.string,
+  onPress: PT.func,
+  isLoading: PT.bool,
+  text: PT.string
 };
 
 RequestErrorScreen.defaultProps = {

@@ -3,15 +3,15 @@ import AppButton from './AppButton';
 import SpinnerOverlay from './SpinnerOverlay';
 import { View, TextInput, Text, Alert } from 'react-native';
 import styles from '../../styles/styles';
-import PropTypes from 'prop-types';
+import PT from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { getCommunityDecksDiffHost } from '../community/communitySlice';
 import client from '../../services/client';
 import { API_HOST, API_TOKEN } from '../../utils/env';
 
 DevTestSection.propTypes = {
-  show: PropTypes.bool.isRequired,
-  isLoading: PropTypes.bool
+  show: PT.bool.isRequired,
+  isLoading: PT.bool
 };
 
 const config = {

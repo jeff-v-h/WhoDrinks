@@ -4,16 +4,13 @@ import { ScrollView } from 'react-native-gesture-handler';
 import styles from '../../styles/styles';
 import IconButton from './IconButton';
 import AppButton from './AppButton';
-import PropTypes from 'prop-types';
+import PT from 'prop-types';
 import TermsAndConditions from '../legal/TermsAndConditions';
 
 InformationModal.propTypes = {
-  modalVisible: PropTypes.bool.isRequired,
-  close: PropTypes.func.isRequired,
-  children: PropTypes.oneOfType([
-    PropTypes.arrayOf(PropTypes.node),
-    PropTypes.node
-  ]).isRequired
+  modalVisible: PT.bool.isRequired,
+  close: PT.func.isRequired,
+  children: PT.oneOfType([PT.arrayOf(PT.node), PT.node]).isRequired
 };
 
 function InformationModal({ close, modalVisible, children }) {

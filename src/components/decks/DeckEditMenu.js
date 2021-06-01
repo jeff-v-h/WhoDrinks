@@ -1,15 +1,15 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import PT from 'prop-types';
 import deckStyles from '../../styles/deckStyles';
 import Menu, { MenuItem } from 'react-native-material-menu';
 import IconButton from '../common/IconButton';
 
 DeckEditMenu.propTypes = {
-  menuRef: PropTypes.func.isRequired,
-  onPressMenu: PropTypes.func.isRequired,
-  onPressEdit: PropTypes.func.isRequired,
-  onPressUpload: PropTypes.func.isRequired,
-  onPressDelete: PropTypes.func.isRequired
+  menuRef: PT.func.isRequired,
+  onPressMenu: PT.func.isRequired,
+  onPressEdit: PT.func.isRequired,
+  onPressUpload: PT.func.isRequired,
+  onPressDelete: PT.func.isRequired
 };
 
 function DeckEditMenu({

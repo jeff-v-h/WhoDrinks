@@ -1,18 +1,18 @@
 import React from 'react';
 import { TouchableOpacity, Text } from 'react-native';
-import PropTypes from 'prop-types';
+import PT from 'prop-types';
 import styles from '../../styles/styles';
 import { createStylesArray } from '../../utils/helpers';
 
 AppButton.propTypes = {
-  title: PropTypes.string.isRequired,
-  onPress: PropTypes.func,
-  style: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
-  textStyle: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
-  disabled: PropTypes.bool,
-  disabledStyle: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
-  numberOfLines: PropTypes.number,
-  opacity: PropTypes.number
+  title: PT.string.isRequired,
+  onPress: PT.func,
+  style: PT.oneOfType([PT.array, PT.object]),
+  textStyle: PT.oneOfType([PT.array, PT.object]),
+  disabled: PT.bool,
+  disabledStyle: PT.oneOfType([PT.array, PT.object]),
+  numberOfLines: PT.number,
+  opacity: PT.number
 };
 
 AppButton.defaultProps = {

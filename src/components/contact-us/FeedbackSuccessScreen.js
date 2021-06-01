@@ -1,13 +1,13 @@
 import React from 'react';
 import { View } from 'react-native';
-import PropTypes from 'prop-types';
+import PT from 'prop-types';
 import styles from '../../styles/styles';
 import contactStyles from '../../styles/contactStyles';
 import AppButton from '../common/AppButton';
 import AppText from '../common/AppText';
 
 FeedbackSuccessScreen.propTypes = {
-  onPress: PropTypes.func
+  onPress: PT.func
 };
 
 function FeedbackSuccessScreen({ onPress }) {

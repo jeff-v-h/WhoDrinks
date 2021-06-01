@@ -3,11 +3,11 @@ import AppText from '../common/AppText';
 import IconButton from '../common/IconButton';
 import { View } from 'react-native';
 import communityStyles from '../../styles/communityStyles';
-import PropTypes from 'prop-types';
+import PT from 'prop-types';
 
 DeckListHeader.propTypes = {
-  text: PropTypes.string.isRequired,
-  onPress: PropTypes.func.isRequired
+  text: PT.string.isRequired,
+  onPress: PT.func.isRequired
 };
 
 function DeckListHeader({ text, onPress }) {

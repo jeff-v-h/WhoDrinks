@@ -4,7 +4,6 @@ import {
   SafeAreaView,
   FlatList,
   Text,
-  Alert,
   TextInput,
   Animated
 } from 'react-native';

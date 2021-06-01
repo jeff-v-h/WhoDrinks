@@ -37,7 +37,9 @@ const initialState = {
   nameModalVisible: false,
   attemptedDeckName: '',
   deckName: '',
-  tickProgress: new Animated.Value(0)
+  tickProgress: new Animated.Value(0),
+  previewModalVisible: false,
+  previewText: ''
 };
 
 class CommunityDeckScreen extends React.Component {
@@ -52,6 +54,7 @@ class CommunityDeckScreen extends React.Component {
     this.saveDeck = this.saveDeck.bind(this);
     this.previewCard = this.previewCard.bind(this);
     this.closeModal = this.closeModal.bind(this);
+    this.closePreviewModal = this.closePreviewModal.bind(this);
     this.onChangeDeckName = this.onChangeDeckName.bind(this);
   }
 
@@ -116,12 +119,22 @@ class CommunityDeckScreen extends React.Component {
 
   previewCard(index) {
     const cardText = this.props.community.deck.cards[index];
-    Alert.alert(null, cardText, null, { cancelable: true });
+    this.setState({ previewModalVisible: true, previewText: cardText });
+  }
+
+  closePreviewModal() {
+    this.setState({ previewModalVisible: false, previewText: '' });
   }
 
   render() {
     const { community, isConnected } = this.props;
     const isLoading = community.status === RequestStatusEnum.loading;
+    const {
+      nameModalVisible,
+      previewModalVisible,
+      attemptedDeckName,
+      previewText
+    } = this.state;
 
     if (community.error || (community.deck.cards.length < 1 && !isConnected)) {
       return (
@@ -167,11 +180,11 @@ class CommunityDeckScreen extends React.Component {
             keyExtractor={(item, index) => index.toString()}
           />
         </View>
-        <Modal visible={this.state.nameModalVisible} dismiss={this.closeModal}>
+        <Modal visible={nameModalVisible} dismiss={this.closeModal}>
           <View style={styles.inputModalContent}>
             <View style={styles.inputModalDetails}>
               <AppText style={styles.inputModalDetailsText}>
-                You already have a deck named "{this.state.attemptedDeckName}
+                You already have a deck named "{attemptedDeckName}
                 ". Please provide another name.
               </AppText>
             </View>
@@ -186,6 +199,11 @@ class CommunityDeckScreen extends React.Component {
               <AppButton title="Cancel" onPress={this.closeModal} />
               <AppButton title="Save" onPress={this.saveDeck} />
             </View>
+          </View>
+        </Modal>
+        <Modal visible={previewModalVisible} dismiss={this.closePreviewModal}>
+          <View style={styles.inputModalContent}>
+            <AppText style={styles.paragaph}>{previewText}</AppText>
           </View>
         </Modal>
         <SpinnerOverlay show={isLoading} />

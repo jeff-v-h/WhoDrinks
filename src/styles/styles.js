@@ -197,9 +197,9 @@ const styles = StyleSheet.create({
     color: colours.linkBlue
   },
   textBlock: {
-    marginVertical: verticalScale(10)
+    marginBottom: verticalScale(10)
   },
-  paragaph: {
+  paragraph: {
     marginBottom: verticalScale(20)
   },
   listItem: {

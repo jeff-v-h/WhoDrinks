@@ -210,10 +210,10 @@ class ContactUsScreen extends React.Component {
           dismiss={this.props.resetStatus}
         >
           <View style={styles.inputModalContent}>
-            <AppText style={styles.paragaph}>
+            <AppText style={styles.paragraph}>
               Unable to send right now, please try again later.
             </AppText>
-            <AppText style={styles.paragaph}>
+            <AppText style={styles.paragraph}>
               We will keep your feedback here for you until you send
               successfully or change it yourself.
             </AppText>
@@ -227,8 +227,10 @@ class ContactUsScreen extends React.Component {
           dismiss={this.props.resetFeedbackEnqueued}
         >
           <View style={styles.inputModalContent}>
-            <AppText style={styles.paragaph}>Unable to send right now.</AppText>
-            <AppText style={styles.paragaph}>
+            <AppText style={styles.paragraph}>
+              Unable to send right now.
+            </AppText>
+            <AppText style={styles.paragraph}>
               Your feedback will be sent once you are back online.
             </AppText>
             <View style={styles.buttonsRow}>

@@ -82,8 +82,8 @@ class GameScreen extends React.Component {
         </View>
         <Modal visible={this.state.modalVisible} dismiss={this.closeModal}>
           <View style={styles.inputModalContent}>
-            <AppText style={styles.paragaph}>No pre-existing game.</AppText>
-            <AppText style={styles.paragaph}>
+            <AppText style={styles.paragraph}>No pre-existing game.</AppText>
+            <AppText style={styles.paragraph}>
               A new game with deck "{this.state.duplicateDeckName}" has been
               started for you.
             </AppText>

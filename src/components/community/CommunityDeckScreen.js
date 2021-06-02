@@ -202,7 +202,7 @@ class CommunityDeckScreen extends React.Component {
         </Modal>
         <Modal visible={previewModalVisible} dismiss={this.closePreviewModal}>
           <View style={styles.inputModalContent}>
-            <AppText style={styles.paragaph}>{previewText}</AppText>
+            <AppText style={styles.paragraph}>{previewText}</AppText>
           </View>
         </Modal>
         <SpinnerOverlay show={isLoading} />

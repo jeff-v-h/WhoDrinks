@@ -225,7 +225,7 @@ class DeckScreen extends React.Component {
           dismiss={() => this.setModalVisible('deleteModalVisible', false)}
         >
           <View style={styles.inputModalContent}>
-            <AppText style={styles.paragaph}>
+            <AppText style={styles.paragraph}>
               Are you sure you want to permanently remove this deck from your
               device?
             </AppText>
@@ -247,10 +247,10 @@ class DeckScreen extends React.Component {
           }
         >
           <View style={styles.inputModalContent}>
-            <AppText style={styles.paragaph}>
+            <AppText style={styles.paragraph}>
               Cannot delete a selected deck.
             </AppText>
-            <AppText style={styles.paragaph}>
+            <AppText style={styles.paragraph}>
               Please set another deck on the "Deck List" screen as the
               'selected' deck before deleting this one.
             </AppText>
@@ -271,10 +271,10 @@ class DeckScreen extends React.Component {
           }
         >
           <View style={styles.inputModalContent}>
-            <AppText style={styles.paragaph}>
+            <AppText style={styles.paragraph}>
               Online community not yet available!
             </AppText>
-            <AppText style={styles.paragaph}>
+            <AppText style={styles.paragraph}>
               Feel free to hit the top right menu and go to the "Contact Us"
               section to let us know if you would like to share decks you've
               made with friends or an online community!

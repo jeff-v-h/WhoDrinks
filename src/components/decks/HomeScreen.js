@@ -96,8 +96,8 @@ class HomeScreen extends React.Component {
         <View style={styles.container}>
           <Modal visible={true}>
             <View style={styles.inputModalContent}>
-              <AppText style={styles.paragaph}>Upgrade Required</AppText>
-              <AppText style={styles.paragaph}>
+              <AppText style={styles.paragraph}>Upgrade Required</AppText>
+              <AppText style={styles.paragraph}>
                 Your version is outdated, please update to the newest version!
               </AppText>
               <View style={styles.buttonsRow}>
@@ -143,8 +143,8 @@ class HomeScreen extends React.Component {
         <TermsAndDisclaimerModal />
         <Modal visible={showAnnouncement} dismiss={confirmAnnouncement}>
           <View style={styles.inputModalContent}>
-            <AppText style={styles.paragaph}>Announcement</AppText>
-            <AppText style={styles.paragaph}>
+            <AppText style={styles.paragraph}>Announcement</AppText>
+            <AppText style={styles.paragraph}>
               {user.appVersion.announcement}
             </AppText>
             <View style={styles.buttonsRow}>
@@ -154,8 +154,8 @@ class HomeScreen extends React.Component {
         </Modal>
         <Modal visible={isRecommendUpdate} dismiss={this.props.dismissUpdate}>
           <View style={styles.inputModalContent}>
-            <AppText style={styles.paragaph}>Upgrade</AppText>
-            <AppText style={styles.paragaph}>
+            <AppText style={styles.paragraph}>Upgrade</AppText>
+            <AppText style={styles.paragraph}>
               A newer version of this app is available. Would you like to
               download it?
             </AppText>

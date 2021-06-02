@@ -121,7 +121,11 @@ const deckStyles = StyleSheet.create({
     marginVertical: verticalScale(15)
   },
   disclaimerTitle: {
-    marginBottom: verticalScale(6)
+    marginBottom: verticalScale(10),
+    fontSize: moderateScale(12)
+  },
+  disclaimerText: {
+    fontSize: moderateScale(12)
   },
   betaText: {
     fontSize: moderateScale(18),

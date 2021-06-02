@@ -115,10 +115,10 @@ class CommunityDeckListScreen extends React.Component {
           dismiss={() => this.setModalVisible('uploadModalVisible', false)}
         >
           <View style={styles.inputModalContent}>
-            <AppText style={styles.paragaph}>
+            <AppText style={styles.paragraph}>
               Deck sharing not yet available!
             </AppText>
-            <AppText style={styles.paragaph}>
+            <AppText style={styles.paragraph}>
               Would you like to be able to share and use decks that other people
               have made?
             </AppText>
@@ -138,8 +138,8 @@ class CommunityDeckListScreen extends React.Component {
           dismiss={() => this.setModalVisible('enqueuedModalVisible', false)}
         >
           <View style={styles.inputModalContent}>
-            <AppText style={styles.paragaph}>Unable to send right now</AppText>
-            <AppText style={styles.paragaph}>
+            <AppText style={styles.paragraph}>Unable to send right now</AppText>
+            <AppText style={styles.paragraph}>
               Your feedback will be sent once you are able to connect to our
               servers.
             </AppText>

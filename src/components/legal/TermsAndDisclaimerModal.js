@@ -25,8 +25,10 @@ function TermsAndDisclaimerModal() {
         <Text style={[styles.bold, deckStyles.disclaimerTitle]}>
           Disclaimer
         </Text>
-        <Text>{DISCLAIMER}</Text>
-        <Text style={styles.textBlock}>
+        <Text style={[styles.textBlock, deckStyles.disclaimerText]}>
+          {DISCLAIMER}
+        </Text>
+        <Text style={[styles.textBlock, deckStyles.disclaimerText]}>
           By using this application you also agree to the{' '}
           <Text
             style={styles.linkText}

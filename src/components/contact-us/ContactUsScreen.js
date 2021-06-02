@@ -4,11 +4,11 @@ import {
   TextInput,
   KeyboardAvoidingView,
   ScrollView,
-  Keyboard,
-  Alert
+  Keyboard
 } from 'react-native';
 import AppText from '../common/AppText';
 import AppButton from '../common/AppButton';
+import Modal from '../common/Modal';
 import styles from '../../styles/styles';
 import contactStyles from '../../styles/contactStyles';
 import {
@@ -67,17 +67,6 @@ class ContactUsScreen extends React.Component {
     );
   }
 
-  componentDidUpdate() {
-    const { status, feedbackEnqueued } = this.props.user;
-    if (status === RequestStatusEnum.failed) {
-      this.showErrorMessage();
-    }
-
-    if (feedbackEnqueued) {
-      this.showEnqueuedMessage();
-    }
-  }
-
   componentWillUnmount() {
     this.keyboardDidShowListener.remove();
     this.keyboardDidHideListener.remove();
@@ -118,41 +107,13 @@ class ContactUsScreen extends React.Component {
     });
   };
 
-  showErrorMessage = () => {
-    Alert.alert(
-      'Unable to send right now',
-      'Please try again later. \n\nWe will keep your feedback here for you until you send successfully or change it yourself.',
-      [
-        {
-          text: 'OK',
-          onPress: () => this.props.resetStatus()
-        }
-      ],
-      { cancelable: true, onDismiss: () => this.props.resetStatus() }
-    );
-  };
-
-  showEnqueuedMessage = () => {
-    Alert.alert(
-      'Unable to send right now',
-      'Your feedback will be sent once you are back online.',
-      [
-        {
-          text: 'OK',
-          onPress: () => this.props.resetFeedbackEnqueued()
-        }
-      ],
-      { cancelable: true, onDismiss: () => this.props.resetFeedbackEnqueued() }
-    );
-  };
-
   resetFeedbackScreen = () => {
     this.setState({ ...initialState });
     this.props.resetStatus();
   };
 
   render() {
-    const { status } = this.props.user;
+    const { status, feedbackEnqueued } = this.props.user;
 
     if (status === RequestStatusEnum.succeeded) {
       return <FeedbackSuccessScreen onPress={this.resetFeedbackScreen} />;
@@ -244,6 +205,40 @@ class ContactUsScreen extends React.Component {
             </View>
           </ScrollView>
         </KeyboardAvoidingView>
+        <Modal
+          visible={status === RequestStatusEnum.failed}
+          dismiss={this.props.resetStatus}
+        >
+          <View style={styles.inputModalContent}>
+            <AppText style={styles.paragaph}>
+              Unable to send right now, please try again later.
+            </AppText>
+            <AppText style={styles.paragaph}>
+              We will keep your feedback here for you until you send
+              successfully or change it yourself.
+            </AppText>
+            <View style={styles.buttonsRow}>
+              <AppButton title="Ok" onPress={this.props.resetStatus} />
+            </View>
+          </View>
+        </Modal>
+        <Modal
+          visible={feedbackEnqueued}
+          dismiss={this.props.resetFeedbackEnqueued}
+        >
+          <View style={styles.inputModalContent}>
+            <AppText style={styles.paragaph}>Unable to send right now.</AppText>
+            <AppText style={styles.paragaph}>
+              Your feedback will be sent once you are back online.
+            </AppText>
+            <View style={styles.buttonsRow}>
+              <AppButton
+                title="Ok"
+                onPress={this.props.resetFeedbackEnqueued}
+              />
+            </View>
+          </View>
+        </Modal>
         <SpinnerOverlay show={isLoading} />
       </>
     );

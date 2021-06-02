@@ -1,15 +1,10 @@
 import React from 'react';
-import {
-  View,
-  SafeAreaView,
-  Text,
-  Alert,
-  Linking,
-  Platform
-} from 'react-native';
+import { View, SafeAreaView, Text, Linking, Platform } from 'react-native';
 import styles from '../../styles/styles';
 import HeaderText from '../common/HeaderText';
 import AppButton from '../common/AppButton';
+import AppText from '../common/AppText';
+import Modal from '../common/Modal';
 import { isDateOverOneWeekAgo } from '../../utils/helpers';
 import deckStyles from '../../styles/deckStyles';
 import { connect } from 'react-redux';
@@ -73,7 +68,6 @@ class HomeScreen extends React.Component {
     });
   };
 
-  //#region alerts
   redirectToAppStore = async () => {
     const { user, navigation } = this.props;
     const url =
@@ -93,78 +87,34 @@ class HomeScreen extends React.Component {
     }
   };
 
-  forcedUpdateAlert = () => {
-    Alert.alert(
-      'Upgrade Required',
-      'Your version is outdated, please update to the newest version!',
-      [
-        {
-          text: 'Open app store',
-          onPress: () => this.redirectToAppStore()
-        }
-      ]
-    );
-  };
-
-  recommendUpdateAlert = () => {
-    Alert.alert(
-      'Update',
-      'A newer version of this app is available. Would you like to download it?',
-      [
-        {
-          text: 'Cancel',
-          style: 'cancel',
-          onPress: () => this.props.dismissUpdate()
-        },
-        {
-          text: 'OK',
-          onPress: () => {
-            this.props.dismissUpdate();
-            this.redirectToAppStore();
-          }
-        }
-      ],
-      {
-        text: 'OK',
-        onDismiss: () => this.props.dismissUpdate()
-      }
-    );
-  };
-
-  announcementAlert = () => {
-    const { user, confirmAnnouncement } = this.props;
-    Alert.alert('Accouncement', user.appVersion.announcement, [
-      {
-        text: 'OK',
-        onPress: () => confirmAnnouncement()
-      }
-    ]);
-  };
-
-  checkAlerts = () => {
-    const {
-      appVersion,
-      dismissedUpdate,
-      confirmedAnnouncement
-    } = this.props.user;
+  render() {
+    const { user, decks, confirmAnnouncement } = this.props;
+    const { appVersion, dismissedUpdate, confirmedAnnouncement } = user;
 
     if (appVersion.forceUpdate) {
-      this.forcedUpdateAlert();
-    } else if (appVersion.recommendUpdate && !dismissedUpdate) {
-      this.recommendUpdateAlert();
-    } else if (appVersion.announcement && !confirmedAnnouncement) {
-      this.announcementAlert();
+      return (
+        <View style={styles.container}>
+          <Modal visible={true}>
+            <View style={styles.inputModalContent}>
+              <AppText style={styles.paragaph}>Upgrade Required</AppText>
+              <AppText style={styles.paragaph}>
+                Your version is outdated, please update to the newest version!
+              </AppText>
+              <View style={styles.buttonsRow}>
+                <AppButton
+                  title="Open app store"
+                  onPress={this.redirectToAppStore}
+                />
+              </View>
+            </View>
+          </Modal>
+        </View>
+      );
     }
-  };
-  //#endregion
 
-  render() {
-    const { user, decks } = this.props;
-    this.checkAlerts();
-
-    if (user.appVersion.forceUpdate) {
-      return <View style={styles.container} />;
-    }
+    const isRecommendUpdate = !!appVersion.recommendUpdate && !dismissedUpdate;
+    const showAnnouncement =
+      !!appVersion.announcement && !confirmedAnnouncement && !isRecommendUpdate;
 
     return (
       <SafeAreaView style={styles.container}>
@@ -191,6 +141,30 @@ class HomeScreen extends React.Component {
           />
         </View>
         <TermsAndDisclaimerModal />
+        <Modal visible={showAnnouncement} dismiss={confirmAnnouncement}>
+          <View style={styles.inputModalContent}>
+            <AppText style={styles.paragaph}>Announcement</AppText>
+            <AppText style={styles.paragaph}>
+              {user.appVersion.announcement}
+            </AppText>
+            <View style={styles.buttonsRow}>
+              <AppButton title="Ok" onPress={confirmAnnouncement} />
+            </View>
+          </View>
+        </Modal>
+        <Modal visible={isRecommendUpdate} dismiss={this.props.dismissUpdate}>
+          <View style={styles.inputModalContent}>
+            <AppText style={styles.paragaph}>Upgrade</AppText>
+            <AppText style={styles.paragaph}>
+              A newer version of this app is available. Would you like to
+              download it?
+            </AppText>
+            <View style={styles.buttonsRow}>
+              <AppButton title="Cancel" onPress={this.props.dismissUpdate} />
+              <AppButton title="Ok" onPress={this.redirectToAppStore} />
+            </View>
+          </View>
+        </Modal>
       </SafeAreaView>
     );
   }

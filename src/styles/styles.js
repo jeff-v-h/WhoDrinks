@@ -115,11 +115,6 @@ const styles = StyleSheet.create({
     color: colours.white,
     fontSize: moderateScale(16)
   },
-  headerRightIconWrapper: {
-    justifyContent: 'center',
-    flex: 1,
-    paddingRight: scale(14)
-  },
   bold: {
     fontWeight: '700'
   },

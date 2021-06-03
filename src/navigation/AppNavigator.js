@@ -9,13 +9,14 @@ import DeckListScreen from '../components/decks/DeckListScreen';
 import DeckScreen from '../components/decks/DeckScreen';
 import ConfigureCardsScreen from '../components/decks/ConfigureCardsScreen';
 import ContactUsScreen from '../components/contact-us/ContactUsScreen';
-import HeaderMenuButton from '../components/common/HeaderMenuButton';
+import HeaderMenuButton from './HeaderMenuButton';
 import DisclaimerScreen from '../components/legal/DisclaimerScreen';
 import RedirectError from '../components/decks/RedirectError';
 import CommunityDeckListScreen from '../components/community/CommunityDeckListScreen';
 import CommunityDeckScreen from '../components/community/CommunityDeckScreen';
 // import GameHeaderTitle from '../components/game/GameHeaderTitle';
 import CustomDrawerContent from './CustomDrawerContent';
+import HeaderBackButton from './HeaderBackButton';
 
 const Drawer = createDrawerNavigator();
 const DecksConfigStack = createStackNavigator();
@@ -31,10 +32,9 @@ const DecksConfigNavigationStack = () => (
     screenOptions={{
       headerMode: 'screen',
       headerStyle: globalStyles.statusBar,
-      headerTitleStyle: globalStyles.statusBarTitle
-      // headerBackTitleStyle: {
-      //   margin: 20
-      // }
+      headerTitleStyle: globalStyles.statusBarTitle,
+      headerLeft: ({ canGoBack }) =>
+        canGoBack ? <HeaderBackButton /> : undefined
     }}
   >
     <DecksConfigStack.Screen

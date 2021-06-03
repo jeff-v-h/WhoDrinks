@@ -18,7 +18,7 @@ const App = () => {
         {/* <ReduxNetworkProvider pingServerUrl="https://www.recauraz.com/"> */}
         <PersistGate loading={null} persistor={persistor}>
           <NavigationContainer>
-            <StatusBar barStyle="auto" />
+            <StatusBar translucent barStyle="light-content" />
             <AppNavigator />
           </NavigationContainer>
         </PersistGate>

@@ -1,6 +1,7 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createDrawerNavigator } from '@react-navigation/drawer';
+import globalStyles from '../styles/globalStyles';
 import HomeScreen from '../components/decks/HomeScreen';
 import RulesScreen from '../components/rules/RulesScreen';
 import GameScreen from '../components/game/GameScreen';
@@ -25,7 +26,17 @@ const LegalStack = createStackNavigator();
 const CommunityStack = createStackNavigator();
 
 const DecksConfigNavigationStack = () => (
-  <DecksConfigStack.Navigator initialRouteName="Home">
+  <DecksConfigStack.Navigator
+    initialRouteName="Home"
+    screenOptions={{
+      headerMode: 'screen',
+      headerStyle: globalStyles.statusBar,
+      headerTitleStyle: globalStyles.statusBarTitle
+      // headerBackTitleStyle: {
+      //   margin: 20
+      // }
+    }}
+  >
     <DecksConfigStack.Screen
       name="Home"
       component={HomeScreen}

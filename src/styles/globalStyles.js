@@ -19,9 +19,7 @@ const globalStyles = StyleSheet.create({
   headerBackButtonWrapper: {
     justifyContent: 'center',
     alignItems: 'center',
-    marginLeft: scale(7),
-    width: '100%'
-    // borderWidth: 1
+    left: 20
   },
   headerRightIconWrapper: {
     justifyContent: 'center',

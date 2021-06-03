@@ -75,6 +75,13 @@ const GamesNavigationStack = () => (
   <GameStack.Navigator
     initialRouteName="Game"
     options={{ title: 'Who Drinks' }}
+    screenOptions={{
+      headerMode: 'screen',
+      headerStyle: globalStyles.statusBar,
+      headerTitleStyle: globalStyles.statusBarTitle,
+      headerLeft: ({ canGoBack }) =>
+        canGoBack ? <HeaderBackButton /> : undefined
+    }}
   >
     <GameStack.Screen
       name="Game"
@@ -91,6 +98,13 @@ const CommunityNavigationStack = () => (
   <CommunityStack.Navigator
     initialRouteName="CommunityDeckList"
     options={{ title: 'Community' }}
+    screenOptions={{
+      headerMode: 'screen',
+      headerStyle: globalStyles.statusBar,
+      headerTitleStyle: globalStyles.statusBarTitle,
+      headerLeft: ({ canGoBack }) =>
+        canGoBack ? <HeaderBackButton /> : undefined
+    }}
   >
     <CommunityStack.Screen
       name="CommunityDeckList"
@@ -112,7 +126,16 @@ const CommunityNavigationStack = () => (
 );
 
 const RulesNavigationStack = () => (
-  <RulesStack.Navigator initialRouteName="Rules">
+  <RulesStack.Navigator
+    initialRouteName="Rules"
+    screenOptions={{
+      headerMode: 'screen',
+      headerStyle: globalStyles.statusBar,
+      headerTitleStyle: globalStyles.statusBarTitle,
+      headerLeft: ({ canGoBack }) =>
+        canGoBack ? <HeaderBackButton /> : undefined
+    }}
+  >
     <RulesStack.Screen
       name="Rules"
       component={RulesScreen}
@@ -125,7 +148,16 @@ const RulesNavigationStack = () => (
 );
 
 const ContactNavigationStack = () => (
-  <ContactStack.Navigator initialRouteName="Contact">
+  <ContactStack.Navigator
+    initialRouteName="Contact"
+    screenOptions={{
+      headerMode: 'screen',
+      headerStyle: globalStyles.statusBar,
+      headerTitleStyle: globalStyles.statusBarTitle,
+      headerLeft: ({ canGoBack }) =>
+        canGoBack ? <HeaderBackButton /> : undefined
+    }}
+  >
     <ContactStack.Screen
       name="Contact"
       component={ContactUsScreen}
@@ -138,7 +170,16 @@ const ContactNavigationStack = () => (
 );
 
 const LegalNavigationStack = () => (
-  <LegalStack.Navigator initialRouteName="Disclaimer">
+  <LegalStack.Navigator
+    initialRouteName="Disclaimer"
+    screenOptions={{
+      headerMode: 'screen',
+      headerStyle: globalStyles.statusBar,
+      headerTitleStyle: globalStyles.statusBarTitle,
+      headerLeft: ({ canGoBack }) =>
+        canGoBack ? <HeaderBackButton /> : undefined
+    }}
+  >
     <LegalStack.Screen
       name="Disclaimer"
       component={DisclaimerScreen}

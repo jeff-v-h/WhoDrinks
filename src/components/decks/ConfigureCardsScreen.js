@@ -130,7 +130,7 @@ class ConfigureCardsScreen extends React.Component {
               <IconButton
                 onPress={this.deleteCard}
                 iconName="trash-o"
-                size={30}
+                size={26}
                 opacity={0.5}
               />
             )}

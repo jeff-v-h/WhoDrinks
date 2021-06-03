@@ -21,7 +21,7 @@ function InformationModal({ dismiss, modalVisible, children }) {
           <IconButton
             onPress={dismiss}
             iconName="times"
-            size={18}
+            size={16}
             opacity={0.5}
           />
         </View>

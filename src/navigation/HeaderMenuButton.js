@@ -3,7 +3,6 @@ import { View } from 'react-native';
 import globalStyles from '../styles/globalStyles';
 import IconButton from '../components/common/IconButton';
 import { useNavigation } from '@react-navigation/native';
-import { moderateScale } from '../utils/scaling';
 
 function HeaderMenuButton() {
   const navigation = useNavigation();
@@ -13,7 +12,7 @@ function HeaderMenuButton() {
       <IconButton
         onPress={navigation.openDrawer}
         iconName="bars"
-        size={moderateScale(20)}
+        size={20}
         opacity={0.5}
       />
     </View>

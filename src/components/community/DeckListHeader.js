@@ -18,7 +18,7 @@ function DeckListHeader({ text, onPress }) {
         <IconButton
           onPress={onPress}
           iconName="download"
-          size={24}
+          size={20}
           opacity={0.5}
         />
       </View>

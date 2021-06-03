@@ -3,6 +3,7 @@ import { TouchableOpacity } from 'react-native';
 import PT from 'prop-types';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { createStylesArray } from '../../utils/helpers';
+import { moderateScale } from '../../utils/scaling';
 
 IconButton.propTypes = {
   onPress: PT.func,
@@ -36,7 +37,11 @@ function IconButton({
       style={createStylesArray(buttonStyle)}
       activeOpacity={opacity}
     >
-      <Icon name={iconName} size={size} style={createStylesArray(iconStyle)} />
+      <Icon
+        name={iconName}
+        size={moderateScale(size)}
+        style={createStylesArray(iconStyle)}
+      />
     </TouchableOpacity>
   );
 }

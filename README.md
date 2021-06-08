@@ -40,10 +40,10 @@ Then select 'Debug' which should open up browser to http://localhost:8081/debugg
 1. Create a .env file and populate environment variables. Use .env.development as example. If going to test first on your own phone in step 2, use http instead of https for external requests, but make sure to switch back to https for deployment.
 2. You can test the app on your phone by connecting via usb, making sure emulator is not running and then run `npx react-native run-android --variant=release`.
 3. Update the version in package.json and android/app/build.gradle (`android.defaultConfig.versionCode` and `android.defaultConfig.versionName`).
-4. Make sure the my-upload-key.keystore file exists in android/app directory.
+4. Make sure the whodrinks-upload-key.keystore file exists in android/app directory.
 5. Add the keystore password to android/gradle.properties for the variables `MYAPP_UPLOAD_STORE_PASSWORD` and `MYAPP_UPLOAD_KEY_PASSWORD`. DO NOT commit this into source control.
 6. `cd android` && `gradlew bundleRelease`.
-7. The generated Andorid App Bundle ([AAB](https://developer.android.com/guide/app-bundle)) can be found under android/app/build/outputs/bundle/release/app.aab, and is ready to be uploaded to Google Play
+7. The generated Android App Bundle ([AAB](https://developer.android.com/guide/app-bundle)) can be found under android/app/build/outputs/bundle/release/app.aab, and is ready to be uploaded to Google Play
 
 For more info go to the [React Native guide](https://reactnative.dev/docs/signed-apk-android).
 

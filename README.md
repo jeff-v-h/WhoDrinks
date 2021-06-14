@@ -42,8 +42,9 @@ Then select 'Debug' which should open up browser to http://localhost:8081/debugg
 3. Update the version in package.json and android/app/build.gradle (`android.defaultConfig.versionCode` and `android.defaultConfig.versionName`).
 4. Make sure the whodrinks-upload-key.keystore file exists in android/app directory.
 5. Add the keystore password to android/gradle.properties for the variables `MYAPP_UPLOAD_STORE_PASSWORD` and `MYAPP_UPLOAD_KEY_PASSWORD`. DO NOT commit this into source control.
-6. `cd android` && `gradlew bundleRelease`.
-7. The generated Android App Bundle ([AAB](https://developer.android.com/guide/app-bundle)) can be found under android/app/build/outputs/bundle/release/app.aab, and is ready to be uploaded to Google Play
+6. It may be necessary to update the target sdk version to be at least the minimum accepted target level by Google Play. Either update them manually in android/build.gradle (if it isn't there, update in android/app/build.gradle). Field to update for are buildToolsVersion, compileSdkVersion, targetSdkVersion and supportLibVersion. You may need to open the android project in Android Studio and run "File > Sync Project with Gradle Files";
+7. `cd android` && `gradlew bundleRelease`.
+8. The generated Android App Bundle ([AAB](https://developer.android.com/guide/app-bundle)) can be found under android/app/build/outputs/bundle/release/app.aab, and is ready to be uploaded to Google Play
 
 For more info go to the [React Native guide](https://reactnative.dev/docs/signed-apk-android).
 
